@@ -229,3 +229,5 @@ Visit `http://localhost:8001` in your browser. The app should be up & running.
 
 ---
 [Gradient Able Django](https://appseed.us/admin-dashboards/django-gradient-able) - Provided by **AppSeed [App Generator](https://appseed.us/app-generator)**.
+#   m a s t e r a r b e i t  
+ 
