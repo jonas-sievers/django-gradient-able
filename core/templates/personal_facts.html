@@ -34,9 +34,27 @@
                         <div class="card-body">
                             <h5 class="mt-5">Angaben Immobilie</h5>
                             <hr>
-                            <form class="needs-validation" novalidate>
+                            <form class="needs-validation" method="POST" novalidate>
+                                {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
+                                        <p>
+                                            <b>{{ form.property_type.label_tag }} {{ form.property_type }}</b>
+                                        </p>
+                                        <p>
+                                            <b>{{ form.charging_points_to_install.label_tag }} <br/> 
+                                            {{ form.charging_points_to_install }}</b>
+                                        </p>
+                                        <p>
+                                            <b>{{ form.charging_points_expandable.label_tag }} <br/>
+                                            {{ form.charging_points_expandable }}</b>
+                                        </p>
+                                        <p>
+                                            <b>{{ form.house_connection_power.label_tag }} <br/> 
+                                            {{ form.house_connection_power }}</b>
+                                        </p>
+
+                                        
                                         <label for="validationCustom01">In welchem Gebäudetyp wohnen Sie?</label>
                                         <select class="form-control">
                                             <option selected>Einfamilienhaus</option>
