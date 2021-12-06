@@ -1,0 +1,158 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Willkommen {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+	<!-- [ Main Content ] start -->
+	<div class="pcoded-main-container">
+		<div class="pcoded-content">
+			<!-- [ Main Content ] start -->
+			<div class="row">
+				<!-- [ sample-page ] start -->
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-header">
+							<h5>Was passiert hier?</h5>
+						</div>
+						<div class="card-body">
+							<p>
+                               Willkommen bei der Planungssoftware für Smart Cahrging Konzepte. <br>
+                                Auf dieser Seite finden Sie eine kurze Einführung in den Aufbau und die Funktionen dieser Software.
+                               Anschließend können Sie mehr über die Vorteile, Funktionen und Konzepte von Smart Charging erfahren.
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- [ sample-page ] end -->
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="mb-3">Kurz Erklärt: Aufbau der Software</h5>
+							<div class="row">
+								<div class="col-md-3 col-sm-12">
+									<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+										<li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Menü</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Eingaben</a></li>
+										<li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-profile" aria-selected="false">Dahsboard Allgemein</a></li>
+										<li><a class="nav-link text-left" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Dashboard Kosten</a></li>
+										<li><a class="nav-link text-left" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Dashboard Umwelt</a></li>
+									</ul>
+								</div>
+								<div class="col-md-9 col-sm-12">
+									<div class="tab-content" id="v-pills-tabContent">
+										<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+											<p class="mb-0">
+												So gehen Sie am besten vor ... <br>
+												<br>
+												<b>Erste Schritte: </b>Lesen Sie sich die Anleitung durch und wählen Sie unten eine Startmöglichkeit aus. <br>
+												<br>
+												<b>Seitenmenü: </b>Hier können Sie zwischen den Screens wechseln. Auf jeder Seite finden Sie eine kurze Erklärung. <br>
+												<br>
+												<b>Menüleiste: </b>Hier können Sie die Ansicht leicht ändern und oben rechts sich wieder ausloggen.<br>
+											</p>
+										</div>
+										<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+											<p class="mb-0">
+												<b>Individuelle Eingabe: </b><br>
+												<br>
+												Indem Sie unten zwischen <b>"Individuelle Immobilie"</b> und <b>"Beispiel Immobilie"</b> auswählen, können Sie entweder mit einer Vorkonfigurierten oder eigenen Immobilie starten. <br>
+												<br>
+												Sie können in dem Seitmenü unter <b>"Angabe Immobilie"</b> außerdem jeder Zeit Ihre Eingaben einsehen und bearbeiten.
+											</p>
+										</div>
+										<div class="tab-pane fade" id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+											<p class="mb-0">
+												<b>Erklärung "Dashboard Allgemein": </b><br>
+												<br>
+												Dieses Dashboard unterteilt sich in <b>drei Abschnitte</b>. <br>
+												<br>
+												1. In einem ersten Abschnitt können Sie Ihre Eingaben einsehen <br>
+												<br>
+												2. Anschließend wird passend zu Ihrer Eingabe ein Ladesystem vorgestellt. <br>
+												<br>
+												3. Unter dem Abschnitt Vorteile Smart Charging können Sie sich dann per Klick zu den jeweiligen Aspekten erkundigen. <br>
+											</p>
+										</div>
+										<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+											<p class="mb-0">
+												<b>Erklärung "Dashboard Kosten": </b><br>
+												<br>
+												Hier werden die Kostenvorteile des Smart Chargings vorgestellt. <br>
+												<br>
+												<b>Dynamische Strompreise: </b> Hier erfahren Sie mehr zu dem Thema dynamischer Strompreise und wie Sie von Preisschwankungen an der Strombörse profitieren können. <br>
+												<br>
+												<b>Steuerbare Verbracuhseinrichtung: </b> Hier erklären wir was eine steuerbare Verbrauchseinrichtung ist und wie Sie davon profitieren können. <br>
+												<br>
+												<b>Netzanschluss Erweiterung: </b> Hier erklären wir, welche Konzepte es gibt den eigenen Netzanschluss optimal zu nutzen und diesen somit nicht Ausbauen zu müssen. <br>
+												<br>
+												<b>Sparen Verlustenergie: </b> Die Verlustenergie hängt wesentlich von der Dimensionierung des Stromkabels ab. Lernen Sie hier, wie Sie die Verlustenergie minimieren können. <br>
+											</p>
+										</div>
+										<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+											<p class="mb-0">
+												<b>Erklärung "Dashboard Umwelt": </b><br>
+												<br>
+												Hier werden die Umweltvorteile des Smart Chargings vorgestellt. <br>
+												<br>
+												<b>Integration erneuerbarer Energien: </b> Hier lernen Sie, wie sich die erneuerbare Stromeinspeisung über die Tages und Jahreszeiten verteilt und wie sich der Anteil der erneuerbaren Energien durch Smart Charging erhöhen lässt. <br>
+												<br>
+												<b>Lokale Stromerzeugung mit Pv und Speichern: </b> Durch eine eigene PV Analge und einen Stromspeicher können Sie eigenen Strom erzeugen und hierdurch Kosten und CO2 einsparen. <br>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-12">
+				<h5>Start Auswahl</h5>
+				<hr>
+				<div class="row">
+					<div class="col-md-0 col-xl-3">
+						<div class="card mb-3">
+							
+						</div>
+					</div>
+					<div class="col-md-6 col-xl-3">
+						<a href="/personal_facts.html" class="nav-link ">
+							<div class="card mb-3">
+								<img class="img-fluid card-img-top" src="/static/assets/images/slider/individual_house.jpg" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title">Individuelle Immobilie</h5>
+									<p class="card-text">
+										Lernen Sie anhand Ihrer eigenen Eingaben mehr zu Smart Charging.
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 col-xl-3">
+						<a href="/db_general.html" class="nav-link ">
+							<div class="card mb-3">
+								<img class="img-fluid card-img-top" src="/static/assets/images/slider/example_house.jpg" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title">Beispiel Immobilie</h5>
+									<p class="card-text">
+										Lernen Sie mit unserer Beispiel Immobilie mehr zu Smart Charging. <br>
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
+	</div>
+	<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

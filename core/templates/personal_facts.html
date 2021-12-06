@@ -1,0 +1,116 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Angaben Immobilie {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Wieso werden diese Daten erfasst?</h5>
+                            </div>
+                            <p class="card-text">
+                               Wir versuchen so wenig personenbezogene Daten wie möglich zu speichern. Die folgenden Angaben werden benötigt, um hieraus Ihren individuellen Bedarf zu errechnen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mt-5">Angaben Immobilie</h5>
+                            <hr>
+                            <form class="needs-validation" novalidate>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">In welchem Gebäudetyp wohnen Sie?</label>
+                                        <select class="form-control">
+                                            <option selected>Einfamilienhaus</option>
+                                            <option>Mehrfamilienhaus</option>
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">Wie viele Ladestationen sollen installiert werden?</label>
+                                        <input type="text" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="4" required>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">Wie viele Ladestationen sollen später erweitert werden können?</label>
+                                        <input type="number" class="form-control" id="validationCustom01" placeholder="z.B. 5" value="5" required>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">Welche Hausanschlussleistung steht den Stellplätzen zur Verfügung [kW]?</label>
+                                        <input type="number" class="form-control" id="validationCustom01" placeholder="z.B. 40" value="40" required>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Wenn Sie den Wert nicht kennen, lassen Sie den Wert einfach unverändert.
+                                        </small>
+                                    </div>
+                                </div>
+                                <button class="btn  btn-primary" type="submit">Speichern</button>
+                            </form>
+                            <script>
+                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                (function() {
+                                    'use strict';
+                                    window.addEventListener('load', function() {
+                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                        var forms = document.getElementsByClassName('needs-validation');
+                                        // Loop over them and prevent submission
+                                        var validation = Array.prototype.filter.call(forms, function(form) {
+                                            form.addEventListener('submit', function(event) {
+                                                if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                                        });
+                                    }, false);
+                                })();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+
+        </div>
+    </section>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,95 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard Allgemein {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Fakten zur ausgewählten Immobilie:</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Hier werden die Eingabedaten visualisiert <br>
+                                <br>
+                                Hausanschlussleistung <br>
+                                - Netzanschluss der Immobilie <br>
+                                <br>
+                                Haustyp <br>
+                                - Bild der Immobilie <br>
+                                <br>
+                                Stellplätze <br>
+                                - Übersicht der Garagengröße <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Basis Installation</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Hier werden die grundlegenden Komponenten visualisiert <br>
+                                <br>
+                                Hausanschlusskosten <br>
+                                <br>
+                                Stromzähler <br>
+                                <br>
+                                Schutzschalter <br>
+                                <br>
+                                Ladestation <br>
+                                <br>
+                                EV <br>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Vorteile von Smart Charging</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Hier werden die Ziele visualisiert <br>
+                                <br>
+                                - Kosten sparen <br>
+                                <br>
+                                - Umwelt schützen <br>
+                                <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
+
+{% endblock javascripts %}

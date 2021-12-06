@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard Umwelt {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-3">Erklärung der Seite</h5>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Integration Erneuerbarer</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Lokale Erzeugung</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-9 col-sm-12">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            <p class="mb-0">Cillum ad ut irure tempor velit nostrud occaecat ullamco aliqua anim Lorem sint. Veniam sint duis incididunt do esse magna mollit excepteur laborum qui. Id id reprehenderit sit
+                                                est
+                                                eu aliqua
+                                                occaecat quis et velit excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et voluptate minim reprehenderit mollit pariatur. Deserunt non laborum enim et cillum eu
+                                                deserunt
+                                                excepteur ea incididunt minim occaecat.</p>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                            <p class="mb-0">Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et
+                                                minim in quis
+                                                laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui
+                                                esse anim eiusmod do sint minim consectetur qui.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ variant-chart ] start -->               
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Mixed Chart</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="mixed-chart-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Mixed Chart</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="mixed-chart-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ variant-chart ] end -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Pv und Speicher</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Hier werden die Eingabedaten visualisiert <br>
+                                <br>
+                                Hausanschlussleistung <br>
+                                - Netzanschluss der Immobilie <br>
+                                <br>
+                                Haustyp <br>
+                                - Bild der Immobilie <br>
+                                <br>
+                                Stellplätze <br>
+                                - Übersicht der Garagengröße <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
+
+{% endblock javascripts %}
