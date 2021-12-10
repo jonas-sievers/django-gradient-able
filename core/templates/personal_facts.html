@@ -38,27 +38,10 @@
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
-                                        <p>
-                                            <b>{{ form.property_type.label_tag }} {{ form.property_type }}</b>
-                                        </p>
-                                        <p>
-                                            <b>{{ form.charging_points_to_install.label_tag }} <br/> 
-                                            {{ form.charging_points_to_install }}</b>
-                                        </p>
-                                        <p>
-                                            <b>{{ form.charging_points_expandable.label_tag }} <br/>
-                                            {{ form.charging_points_expandable }}</b>
-                                        </p>
-                                        <p>
-                                            <b>{{ form.house_connection_power.label_tag }} <br/> 
-                                            {{ form.house_connection_power }}</b>
-                                        </p>
-
-                                        
-                                        <label for="validationCustom01">In welchem Gebäudetyp wohnen Sie?</label>
-                                        <select class="form-control">
-                                            <option selected>Einfamilienhaus</option>
-                                            <option>Mehrfamilienhaus</option>
+                                        <label for="validationCustom01">{{ form.property_type.label_tag }}</label>
+                                        <select name="property_type" class="form-control">
+                                            <option value="Einfamilienhaus" selected>Einfamilienhaus</option>
+                                            <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -67,8 +50,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">Wie viele Ladestationen sollen installiert werden?</label>
-                                        <input type="text" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="4" required>
+                                        <label for="validationCustom01">{{ form.charging_points_to_install.label_tag }}</label>
+                                        <input type="text" name="charging_points_to_install" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="4" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
@@ -76,8 +59,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">Wie viele Ladestationen sollen später erweitert werden können?</label>
-                                        <input type="number" class="form-control" id="validationCustom01" placeholder="z.B. 5" value="5" required>
+                                        <label for="validationCustom01">{{ form.charging_points_expandable.label_tag }}</label>
+                                        <input type="number" name="charging_points_expandable" class="form-control" id="validationCustom01" placeholder="z.B. 5" value="5" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
@@ -85,8 +68,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">Welche Hausanschlussleistung steht den Stellplätzen zur Verfügung [kW]?</label>
-                                        <input type="number" class="form-control" id="validationCustom01" placeholder="z.B. 40" value="40" required>
+                                        <label for="validationCustom01">{{ form.house_connection_power.label_tag }}</label>
+                                        <input type="number" name="house_connection_power" class="form-control" id="validationCustom01" placeholder="z.B. 40" value="40" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>

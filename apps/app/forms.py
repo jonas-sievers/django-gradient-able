@@ -6,9 +6,6 @@ class Real_estateForm(ModelForm):
     class Meta:
         model = Real_estate
         fields = ('property_type', 'charging_points_to_install', 'charging_points_expandable', 'house_connection_power')
-        widgets = {
-            'property_type': forms.RadioSelect,
-        }
         labels = {
             'property_type': ('In welchem Gebäudetyp wohnen Sie?'),
             'charging_points_to_install': ('Wie viele Ladestationen sollen installiert werden?'),

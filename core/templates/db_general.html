@@ -12,54 +12,157 @@
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="row">
+                <div class="col-xl-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Übersicht Immobilie</h5>
+							<p class="card-text">
+								Hier sehen Sie eine beispielhafte Immobilie mit Ihren Konfigurationen.
+								Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	
+							</p>
+						</div>
+						<img class="img-fluid card-img-top" src= {{ real_estate.image_path }} alt="Card image cap">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-xl-3">
+									<div id="modalElektroinstattaion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalElektroinstattaion">Elektroinstallation</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Jede Wallbox muss mit einem Fehlerstromschutzschalter abgsichert werden. </br> 
+														Es sind Leitungsschutzschalter einzubauen.</br> 
+														Es wird zum Stromzählen eine moderne Messeinrichtung mit Smart Meter Gateway benötigt. </br> 
+														Bilder und Kosten</br> 
+														Hausanschlussleistung</br> 
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-warning" data-toggle="modal" data-target="#modalElektroinstattaion"><i class="feather mr-2 icon-search"></i>Elektroinstallation</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalHausUndNetz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalHausUndNetz">Haus und Netz</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Für ein Einfamilienhaus muss folgendes beachtet werden </br>
+														Für ein Mehrfamilienhaus muss folgendes beachtet werden </br>
+														- Erweierbarkeit je nach später installierbaren Wallboxen </br>
+														- Zugangsbeschränkung RFID </br>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-secondary" data-toggle="modal" data-target="#modalHausUndNetz"><i class="feather mr-2 icon-search"></i>Haus und Netz</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalLadeinfrastruktur" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalLadeinfrastruktur">Ladeinfrastruktur</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Wallbox Empfehlung je nach Preis und Leistung </br>
+														Stecker Typ und Kombaitbilität </br>
+														Ladegeschwindigkeit je nach Anzahl Wallboxen und Hausanschlussleistung </br>
+														Smart Charging </br>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-info" data-toggle="modal" data-target="#modalLadeinfrastruktur"><i class="feather mr-2 icon-search"></i>Ladeinfrastruktur</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalElektrofahrzeug" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalElektrofahrzeug">Elektofahrzeug</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Kompatibilität Stecker </br>
+														Eignung der Batterie, des Batteriemanagementsystems und des Bordladegeräts </br>
+														Reichweite und Ladegeschwindigkeit </br>
+													</p>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#modalElektrofahrzeug"><i class="feather mr-2 icon-search"></i>Elektrofahrzeug</button>
+								</div>
+							</div>
+						</div>
+					</div>						
+				</div>
+			</div>
+
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+							<h5 class="card-title">Übersicht Smart Charging</h5>
+							<p class="card-text">
+								Allgemeine Grundlagen zu Smart Charging.	
+							</p>
+						</div>
+                        <div class="card-body">
+                            <p>
+                               Was ist Smart Charging?<br>
+                                <br>
+                                Welche Unterschiede gibt es? <br>
+								- leader-Follower, Controller, Backend <br>
+								- Dynamisch und Statisch <br>
+                                <br>
+                                Welche Ziele können erreicht werden? <br>
+								- Kosten <br>
+								- Umwelt <br>
+                                <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h5>Fakten zur ausgewählten Immobilie:</h5>
+                            <p>
+                                Person: {{ real_estate.person}} <br>
+                                Hier Form Daten einfügen: Haustyp: {{ real_estate.property_type }} <br>
+                                Wallboxes: {{ real_estate.charging_points_to_install }} <br>
+                            </p>
                         </div>
                         <div class="card-body">
                             <p>
                                 Hier werden die Eingabedaten visualisiert <br>
-                                <br>
-                                Hausanschlussleistung <br>
-                                - Netzanschluss der Immobilie <br>
-                                <br>
-                                Haustyp <br>
-                                - Bild der Immobilie <br>
-                                <br>
-                                Stellplätze <br>
-                                - Übersicht der Garagengröße <br>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- [ breadcrumb ] end -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Basis Installation</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Hier werden die grundlegenden Komponenten visualisiert <br>
-                                <br>
-                                Hausanschlusskosten <br>
-                                <br>
-                                Stromzähler <br>
-                                <br>
-                                Schutzschalter <br>
-                                <br>
-                                Ladestation <br>
-                                <br>
-                                EV <br>
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

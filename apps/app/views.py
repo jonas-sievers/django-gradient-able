@@ -23,21 +23,7 @@ def index(request):
 
     html_template = loader.get_template('welcome.html')
     return HttpResponse(html_template.render(context, request))
-
-@login_required(login_url="/login/")
-def personal_facts(request):
-    if request.method == "POST":   
-       form = Real_estateForm(request.POST)  
-       if form.is_valid():   
-           real_estate = form.save(commit=False)   
-           real_estate.person = "Jonas Sievers"   
-           real_estate.pub_date = timezone.now()
-           real_estate.save()   
-           return HttpResponseRedirect(reverse('db_general', args=(real_estate.pk,)))  
-    else:   
-          form = Real_estateForm()
-    return render(request, 'personal_facts.html', {'form': form}) 
-        
+      
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -51,29 +37,34 @@ def pages(request):
             return HttpResponseRedirect(reverse('admin:index'))
         
         if load_template == 'personal_facts.html':
-            print("-----------------------facts----------------------------------------------")
-            if request.method == "POST":   
-                print("-----------------------POST----------------------------------------------")
+            if request.method == "POST":  
+                print("POST") 
                 form = Real_estateForm(request.POST)  
-                if form.is_valid():  
-                    print("-----------------------VALID----------------------------------------------") 
+                if form.is_valid():
+                    print("VALID")  
                     real_estate = form.save(commit=False)   
-                    real_estate.person = "Jonas Sievers"   
+                    real_estate.person = request.user.username
                     real_estate.pub_date = timezone.now()
-                    real_estate.save()   
-                    return HttpResponseRedirect('db_general.html')  
-            else:
-                print("-----------------------NOT POST----------------------------------------------")   
+                    print("hier------------------")
+                    print(real_estate.property_type)
+                    print(real_estate.charging_points_to_install)
+                    print(type(real_estate.charging_points_to_install))
+                    real_estate.image_path = get_image_path(real_estate.property_type, real_estate.charging_points_to_install)
+                    real_estate.save()  
+                    print("Yes------------------")
+                    print(real_estate.image_path)
+                    return render(request, 'db_general.html', {'real_estate': real_estate})
+            else: 
+                print("else") 
                 form = Real_estateForm()
             return render(request, 'personal_facts.html', {'form': form})
             
-            context['segment'] = load_template
-       
+        if load_template == 'db_general.html':
+            real_estate = get_object_or_404(Real_estate, pk=1)
             html_template = loader.get_template(load_template)
-            return HttpResponse(html_template.render(context, request))
+            return render(request, 'db_general.html', {'real_estate': real_estate})
             
-       
-       
+            
         context['segment'] = load_template
        
         html_template = loader.get_template(load_template)
@@ -87,3 +78,38 @@ def pages(request):
     except:
         html_template = loader.get_template('page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+
+def get_image_path(property_type, charging_points_to_install):
+    
+    if(property_type == "Einfamilienhaus"):
+        print("Einfamlienhaus mit einer Wallbox")
+        if(charging_points_to_install == 1):
+            result = "/static/assets/images/slider/E1W.png"
+        elif(charging_points_to_install == 2):
+            result = "/static/assets/images/slider/E2W.png"
+        elif(charging_points_to_install == 3):
+            result = "/static/assets/images/slider/E3W.png"
+        elif(charging_points_to_install == 4):
+            result = "/static/assets/images/slider/E4W.png"
+        elif(charging_points_to_install == 5):
+            result = "/static/assets/images/slider/E5W.png"
+        else:
+            result = "/static/assets/images/slider/EVW.png"
+    else: 
+        print("Mehrfamilienhaus")
+        if(charging_points_to_install == 1):
+            result = "/static/assets/images/slider/M1W.png"
+        elif(charging_points_to_install == 2):
+            result = "/static/assets/images/slider/M2W.png"
+        elif(charging_points_to_install == 3):
+            result = "/static/assets/images/slider/M3W.png"
+        elif(charging_points_to_install == 4):
+            result = "/static/assets/images/slider/M4W.png"
+        elif(charging_points_to_install == 5):
+            result = "/static/assets/images/slider/M5W.png"
+        else:
+            result = "/static/assets/images/slider/MVW.png"
+    
+    print("ergebnis" + result)
+    return result
