@@ -16,6 +16,12 @@
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Übersicht Immobilie</h5>
+							<h5>
+								TO DOs: <br>
+								- Erklärungstext <br>
+								- Beschreibung Komponenten <br>
+								- Individuelle Informationen -> Im Mehrfamilienhaus RFID, bei 4 Wallboxen Lastmanagement, etc. <br>
+							</h5>
 							<p class="card-text">
 								Hier sehen Sie eine beispielhafte Immobilie mit Ihren Konfigurationen.
 								Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	
@@ -114,74 +120,95 @@
 					</div>						
 				</div>
 			</div>
-
 			<div class="row">
-                <div class="col-md-12">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-body">
+							<h5>
+								TO DOs: Empfehlung Wallbox und tech. Lastmanagmenet <br>
+								- Übersicht Lastmanagments + Bild <br>
+								- Übersicht wichtige Kriterien für Auswahl <br>
+								- Auswahlbaum für LIS Empfehlung <br>
+							</h5>
+							<p>
+								hier text ... <br>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Mixed Chart</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="lastmanagement-dynamisch-statisch"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
 							<h5 class="card-title">Übersicht Smart Charging</h5>
+							<h5>
+								TO DOs: <br>
+								- Erklärung Bedeutung Lastmanagement dynamisch und statisch <br>
+								- Diagaramm: Hausanschluss, SLP, Abweichung -> dynamisch, statisch <br>
+								- Empfehlung: statisch oder dynamisch <br>
+							</h5>
 							<p class="card-text">
 								Allgemeine Grundlagen zu Smart Charging.	
 							</p>
 						</div>
                         <div class="card-body">
-                            <p>
-                               Was ist Smart Charging?<br>
-                                <br>
-                                Welche Unterschiede gibt es? <br>
-								- leader-Follower, Controller, Backend <br>
-								- Dynamisch und Statisch <br>
-                                <br>
-                                Welche Ziele können erreicht werden? <br>
-								- Kosten <br>
-								- Umwelt <br>
-                                <br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-			<div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Fakten zur ausgewählten Immobilie:</h5>
-                            <p>
+							<p>
                                 Person: {{ real_estate.person}} <br>
                                 Hier Form Daten einfügen: Haustyp: {{ real_estate.property_type }} <br>
                                 Wallboxes: {{ real_estate.charging_points_to_install }} <br>
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Hier werden die Eingabedaten visualisiert <br>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- [ breadcrumb ] end -->
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Vorteile von Smart Charging</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Hier werden die Ziele visualisiert <br>
-                                <br>
-                                - Kosten sparen <br>
-                                <br>
-                                - Umwelt schützen <br>
-                                <br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="col-xl-12">
+				<h5>Mehr erfahren zu Smart Charging</h5>
+				<hr>
+				<div class="row">
+					<div class="col-md-0 col-xl-3">
+						<div class="card mb-3">
+						</div>
+					</div>
+					<div class="col-md-6 col-xl-3">
+						<a href="/db_costs.html" class="nav-link ">
+							<div class="card mb-3">
+								<img class="img-fluid card-img-top" src="/static/assets/images/slider/sc_kosten_vorteil.png" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title">Kostenvorteile</h5>
+									<p class="card-text">
+										Lernen Sie mehr zu den Kostenvorteilen von Smart Charging.
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-6 col-xl-3">
+						<a href="/db_renewables.html" class="nav-link ">
+							<div class="card mb-3">
+								<img class="img-fluid card-img-top" src="/static/assets/images/slider/sc_umwelt_vorteil.png" alt="Card image cap">
+								<div class="card-body">
+									<h5 class="card-title">Umweltvorteile</h5>
+									<p class="card-text">
+										Lernen Sie mehr zu den Umweltorteilen von Smart Charging. <br>
+									</p>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
             <!-- [ Main Content ] end -->
         </div>
     </div>

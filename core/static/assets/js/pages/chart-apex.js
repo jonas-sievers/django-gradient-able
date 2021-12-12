@@ -4,6 +4,346 @@ $(document).ready(function() {
         $(function() {
             var options = {
                 chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,                    
+                },
+                stroke: {
+                    width: [2, 2, 2, 2, 2, 2, 2],
+                    curve: 'straight'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#0d7eff', '#6c757d', '#2ed8b6', '#00bcd4', '#FFB64D', '#FF5370', '#343a40'],
+                series: [
+                {
+                    name: 'Kosten Kabel '  + cable_length + ' m',
+                    type: 'line',
+                    data: [1*cable_length, 1.6*cable_length, 3.5*cable_length, 4.7*cable_length, 7.4*cable_length, 12*cable_length]
+                },
+                {
+                    name: 'Kosten Verlustenergie über ' + usage_years + ' Jahre ' + cable_length + ' m',
+                    type: 'line',
+                    data: [parseFloat((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*4)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*6)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*10)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*16)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1)]
+               }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                xaxis: {
+                    categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
+                    title: {
+                        text: 'Kabelquerschnitt [mm2]'
+                    }
+                },               
+                yaxis: {
+                    min: 0,
+                    title: {
+                        text: 'Kosten [€]'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " €";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#area-chart-1-cable-costs"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,                    
+                },
+                title: {
+                    text: 'Lastprofil',
+                    align: 'left'
+                },
+                stroke: {
+                    width: [2, 2, 2],
+                    curve: 'smooth'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#4099ff', '#FFB64D', '#FF5370'],
+                series: [{
+                    name: 'Durchschnittlicher Stromverbrauch Haus',
+                    type: 'area',
+                    data: [75, 67, 62, 61, 68, 103, 160, 179, 189, 183, 180, 197, 209, 180, 197, 209, 180, 159, 149, 153, 173, 205, 222, 208],
+                }, {
+                    name: 'Realer Stromverbrauch',
+                    data: [100, 20, 120, 0, 10, 10, 150, 100, 20, 120, 0, 10, 10, 150,100, 20, 120, 0, 10, 10, 150, 30, 20, 70]
+                },{
+                    name: 'Hausanschlussleistung',
+                    type: 'line',
+                    data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 301, 300, 300, 300, 300]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                markers: {
+                    size: 0
+                },
+                markers: {
+                    label: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+                },
+                xaxis: {
+                    type: 'category'
+                },
+                yaxis: {
+                    min: 0,
+                    max: 400
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " Watt";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#lastmanagement-dynamisch-statisch"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,                    
+                },
+                stroke: {
+                    width: [2, 2, 2, 2, 2, 2, 2],
+                    curve: 'straight'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#0d7eff', '#6c757d', '#2ed8b6', '#00bcd4', '#FFB64D', '#FF5370', '#343a40'],
+                series: [{
+                    name: 'Verlustleistung 10m',
+                    type: 'line',
+                    data: [91, 54, 34, 23, 14, 9]
+                }, 
+                {
+                    name: 'Verlustleistung 20m',
+                    type: 'line',
+                    data: [182, 108, 68, 46, 28, 19]
+                }, 
+                {
+                    name: 'Verlustleistung 30m',
+                    type: 'line',
+                    data: [273, 162, 102, 69, 42, 27]
+                }, 
+                {
+                    name: 'Verlustleistung 40m',
+                    type: 'line',
+                    data: [362, 216, 136, 92, 56, 36]
+                }, {
+                    name: 'Verlustleistung 50m',
+                    type: 'line',
+                    data: [455, 270, 170, 115, 70, 45]
+                },{
+                    name: 'Verlustleistung 100m',
+                    type: 'line',
+                    data: [914, 540, 340, 230, 140, 90]
+                },
+                {
+                    name: 'Verlustleistung 200m',
+                    type: 'line',
+                    data: [1820, 1080, 680, 460, 280, 190]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                xaxis: {
+                    categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
+                    title: {
+                        text: 'Kabelquerschnitt [mm2]'
+                    }
+                },               
+                yaxis: {
+                    min: 0,
+                    title: {
+                        text: 'Verlustleistung [W]'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " Watt";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#area-chart-1-verlustleistung"),
+                options
+            );
+            chart.render();
+        });
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        $(function() {
+            var options = {
+                chart: {
                     height: 300,
                     type: 'line',
                     zoom: {
@@ -1097,6 +1437,7 @@ $(document).ready(function() {
             );
             chart.render();
         });
+       
         $(function() {
             var options = {
                 chart: {

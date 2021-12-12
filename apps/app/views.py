@@ -12,8 +12,8 @@ from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
-from .models import Real_estate
-from .forms import Real_estateForm
+from .models import Charging, Real_estate
+from .forms import Real_estateForm, ChargingForm
 
 
 
@@ -63,7 +63,23 @@ def pages(request):
             real_estate = get_object_or_404(Real_estate, pk=1)
             html_template = loader.get_template(load_template)
             return render(request, 'db_general.html', {'real_estate': real_estate})
-            
+        
+        if load_template == 'db_costs.html':
+            if request.method == "POST":  
+                print("POST") 
+                form = ChargingForm(request.POST)  
+                if form.is_valid():
+                    print("VALID")  
+                    charging = form.save(commit=False)   
+                    charging.person = request.user.username
+                    charging.pub_date = timezone.now()
+                    charging.save()  
+                    return render(request, 'db_costs.html', {'form': form, 'charging': charging})
+            else: 
+                form = ChargingForm()
+                charging = get_object_or_404(Charging, pk=1)
+            return render(request, 'db_costs.html', {'form': form, 'charging': charging})
+                      
             
         context['segment'] = load_template
        

@@ -60,7 +60,163 @@
                         </div>
                     </div>
                 </div>
-                <!-- [ variant-chart ] start -->               
+            </div>
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                TO DOS ERKLÄRUNG VERLUSTLEISTUNG <br>
+                                - Welches Kabel Mantel, Durchmesser <br>
+                                - Was ist verlustenergie und Formel <br>
+                            </h5>
+                            <p>
+                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
+                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
+                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
+                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
+                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
+                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
+                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
+                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
+                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Verlustleistung Kabel</h5>
+                            <p>
+                                <br>
+                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
+                                Die Verlustenergie berechnet sich durch: ... Bild
+                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div id="area-chart-1-verlustleistung"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] end -->
+            </div>
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-6">
+                    <div class="card" id="charging_form">
+                        <div class="card-body">
+                            <h5 class="mt-5">Angaben Immobilie</h5>
+                            <hr>
+                            <form class="needs-validation" method="POST" novalidate>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.driving_profile.label_tag }}</label>                                       
+                                        <select name="driving_profile" class="form-control">
+                                            {{form.driving_profile.0}}
+                                            {{form.driving_profile.1}}
+                                            {{form.driving_profile.2}}
+                                            {{form.driving_profile.3}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Im Durchschnitt fährt eine Person in Deutschland 40 km am Tag.
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.cable_length.label_tag }}</label>
+                                        <select name="cable_length" class="form-control">
+                                            {{form.cable_length.0}}
+                                            {{form.cable_length.1}}
+                                            {{form.cable_length.2}}
+                                            {{form.cable_length.3}}
+                                            {{form.cable_length.4}}
+                                            {{form.cable_length.5}}
+                                            {{form.cable_length.6}}
+                                            {{form.cable_length.7}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.usage_years.label_tag }}</label>
+                                        <select name="usage_years" class="form-control">
+                                            {{form.usage_years.0}}
+                                            {{form.usage_years.1}}
+                                            {{form.usage_years.2}}
+                                            {{form.usage_years.3}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn  btn-primary" type="submit">Speichern</button>
+                            </form>
+                            <script>
+                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                (function() {
+                                    'use strict';
+                                    window.addEventListener('load', function() {
+                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                        var forms = document.getElementsByClassName('needs-validation');
+                                        // Loop over them and prevent submission
+                                        var validation = Array.prototype.filter.call(forms, function(form) {
+                                            form.addEventListener('submit', function(event) {
+                                                if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                                        });
+                                    }, false);
+                                })();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Optimale Dimensionierung Kabel</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="area-chart-1-cable-costs"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] end -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                TO DOs: Stromkosten <br>
+                                - Verbrauch EV <br>
+                                - Dynamische Strompreise <br>
+                                - Diagramm dynamische Strompreise <br>
+                            </h5>
+                            <p>
+                                hier text ... <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- [ variant-chart ] start -->     
+            <div class="row">          
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
@@ -74,33 +230,6 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Area chart</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="toolbar btn-group">
-                                <button id="one_month" class="btn btn-sm btn-outline-primary">1M</button>
-                                <button id="six_months" class="btn btn-sm btn-outline-primary">6M</button>
-                                <button id="one_year" class="btn btn-sm btn-outline-primary active">1Y</button>
-                                <button id="ytd" class="btn btn-sm btn-outline-primary">YTD</button>
-                                <button id="all" class="btn btn-sm btn-outline-primary">ALL</button>
-                            </div>
-                            <div id="area-chart-2"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Mixed Chart</h5>
-                        </div>
-                        <div class="card-body">
-                            <div id="mixed-chart-1"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
                             <h5>Mixed Chart</h5>
                         </div>
                         <div class="card-body">
@@ -108,71 +237,47 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <!-- [ variant-chart ] end -->
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-body">
                             <h5>Steuerbare Verbrauchseinrichtung</h5>
-                        </div>
-                        <div class="card-body">
+                            <h5>
+                                TO DOs:  <br>
+                                - Bild Installation <br>
+                                - Formel und Nutzen Rechnung <br>
+                                - Fahrprofil <br>
+                            </h5>
                             <p>
-                                Hier werden die Eingabedaten visualisiert <br>
-                                <br>
-                                Hausanschlussleistung <br>
-                                - Netzanschluss der Immobilie <br>
-                                <br>
-                                Haustyp <br>
-                                - Bild der Immobilie <br>
-                                <br>
-                                Stellplätze <br>
-                                - Übersicht der Garagengröße <br>
+                                Hier text ... <br>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Netzanschluss</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Hier werden die Eingabedaten visualisiert <br>
-                                <br>
-                                Hausanschlussleistung <br>
-                                - Netzanschluss der Immobilie <br>
-                                <br>
-                                Haustyp <br>
-                                - Bild der Immobilie <br>
-                                <br>
-                                Stellplätze <br>
-                                - Übersicht der Garagengröße <br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h5>Verlustenergie</h5>
                         </div>
                         <div class="card-body">
+                            <h5>
+                                TO DOs:  <br>
+                                - Bild Installation <br>
+                                - Forms zur Eingabe der Länge, Fahrprofil <br>
+                                - Formel und Nutzen Rechnung <br>
+                                - Fahrprofil <br>
+                            </h5>
                             <p>
-                                Hier werden die Eingabedaten visualisiert <br>
-                                <br>
-                                Hausanschlussleistung <br>
-                                - Netzanschluss der Immobilie <br>
-                                <br>
-                                Haustyp <br>
-                                - Bild der Immobilie <br>
-                                <br>
-                                Stellplätze <br>
-                                - Übersicht der Garagengröße <br>
+                                Hier text ... <br>
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
             <!-- [ Main Content ] end -->
         </div>
     </div>
@@ -182,7 +287,11 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
+    <script>
+        var driving_profile = "{{charging.driving_profile}}";
+        var cable_length = "{{charging.cable_length}}";
+        var usage_years = "{{charging.usage_years}}";
+    </script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
 
