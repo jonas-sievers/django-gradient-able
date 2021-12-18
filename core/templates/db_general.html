@@ -12,19 +12,54 @@
         <div class="pcoded-content">
             <!-- [ breadcrumb ] start -->
             <div class="row">
+				<div class="col-sm-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="mb-3">Aufbau Dashboard</h5>
+							<div class="row">
+								<div class="col-md-3 col-sm-12">
+									<ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+										<li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Übersicht Immobilie</a></li>
+										<li><a class="nav-link text-left" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-home" aria-selected="false">Empfehlung Ladeinfrastruktur</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Lastmanagement</a></li>
+									</ul>
+								</div>
+								<div class="col-md-9 col-sm-12">
+									<div class="tab-content" id="v-pills-tabContent">
+										<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+											<p>
+												Hier sehen Sie eine beispielhafte Immobilie mit Ihren Konfigurationen.
+												Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	<br>
+											 </p>
+										</div>
+										<div class="tab-pane fade show" id="v-pills-menu" role="tabpanel" aria-labelledby="v-pills-home-tab">
+											<p class="mb-0">
+												...
+											</p>
+										</div>
+										<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+											<p class="mb-0">
+												...<br>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
                 <div class="col-xl-12">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">Übersicht Immobilie</h5>
-							<h5>
-								TO DOs: <br>
-								- Erklärungstext <br>
-								- Beschreibung Komponenten <br>
-								- Individuelle Informationen -> Im Mehrfamilienhaus RFID, bei 4 Wallboxen Lastmanagement, etc. <br>
-							</h5>
 							<p class="card-text">
 								Hier sehen Sie eine beispielhafte Immobilie mit Ihren Konfigurationen.
-								Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	
+								Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	<br>
+							</p>
+							<p>
+								TO DOs: Erklärungstext, Beschreibung Komponenten, Individuelle Informationen -> Im Mehrfamilienhaus RFID, bei 4 Wallboxen Lastmanagement, etc.
 							</p>
 						</div>
 						<img class="img-fluid card-img-top" src= {{ real_estate.image_path }} alt="Card image cap">
@@ -125,49 +160,62 @@
 					<div class="card">
 						<div class="card-body">
 							<h5>
-								TO DOs: Empfehlung Wallbox und tech. Lastmanagmenet <br>
-								- Übersicht Lastmanagments + Bild <br>
-								- Übersicht wichtige Kriterien für Auswahl <br>
-								- Auswahlbaum für LIS Empfehlung <br>
+								Empfehlung Wallbox, Ladeinfrastruktur und Lastmanagmenet <br>
 							</h5>
 							<p>
-								hier text ... <br>
+								Bei der <b>Wallbox</b> ist das Modell ... zu empfehlen, welches ... Kostet (RFID, Lastmanagement nötig, erweiterbar, Modell offen) <br>
+								Für das <b>Lastmanagement</b> empfiehlt sich ein ... (Backend, Controller, Leader-Follower) Modell. (Lastmanagement, erweiterbar, Modell offen) Dieses funktioniert wie folgt ...<br>
+								Bei der <b>Installation</b> muss zudem auf die richtigen Elektronikkomponenten geachtet werden. Für Ihren Fall wird ein Leitungsschutzschalter Modell ... (3 Phasen, 16 A, Anzahl Wallboxen, Preis ...) <br>
+								Es sollte zudem ein seperater <b>Stromzähler</b> installiert werden. Hierdurch können Sie Ladestrom beziehen (Preise, Grafik)
+							</p>
+							<p>
+								<b>To Dos: Was ist grundsätzlich und was hat mit Smart Charging zu tun? Trennen Mindestanforderung vs. smart! Auch Stromfluss und Internet/ Daten trennen! </b>
+								TO DOs: Übersicht wichtige Kriterien für Auswahl, Auswahlbaum für LIS Empfehlung, Sensitivitäten aufzeigen.
 							</p>
 						</div>
+						<img class="img-fluid card-img-top" src="/static/assets/images/slider/leader-follower-system.jpg" alt="Card image cap">
+						
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Mixed Chart</h5>
-                        </div>
-                        <div class="card-body">
-                            <div id="lastmanagement-dynamisch-statisch"></div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-							<h5 class="card-title">Übersicht Smart Charging</h5>
-							<h5>
-								TO DOs: <br>
-								- Erklärung Bedeutung Lastmanagement dynamisch und statisch <br>
-								- Diagaramm: Hausanschluss, SLP, Abweichung -> dynamisch, statisch <br>
-								- Empfehlung: statisch oder dynamisch <br>
-							</h5>
+							<h5 class="card-title">Unterschiede Lastmanagement</h5>
 							<p class="card-text">
-								Allgemeine Grundlagen zu Smart Charging.	
+								Lastmanagement: Ein Lastmanagemnet kann die verfügbare Leistung auf 
+								die angeschlossenen Fahrzeuge verteilen und somit den möglicherweise 
+								erfolderlichen Ausbau des Netzanschlusses verhindern. <br><br>
+								Damit die Enerieversrgung zuverlässig und problemlos ablaufen kann, ist ein 
+								passendes Lastmanagement notwendig. <br>
+								Wenn die Summe aller Ladeströme die maximale Vorgabe der Stromwerte überschreitet, 
+								greift das Lastmanagement ein und reduziert die Ladeströme. <br>
+								Die Reduktion der Ladeströme kann hierbei entweder gleichmäßig für alle Ladepunkte 
+								erfolgen oder einer Priorisierung folgen. Bspw. wenn zuerst die Fahrzeuge mit dem 
+								niedrigsten Ladestand geladen werden. <br>
+								Bei der Festlegung der maximalen Ladeströme kann zwischen einem statischen und dynamischen
+								Lastmanagement unterschieden werden. <br>
+								Im Gegensatz zum statischen Lastmanagement wird beim dynamischen Lastmanagement die maximale Anschlussleistung
+								in Abhängigkeit von dem aktuellen Stromverbrauch des Gebäudes berechnet. Nachts wenn wenig Strom 
+								für Haushaltsgeräte benötigt wird, kann dann mehr Strom für das Laden der Elektrofahrzeuge 
+								verwendet werden. <br>
+
+								TO DOs: Diagaramm: Hausanschluss, SLP, Abweichung -> dynamisch, statisch, Empfehlung statisch oder dynamisch <br>
 							</p>
 						</div>
+                    </div>
+                </div>
+				<div class="col-md-6">
+                    <div class="card">
                         <div class="card-body">
+                            <h5>Lastprofil Haushalt</h5>
 							<p>
-                                Person: {{ real_estate.person}} <br>
-                                Hier Form Daten einfügen: Haustyp: {{ real_estate.property_type }} <br>
-                                Wallboxes: {{ real_estate.charging_points_to_install }} <br>
-                            </p>
+								Anhand dieser Grafik können Sie beispielhaft erkennen, wie der Lastgang ihres Haushaltes 
+								aussehen könnte. Durch ein Lastmanagement wird das Elektrofahrzeug intelligent geladen, 
+								damit eine kostenspielige Netzanschlusserweiterung vermieden werden kann. 
+							</p>                        
+                            <div id="lastmanagement-dynamisch-statisch"></div>
                         </div>
                     </div>
                 </div>

@@ -67,6 +67,7 @@ def pages(request):
         if load_template == 'db_costs.html':
             if request.method == "POST":  
                 print("POST") 
+                real_estate = get_object_or_404(Real_estate, pk=1)
                 form = ChargingForm(request.POST)  
                 if form.is_valid():
                     print("VALID")  
@@ -74,11 +75,12 @@ def pages(request):
                     charging.person = request.user.username
                     charging.pub_date = timezone.now()
                     charging.save()  
-                    return render(request, 'db_costs.html', {'form': form, 'charging': charging})
+                    return render(request, 'db_costs.html', {'form': form, 'charging': charging, 'real_estate': real_estate})
             else: 
                 form = ChargingForm()
                 charging = get_object_or_404(Charging, pk=1)
-            return render(request, 'db_costs.html', {'form': form, 'charging': charging})
+                real_estate = get_object_or_404(Real_estate, pk=1)
+            return render(request, 'db_costs.html', {'form': form, 'charging': charging, 'real_estate': real_estate})
                       
             
         context['segment'] = load_template

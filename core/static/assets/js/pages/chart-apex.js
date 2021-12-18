@@ -9,7 +9,7 @@ $(document).ready(function() {
                     stacked: false,                    
                 },
                 stroke: {
-                    width: [2, 2, 2, 2, 2, 2, 2],
+                    width: [4, 4, 4],
                     curve: 'straight'
                 },
                 plotOptions: {
@@ -17,7 +17,7 @@ $(document).ready(function() {
                         columnWidth: '50%'
                     }
                 },
-                colors: ['#0d7eff', '#6c757d', '#2ed8b6', '#00bcd4', '#FFB64D', '#FF5370', '#343a40'],
+                colors: ['#343a40', '#FFB64D', '#FF5370'],
                 series: [
                 {
                     name: 'Kosten Kabel '  + cable_length + ' m',
@@ -28,7 +28,12 @@ $(document).ready(function() {
                     name: 'Kosten Verlustenergie über ' + usage_years + ' Jahre ' + cable_length + ' m',
                     type: 'line',
                     data: [parseFloat((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*4)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*6)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*10)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*16)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))).toFixed(1)]
-               }],
+               },
+               {
+                name: 'Gesamtkosten über ' + usage_years + ' Jahre und ' + cable_length + ' m',
+                type: 'line',
+                data: [parseFloat(((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years))+1*cable_length)).toFixed(1), parseFloat(((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(11000)) * (0.25*usage_years)+1.6*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*4)) * ((driving_profile*73)/(11000)) * (0.25*usage_years)+3.5*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*6)) * ((driving_profile*73)/(11000)) * (0.25*usage_years)+4.7*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*10)) * ((driving_profile*73)/(11000)) * (0.25*usage_years)+7.4*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*16)) * ((driving_profile*73)/(11000)) * (0.25*usage_years)+12*cable_length))).toFixed(1)]
+                }],
                 fill: {
                     type: 'gradient',
                     gradient: {
@@ -108,6 +113,129 @@ $(document).ready(function() {
                 chart: {
                     height: 350,
                     type: 'line',
+                    stacked: false,
+                },
+                stroke: {
+                    width: [0, 2, 5],
+                    curve: 'smooth'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#FF5370', '#4099ff', '#FFB64D'],
+                series: [{
+                    name: 'Ersparnis kumuliert',
+                    type: 'column',
+                    data: [parseFloat(((driving_profile*0.2*0.03*30)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*61)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*92)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*122)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*153)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*183)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*214)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*244)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*275)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*305)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*336)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*365)-1.66)).toFixed(1)]
+                }, {
+                    name: 'Kosten ohne SVE',
+                    type: 'area',
+                    data: [parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1)]
+                }, {
+                    name: 'Kosten mit SVE',
+                    type: 'line',
+                    data: [parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1)]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                labels: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                markers: {
+                    size: 0
+                },
+                xaxis: {
+                    type: 'category',
+                    title: {
+                        text: 'Zeit [Monaten]'
+                    }
+                },
+                yaxis: {
+                    min: 0, 
+                    title: {
+                        text: 'Kosten [€]'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " €";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#mixed-chart-2-SVE"),
+                options
+            );
+            chart.render();
+            document.querySelector("#one_month").addEventListener('click', function(e) {
+                resetCssClasses(e)
+                chart.updateOptions({
+                    xaxis: {
+                        min: new Date('01 Jan 2020').getTime(),
+                        max: new Date('01 Feb 2020').getTime(),
+                    }
+                })
+            })
+            document.querySelector("#six_months").addEventListener('click', function(e) {
+                resetCssClasses(e)
+                chart.updateOptions({
+                    xaxis: {
+                        min: new Date('01 Jan 2020').getTime(),
+                        max: new Date('01 Jun 2020').getTime(),
+                    }
+                })
+            })
+            document.querySelector("#one_year").addEventListener('click', function(e) {
+                resetCssClasses(e)
+                chart.updateOptions({
+                    xaxis: {
+                        min: new Date('01 Jan 2020').getTime(),
+                        max: new Date('01 Dez 2020').getTime(),
+                    }
+                })
+            })
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
                     stacked: false,                    
                 },
                 title: {
@@ -130,7 +258,7 @@ $(document).ready(function() {
                     data: [75, 67, 62, 61, 68, 103, 160, 179, 189, 183, 180, 197, 209, 180, 197, 209, 180, 159, 149, 153, 173, 205, 222, 208],
                 }, {
                     name: 'Realer Stromverbrauch',
-                    data: [100, 20, 120, 0, 10, 10, 150, 100, 20, 120, 0, 10, 10, 150,100, 20, 120, 0, 10, 10, 150, 30, 20, 70]
+                    data: [100, 20, 120, 20, 210, 10, 20, 500, 30, 300, 10, 200, 190, 220, 170, 200, 190, 40, 400,70 , 230, 30, 20, 70]
                 },{
                     name: 'Hausanschlussleistung',
                     type: 'line',
@@ -159,7 +287,6 @@ $(document).ready(function() {
                 },
                 yaxis: {
                     min: 0,
-                    max: 400
                 },
                 tooltip: {
                     shared: true,

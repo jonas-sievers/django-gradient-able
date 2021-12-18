@@ -22,7 +22,7 @@ class Real_estate(models.Model):
 class Charging(models.Model):
     CHOICES_driving_profile = (('20', '20 km/Tag'), ('40', '40 km/Tag'), ('60', '60 km/Tag'), ('100', '100 km/Tag'))
     CHOICES_cable_length = (('10', '10 m'), ('20', '20 m'), ('30', '30 m'), ('40', '40 m'), ('50', '50 m'), ('100', '100 m'), ('200', '200 m'))
-    CHOICES_usage_years = (('10', '10'), ('20', '20'), ('30', '30'), ('40', '40'))
+    CHOICES_usage_years = (('10', '10 Jahre'), ('20', '20 Jahre'), ('30', '30 Jahre'), ('40', '40 Jahre'))
     
     driving_profile = models.CharField(max_length=200, choices= CHOICES_driving_profile, default='40')
     person = models.CharField(max_length=200, default="jonas Sievers")
