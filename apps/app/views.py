@@ -9,11 +9,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.utils import timezone
 
-from .models import Charging, Real_estate
-from .forms import Real_estateForm, ChargingForm
+from .models import Real_estate
+from .forms import Real_estateForm
 
 
 
@@ -35,56 +35,50 @@ def pages(request):
        
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
-        
-        if load_template == 'personal_facts.html':
+
+        if load_template == 'input_form.html':
             if request.method == "POST":  
-                print("POST") 
                 form = Real_estateForm(request.POST)  
                 if form.is_valid():
-                    print("VALID")  
                     real_estate = form.save(commit=False)   
                     real_estate.person = request.user.username
                     real_estate.pub_date = timezone.now()
-                    print("hier------------------")
-                    print(real_estate.property_type)
-                    print(real_estate.charging_points_to_install)
-                    print(type(real_estate.charging_points_to_install))
                     real_estate.image_path = get_image_path(real_estate.property_type, real_estate.charging_points_to_install)
-                    real_estate.save()  
-                    print("Yes------------------")
-                    print(real_estate.image_path)
-                    return render(request, 'db_general.html', {'real_estate': real_estate})
+                    real_estate.save()
+                    #Save Results as Session Variable
+                    #Otherwise they would need to stand in the url
+                    request.session['property_type'] = real_estate.property_type
+                    request.session['charging_points_to_install'] = real_estate.charging_points_to_install
+                    request.session['charging_points_expandable'] = real_estate.charging_points_expandable
+                    request.session['house_connection_power'] = real_estate.house_connection_power
+                    request.session['image_path'] = real_estate.image_path
+                    request.session['driving_profile'] = real_estate.driving_profile
+                    request.session['arrival_time'] = real_estate.arrival_time
+                    request.session['departure_time'] = real_estate.departure_time
+                    request.session['cable_length'] = real_estate.cable_length
+                    request.session['usage_years'] = real_estate.usage_years
+                    return redirect('db_load_management.html')
             else: 
-                print("else") 
                 form = Real_estateForm()
-            return render(request, 'personal_facts.html', {'form': form})
-            
-        if load_template == 'db_general.html':
-            real_estate = get_object_or_404(Real_estate, pk=1)
-            html_template = loader.get_template(load_template)
-            return render(request, 'db_general.html', {'real_estate': real_estate})
-        
-        if load_template == 'db_costs.html':
-            if request.method == "POST":  
-                print("POST") 
-                real_estate = get_object_or_404(Real_estate, pk=1)
-                form = ChargingForm(request.POST)  
-                if form.is_valid():
-                    print("VALID")  
-                    charging = form.save(commit=False)   
-                    charging.person = request.user.username
-                    charging.pub_date = timezone.now()
-                    charging.save()  
-                    return render(request, 'db_costs.html', {'form': form, 'charging': charging, 'real_estate': real_estate})
-            else: 
-                form = ChargingForm()
-                charging = get_object_or_404(Charging, pk=1)
-                real_estate = get_object_or_404(Real_estate, pk=1)
-            return render(request, 'db_costs.html', {'form': form, 'charging': charging, 'real_estate': real_estate})
-                      
+            return render(request, 'input_form.html', {'form': form})                      
             
         context['segment'] = load_template
-       
+
+        #Check if Session is new
+        #If Session is new, set standard variables in session variables
+        real_estate = get_object_or_404(Real_estate, pk=1)
+        if 'property_type' not in request.session:
+            request.session['property_type'] = real_estate.property_type
+            request.session['charging_points_to_install'] = real_estate.charging_points_to_install
+            request.session['charging_points_expandable'] = real_estate.charging_points_expandable
+            request.session['house_connection_power'] = real_estate.house_connection_power
+            request.session['image_path'] = real_estate.image_path
+            request.session['driving_profile'] = real_estate.driving_profile
+            request.session['arrival_time'] = real_estate.arrival_time
+            request.session['departure_time'] = real_estate.departure_time
+            request.session['cable_length'] = real_estate.cable_length
+            request.session['usage_years'] = real_estate.usage_years
+              
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 

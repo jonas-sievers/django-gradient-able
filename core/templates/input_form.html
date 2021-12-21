@@ -40,8 +40,8 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.property_type.label_tag }}</label>
                                         <select name="property_type" class="form-control">
-                                            <option value="Einfamilienhaus" selected>Einfamilienhaus</option>
-                                            <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+                                            {{form.property_type.0}}
+                                            {{form.property_type.1}} 
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -76,6 +76,85 @@
                                         <small id="passwordHelpBlock" class="form-text text-muted">
                                             Wenn Sie den Wert nicht kennen, lassen Sie den Wert einfach unverändert.
                                         </small>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.driving_profile.label_tag }}</label>
+                                        <select name="driving_profile" class="form-control">
+                                            {{form.driving_profile.0}}
+                                            {{form.driving_profile.1}}
+                                            {{form.driving_profile.2}}
+                                            {{form.driving_profile.3}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.arrival_time.label_tag }}</label>
+                                        <select name="arrival_time" class="form-control">
+                                            {{form.arrival_time.0}}
+                                            {{form.arrival_time.1}}
+                                            {{form.arrival_time.2}}
+                                            {{form.arrival_time.3}}
+                                            {{form.arrival_time.4}}
+                                            {{form.arrival_time.5}}
+                                            {{form.arrival_time.6}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.departure_time.label_tag }}</label>
+                                        <select name="departure_time" class="form-control">
+                                            {{form.departure_time.0}}
+                                            {{form.departure_time.1}}
+                                            {{form.departure_time.2}}
+                                            {{form.departure_time.3}}
+                                            {{form.departure_time.4}}
+                                            {{form.departure_time.5}}
+                                            {{form.departure_time.6}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.cable_length.label_tag }}</label>
+                                        <select name="cable_length" class="form-control">
+                                            {{form.cable_length.0}}
+                                            {{form.cable_length.1}}
+                                            {{form.cable_length.2}}
+                                            {{form.cable_length.3}}
+                                            {{form.cable_length.4}}
+                                            {{form.cable_length.5}}
+                                            {{form.cable_length.6}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.usage_years.label_tag }}</label>
+                                        <select name="usage_years" class="form-control">
+                                            {{form.usage_years.0}}
+                                            {{form.usage_years.1}}
+                                            {{form.usage_years.2}}
+                                            {{form.usage_years.3}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
                                     </div>
                                 </div>
                                 <button class="btn  btn-primary" type="submit">Speichern</button>

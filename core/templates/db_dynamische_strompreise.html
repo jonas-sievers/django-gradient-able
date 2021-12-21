@@ -1,0 +1,161 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard Kosten {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                Stromtarife und Preise <br>
+                            </h5>
+                            <p>
+                                Stromtarife unterscheiden sich je nachdem, wie Du den Strom nutzt. <br><br>
+                                Es gibt <b>Haushaltsstrom</b> für alle Geräte in der Wohnung – von der Waschmaschine, 
+                                über den Fön bis zum Fernseher. Haushaltsstrom ist am teuersten.
+                                Musst Du auf Strom aus dem Netz zugreifen, um Dein Auto zu laden, 
+                                hast Du die Wahl zwischen Haushaltsstrom und <b>Autostrom</b>. Nutzt Du Haushaltsstrom 
+                                für Dein Auto, brauchst Du keinen zusätzlichen Stromvertrag. Deine Wallbox reiht 
+                                sich dann in alle anderen Elektrogeräte ein, die Du in Deinem Haushalt hast. 
+                                Ein einziger Stromzähler misst den Bezug aller Geräte, einschließlich der Wallbox. 
+                                Dein Stromverbrauch steigt natürlich durch das Fahrzeug.
+                                <br><br>
+                                Daneben ist es möglich, einen Stromvertrag nur für das Auto zu schließen – <b>Autostrom.</b> 
+                                Dazu brauchst Du einen <b>zweiten Stromzähler</b>, der den Bezug der Wallbox separat erfasst. 
+                                <br><br> 
+                                Der Strompreis in <b>variablen Stromtarifen</b> verändert sich im Laufe des Tages: <br>
+                                Er kann steigen und sinken – er ist im Gegensatz zu fixen Stromtarifen flexibel. 
+                                Diese flexiblen oder variablen Tarife unterscheiden sich dabei:
+                                <b>Zeitvariable Tarife mit NT- und HT-Zeiten</b>: Hier besteht in bestimmten Stunden 
+                                ein niedrigerer Strompreis (NT-Tarif), meist nachts. Tagsüber gilt dann ein höherer
+                                Preis (HT-Tarif). 
+                                <b>Dynamische Tarife</b>: Dynamische Stromtarife gehören auch zu den zeitvariablen Tarifen. 
+                                Ihr Strompreis ist sehr flexibel – er verändert sich zig-mal am Tag und kann stärker 
+                                #steigen und fallen als die zeitvariablen Tarife mit Preisgrenzen oder festen oder 
+                                gemittelten Preisen. Um einen dynamischen Stromtarif abzuschließen, brauchst Du ein 
+                                intelligentes Messsystem.
+                            </p>
+                            <p>
+                               To DOs: Verbrauch EV, Dynamische Strompreise, Diagramm dynamische Strompreise
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Zusammensetzung Strompreis <br>
+                                31 Cent
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="pie-chart-stromtarif" style="width:100%"></div>
+                        </div>
+                        <div class="card-header">
+                            <a href="https://www.bmwi.de/Redaktion/DE/Infografiken/Energie/strompreise.html" target="_blank">Quelle: BMWI</a>
+                        </div>                        
+                    </div>
+                </div>
+            </div>   
+            <div class="row">   
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                               Dynamische Strompreise <br>
+                            </h5>
+                            <p>
+                                Mit einem dynamischen Stromtarif ist ein Strombelieferungsvertrag gemeint, 
+                                bei welchem nicht wie üblich ein statischer Preis für jede verbrauchte kWh 
+                                zwischen Stromkunde und Energieversorger vertraglich festgehalten wird. 
+                                Ein dynamischer Stromtarif gibt zeitliche Strompreisschwankungen an den 
+                                Stromkunden weiter. D.h. der Strom ist bei dynamischen Stromtarifen, 
+                                anders als bei konventionellen Stromtarifen, nicht zu jedem Zeitpunkt gleich 
+                                viel wert. Hierbei ist zu beachten, dass letztendlich der Energieversorger 
+                                festlegt, wie die Strompreise zusammengesetzt sind, welche an den Stromkunden 
+                                weiter gegeben werden. Der Strompreis kann beispielsweise an den 
+                                Börsenstrompreis angelehnt sein. 
+                                <br> <br>
+                                Da ein dynamischer Stromtarif nicht den einen Strompreis bietet, 
+                                sondern der Strompreis je nach Belieferungszeitpunkt und Zeitpunkt 
+                                des Stromeinkaufs stark variieren kann, müssen die Strompreissignale 
+                                vollautomatisch zwischen Energieversorger und Stromkunden kommuniziert 
+                                werden. 
+                                <br> <br>
+                                Ein solcher Anbieter ist aWATTar (<a href="https://www.awattar.at/tariffs/hourly" target="_blank">aWATTar</a>). 
+                                Mit HOURLY gibt es 24 Preise pro Tag, die auf einer detaillierten Wetterprognose 
+                                aufbauen und am Vortag an der Börse EPEX Spot ® bekanntgegeben werden. Je windiger und sonniger, 
+                                desto günstiger der Preis! Mit einem intelligenten Stromzähler, der Ihnen von Ihrem Netzbetreiber 
+                                zur Verfügung gestellt wird, wird Ihr Verbrauch stündlich gemessen und die Daten an Ihren Netzbetreiber
+                                übermittelt, der sie dann an uns für die Abrechnung weiterleitet. 
+                                Durch die exakte Übermittlung Ihres stündlichen Verbrauchs gelingt jeden Monat
+                                eine genaue Abrechnung. Sie bezahlen also nur Ihren tatsächlichen Verbrauch und 
+                                keine Schätzung oder Einstufung. 
+                            </p>
+                            <p><b>
+                               TO Dos: Ersparnis dynamischer Stromtarif lohnt es sich oder nicht?
+                               To Dos: duchschnitt oder Flex. optimiert
+                            </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>       
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Dynamische Strompreise Jan 2021</h5>
+                            <div id="dynamische_strompreise_übersicht"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Optimales Ladeverhalten</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                Das optimale Ladeverhalten 
+                                <br><br><br><br><br><br><br><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Durchschnittlicher Strompreis im November 2020</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="mixed-chart-dynamische-strompreise"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+        var arrival_time = "{{request.session.arrival_time}}"
+        var departure_time = "{{request.session.departure_time}}"
+        var driving_profile = "{{request.session.driving_profile}}"
+    </script>
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
+
+{% endblock javascripts %}

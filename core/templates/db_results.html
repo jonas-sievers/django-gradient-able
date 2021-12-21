@@ -1,0 +1,281 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard Kosten {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-3">Ergebnisse</h5>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12">
+                                    <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                        <li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Angaben Immobilie</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Stromkosten</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Steuerbare Verbrauchseinrichtung</a></li>
+                                        <li><a class="nav-link text-left" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Verlustenergie</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-9 col-sm-12">
+                                    <div class="tab-content" id="v-pills-tabContent">
+                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                            <p class="mb-0">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                            <p class="mb-0">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                            <p class="mb-0">
+                                                ...
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                            <p class="mb-0">
+                                                ...
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Übersicht Immobilie</h5>
+							<p class="card-text">
+								Hier sehen Sie eine beispielhafte Immobilie mit Ihren Konfigurationen.
+								Durch <b>klicken auf die farbigen Buttons </b> unterhalb des Bildes, erhalten Sie weitere Informationen zu den Komponenten.	<br>
+							</p>
+							<p>
+								TO DOs: Erklärungstext, Beschreibung Komponenten, Individuelle Informationen -> Im Mehrfamilienhaus RFID, bei 4 Wallboxen Lastmanagement, etc.
+							</p>
+						</div>
+						<img class="img-fluid card-img-top" src= {{ real_estate.image_path }} alt="Card image cap">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-xl-3">
+									<div id="modalElektroinstattaion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalElektroinstattaion">Elektroinstallation</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Jede Wallbox muss mit einem Fehlerstromschutzschalter abgsichert werden. </br> 
+														Es sind Leitungsschutzschalter einzubauen.</br> 
+														Es wird zum Stromzählen eine moderne Messeinrichtung mit Smart Meter Gateway benötigt. </br> 
+														Bilder und Kosten</br> 
+														Hausanschlussleistung</br> 
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-warning" data-toggle="modal" data-target="#modalElektroinstattaion"><i class="feather mr-2 icon-search"></i>Elektroinstallation</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalHausUndNetz" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalHausUndNetz">Haus und Netz</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Für ein Einfamilienhaus muss folgendes beachtet werden </br>
+														Für ein Mehrfamilienhaus muss folgendes beachtet werden </br>
+														- Erweierbarkeit je nach später installierbaren Wallboxen </br>
+														- Zugangsbeschränkung RFID </br>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-secondary" data-toggle="modal" data-target="#modalHausUndNetz"><i class="feather mr-2 icon-search"></i>Haus und Netz</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalLadeinfrastruktur" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalLadeinfrastruktur">Ladeinfrastruktur</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Wallbox Empfehlung je nach Preis und Leistung </br>
+														Stecker Typ und Kombaitbilität </br>
+														Ladegeschwindigkeit je nach Anzahl Wallboxen und Hausanschlussleistung </br>
+														Smart Charging </br>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-info" data-toggle="modal" data-target="#modalLadeinfrastruktur"><i class="feather mr-2 icon-search"></i>Ladeinfrastruktur</button>
+								</div>	
+								<div class="col-xl-3">
+									<div id="modalElektrofahrzeug" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="modalElektrofahrzeug">Elektofahrzeug</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Kompatibilität Stecker </br>
+														Eignung der Batterie, des Batteriemanagementsystems und des Bordladegeräts </br>
+														Reichweite und Ladegeschwindigkeit </br>
+													</p>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#modalElektrofahrzeug"><i class="feather mr-2 icon-search"></i>Elektrofahrzeug</button>
+								</div>
+							</div>
+						</div>
+					</div>						
+				</div>
+			</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                Stromkosten <br>
+                            </h5>
+                            <p>
+                                Wie hoch ist der Haushaltsstrom <br>
+                                Extra Angebote für Ladestrom <br>
+                                Oft eigener Zähler benötigt <br>
+                                Zusätzlich möglichkeit von dynamischen Strompreisen zu profitieren <br>
+                                To DOs: Verbrauch EV, Dynamische Strompreise, Diagramm dynamische Strompreise
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- [ variant-chart ] end -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Steuerbare Verbrauchseinrichtung</h5>
+                            <p>
+                                Durch eine steuerbare Verbrauchseinrichtung können Sie zuhause dabei helfen die Netzstabilität zu verbessern und damit Geld sparen <br>
+                                Durch die teils hohe Ladeleistung eines Elektroautos, kann es im Verteilnetz zu Lastspitzen kommen. <br>
+                                Eine steuerbare Verbrauchseinrichtung ermöglicht es hierbei, dass Ihr Ladevorgang für 2 Stunden um 50% rreduziert werden kann <br>
+                                Als Gegenleistung können Sie Ihren Ladestrom für ein reduziertes Netzentgeld beziehen. <br>
+                                Hierdurch sparen Sie rund 3 Cent die kWh. <br><br>
+                                <b>Auswirkungen für Ihre Immobilie: </b><br>
+                                Hausanschluss: {{real_estate.house_connection_power}} <br>
+                                Ladepunkte: {{real_estate.charging_points_to_install }} ({{real_estate.charging_points_expandable }} erweiterbar )<br>
+                                Fahrprofil: {{charging.driving_profile}} <br><br>
+                                
+                                <b>
+                                TO DO: LOHNT ES SICH UND WAS IST OPTIMALER QUERSCHNITT? <br>
+                                TO DO: Ihre minimale Ladegeschwindigkeit ist ... <br>
+                                TO DO: Für Ihr Fahrprofil müssen Sie hiermit maximal täglich  ... Stunden laden <br>
+                                TO DO: Durch eine SVE würden Sie ... weniger laden können <br>
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Stromkosten Steuerbare Verbrauchseinrichtung für einen Ladepunkt</h5>
+                            <div id="mixed-chart-2-SVE"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                               Verlustleistung und Kosten <br>
+                            </h5>
+                            <p>
+                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
+                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
+                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
+                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
+                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
+                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
+                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
+                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
+                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Verlustleistung Kabel</h5>
+                            <p>
+                                <br>
+                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
+                                Die Verlustenergie berechnet sich durch: ... Bild
+                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
+                            </p>
+                            <div id="area-chart-1-verlustleistung"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Optimale Dimensionierung Kabel</h5>
+                            <div id="area-chart-1-cable-costs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ form-element ] end -->    
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+        var driving_profile = "{{charging.driving_profile}}";
+        var cable_length = "{{charging.cable_length}}";
+        var usage_years = "{{charging.usage_years}}";
+    </script>
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
+
+{% endblock javascripts %}

@@ -1,4 +1,22 @@
 'use strict';
+
+function getData() {
+    
+    if (arrival_time - departure_time > 2) {
+        if (driving_profile == 20) {
+            return [0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        } else if (driving_profile == 40) {
+            return [0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        } else if (driving_profile == 60) {
+            return [0, 0, 0, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        } else if (driving_profile == 100) {
+            return [0, 0, 0, 11, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        } else {
+            return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        }
+    }            
+}
+
 $(document).ready(function() {
     setTimeout(function() {
         $(function() {
@@ -104,6 +122,573 @@ $(document).ready(function() {
             }
             var chart = new ApexCharts(
                 document.querySelector("#area-chart-1-cable-costs"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,
+                },
+                title: {
+                    text: 'Solarstrom-Eigenverbrauch'
+                },
+                stroke: {
+                    width: [2, 2, 2],
+                    curve: 'straight'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#FFB64D',"#0e9e4a", '#4099ff'],
+                series: [{
+                    name: 'PV-Erzeugung',
+                    type: 'area',
+                    data: [0, 0, 0, 0, 0, 1, 2, 4, 5, 5, 5, 5, 5, 5.1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0]
+                },{
+                    name: 'PV-Einspeisung',
+                    type: 'area',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 5, 10, 12, 12, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                    name: 'Netzbezug',
+                    type: 'area',
+                    data: [5, 5, 5, 5, 5, 5, 5.1, 5, 5, 5, 5, 5, 5.1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1.0, 
+                        stops: [50, 100]
+                    },
+                },
+                labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+                markers: {
+                    size: 0
+                },
+                xaxis: {
+                    type: 'category', 
+                    title: {text: "Uhrzeit"}
+                },
+                yaxis: {
+                    min: 0,
+                    title: {text: "Leistung [kW]"}
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " kW";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#mixed-chart-PV-Erzeugung"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,
+                },
+                title: {
+                    text: 'Solarstrom-Eigenverbrauch'
+                },
+                stroke: {
+                    width: [2, 2, 2, 2, 2],
+                    curve: 'straight'
+                },
+                plotOptions: {
+                    bar: {
+                        columnWidth: '50%'
+                    }
+                },
+                colors: ['#FFB64D',"#0e9e4a", '#4099ff', '#FF5370', '#FF5370'],
+                series: [{
+                    name: 'Stromproduktoin/ Jahr',
+                    type: 'line',
+                    data: [3800, 5700, 7600, 9500]
+                },{
+                    name: 'Preis je kWp',
+                    type: 'line',
+                    data: [1525, 1400, 1310, 1250]
+                },
+                {
+                    name: 'Kosten PV-Anlage',
+                    type: 'line',
+                    data: [6100, 8400, 10500, 12500]
+                },
+                {
+                    name: 'PV Gewinn 10',
+                    type: 'line',
+                    data: [11930, 13680, 15100, 16530]
+                },
+                {
+                    name: 'PV Gewinn 5',
+                    type: 'line',
+                    data: [5965, 6840, 7550, 8265]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1.0, 
+                        stops: [50, 100]
+                    },
+                },
+                labels: ["4 kWp", "6 kWp", "8 kWp", "10 kWp"],
+                markers: {
+                    size: 0
+                },
+                xaxis: {
+                    type: 'category', 
+                    title: {text: "kWpeak"}
+                },
+                yaxis: {
+                    min: 0,
+                    title: {text: "Preis [€]"}
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y.toFixed(0) + " €";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }, 
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                        ]
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#mixed-chart-PV-Speicher"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 320,
+                    type: 'pie',
+                },
+                labels: ['Beschaffung und Vertrieb', 'Netz- und Messstellenentgelte', 'Steuern', 'Umlagen', 'Konzessionsabgaben'],
+                series: [7.06, 7.91, 7.07, 7.76, 1.66],
+                colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        inverseColors: true,
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    dropShadow: {
+                        enabled: false,
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#pie-chart-stromtarif"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    stacked: true,
+                    toolbar: {
+                        show: true
+                    },
+                    zoom: {
+                        enabled: true
+                    }
+                },
+                colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370"],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            position: 'bottom',
+                            offsetX: -10,
+                            offsetY: 0
+                        }
+                    }
+                }],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                    },
+                },
+                series: [{
+                    name: 'Herd',
+                    data: [0, 0, 5.6, 0, 5.6, 0]
+                }, {
+                    name: 'Backofen',
+                    data: [0, 0, 0, 0, 3, 0]
+                }, {
+                    name: 'Waschmaschine',
+                    data: [0, 0, 0, 0, 2, 0]
+                }, {
+                    name: 'Grundverbrauch',
+                    data: [1, 1, 1, 1, 1, 1]
+                }],
+                labels: ['4 Uhr', '8 Uhr', '12 Uhr', '15 Uhr', '18 Uhr', '22 Uhr'],
+                xaxis: {
+                    type: 'category',
+                    title: {text: 'Uhrzeit'},
+                },
+                legend: {
+                    position: 'right',
+                    offsetY: 40
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 0.8,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    },
+                },
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#lastmanagement-dynamisch-statisch"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'candlestick',
+                },
+                series: [{
+                    data: [{
+                            x: new Date('2021-01-01'),
+                            y: [5.09, 3.96, 6.06, 4.97]
+                        },
+                        {
+                            x: new Date('2021-01-02'),
+                            y: [4.67, 6.31, 3.76, 4.85]
+                        },
+                        {
+                            x: new Date('2021-01-03'),
+                            y: [4.61, 5.36, 2.74, 2.74]
+                        },
+                        {
+                            x: new Date('2021-01-04'),
+                            y: [2.93, 6.68, 2.47, 4.46]
+                        },
+                        {
+                            x: new Date('2021-01-05'),
+                            y: [3.75, 6.71, 3.75, 4.80]
+                        },
+                        {
+                            x: new Date('2021-01-06'),
+                            y: [4.44, 6.19, 4.22, 4.95]
+                        },
+                        {
+                            x: new Date('2021-01-07'),
+                            y: [5.10, 10, 4.67, 5.23]
+                        },
+                        {
+                            x: new Date('2021-01-08'),
+                            y: [5.05, 11.05, 4.56, 5.18]
+                        },
+                        {
+                            x: new Date('2021-01-09'),
+                            y: [5.47, 7.20, 4.91, 5.09]
+                        },
+                        {
+                            x: new Date('2021-01-10'),
+                            y: [5.47, 6.34, 3.72, 3.72]
+                        },
+                        {
+                            x: new Date('2021-01-11'),
+                            y: [4.49, 7.06, 2.74, 2.74]
+                        }                        ,
+                        {
+                            x: new Date('2021-01-12'),
+                            y: [1.90, 6.46, 1.58, 3.72]
+                        },
+                        {
+                            x: new Date('2021-01-13'),
+                            y: [3.46, 5.61, 3.08, 3.90]
+                        },
+                        {
+                            x: new Date('2021-01-14'),
+                            y: [3.73, 10.07, 3.69, 5.56]
+                        },
+                        {
+                            x: new Date('2021-01-15'),
+                            y: [4.90, 9.95, 4.66, 5.54]
+                        },
+                        {
+                            x: new Date('2021-01-16'),
+                            y: [5.84, 6.64, 4.85, 5.06]
+                        },
+                        {
+                            x: new Date('2021-01-17'),
+                            y: [4.80, 7.20, 4.54, 5.13]
+                        },
+                        {
+                            x: new Date('2021-01-18'),
+                            y: [5.02, 7.89, 3.78, 3.78]
+                        },
+                        {
+                            x: new Date('2021-01-19'),
+                            y: [3.67, 5.52, 3.00, 3.00]
+                        },
+                        {
+                            x: new Date('2021-01-20'),
+                            y: [3.03, 5.75, 2.49, 2.49]
+                        },
+                        {
+                            x: new Date('2021-01-21'),
+                            y: [1.93, 4.56, 0.00, 2.41]
+                        },
+                        {
+                            x: new Date('2021-01-22'),
+                            y: [0.91, 6.68, 0.91, 4.58]
+                        },
+                        {
+                            x: new Date('2021-01-23'),
+                            y: [4.46, 6.61, 3.89, 4.72]
+                        },
+                        {
+                            x: new Date('2021-01-24'),
+                            y: [4.48, 6.50, 3.98, 4.79]
+                        },
+                        {
+                            x: new Date('2021-01-25'),
+                            y: [4.66, 7.97, 4.22, 4.77]
+                        },
+                        {
+                            x: new Date('2021-01-26'),
+                            y: [5.10, 7.40, 4.47, 4.78]
+                        },
+                        {
+                            x: new Date('2021-01-27'),
+                            y: [4.68, 7.05, 4.20, 4.99]
+                        },
+                        {
+                            x: new Date('2021-01-28'),
+                            y: [4.69, 6.84, 4.24, 4.55]
+                        },
+                        {
+                            x: new Date('2021-01-29'),
+                            y: [4.27, 6.08, 3.76, 4.28]
+                        },
+                        {
+                            x: new Date('2021-01-30'),
+                            y: [4.20, 6.17, 3.49, 4.23]
+                        },
+                        {
+                            x: new Date('2021-01-31'),
+                            y: [4.21, 6.45, 3.86, 4.54]
+                        }
+                    ]
+                }],
+                title: {
+                    text: 'Preis [Cent/kWh]',
+                    align: 'left'
+                },
+                colors: ["#0e9e4a", "#FF5370"],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                xaxis: {
+                    type: 'datetime',
+                },
+                yaxis: {
+                    tooltip: {
+                        enabled: true
+                    }
+                }, 
+                tooltip: {
+                    custom: function({ seriesIndex, dataPointIndex, w }) {
+                        const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                        const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                        const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                        const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                        return (
+                          '<div class="apexcharts-tooltip-candlestick">' +
+                          '<div>Start: <span class="value">' +
+                          o +
+                          '</span></div>' +
+                          '<div>Max: <span class="value">' +
+                          h +
+                          '</span></div>' +
+                          '<div>Min: <span class="value">' +
+                          l +
+                          '</span></div>' +
+                          '<div>Ende: <span class="value">' +
+                          c +
+                          '</span></div>' +
+                          '</div>'
+                        )
+                      }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#dynamische_strompreise_übersicht"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                },
+                series: [{
+                    name: 'Auto lädt',
+                    type: 'column',
+                    data: getData()
+                }, {
+                    name: 'Strompreis',
+                    type: 'line',
+                    data: [7.376, 6.941, 6.685, 6.464, 6.564, 7.060, 8.608, 10.035, 10.538, 9.821, 9.027, 8.553, 8.041, 7.439, 7.224, 7.576, 8.239, 9.778, 10.872, 11.332, 10.527, 9.452, 8.866, 7.753]
+                }],
+                stroke: {
+                    width: [0, 4]
+                },
+                colors: ["#4099ff", "#FF5370"],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0.25,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 0.7,
+                        stops: [50, 100]
+                    },
+                },
+                title: {
+                    text: 'Ladeverhalten E-Auto'
+                },
+                labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
+                xaxis: {
+                   title: {text: 'Uhrzeit'}
+                },
+                yaxis: [{
+                    title: {
+                        text: 'Ladeleistung [kW]',
+                    },
+                    max: 22, 
+                    decimalsInFloat: 0,
+                }, {
+                    opposite: true,
+                    decimalsInFloat: 0,
+                    title: {
+                        text: 'Strompreis [Cent/ kWh]'
+                    }, 
+                }]
+
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#mixed-chart-dynamische-strompreise"),
                 options
             );
             chart.render();
@@ -231,101 +816,7 @@ $(document).ready(function() {
                 })
             })
         });
-        $(function() {
-            var options = {
-                chart: {
-                    height: 350,
-                    type: 'line',
-                    stacked: false,                    
-                },
-                title: {
-                    text: 'Lastprofil',
-                    align: 'left'
-                },
-                stroke: {
-                    width: [2, 2, 2],
-                    curve: 'smooth'
-                },
-                plotOptions: {
-                    bar: {
-                        columnWidth: '50%'
-                    }
-                },
-                colors: ['#4099ff', '#FFB64D', '#FF5370'],
-                series: [{
-                    name: 'Durchschnittlicher Stromverbrauch Haus',
-                    type: 'area',
-                    data: [75, 67, 62, 61, 68, 103, 160, 179, 189, 183, 180, 197, 209, 180, 197, 209, 180, 159, 149, 153, 173, 205, 222, 208],
-                }, {
-                    name: 'Realer Stromverbrauch',
-                    data: [100, 20, 120, 20, 210, 10, 20, 500, 30, 300, 10, 200, 190, 220, 170, 200, 190, 40, 400,70 , 230, 30, 20, 70]
-                },{
-                    name: 'Hausanschlussleistung',
-                    type: 'line',
-                    data: [300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 301, 300, 300, 300, 300]
-                }],
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shade: 'light',
-                        type: "vertical",
-                        shadeIntensity: 0.25,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 0.7,
-                        stops: [50, 100]
-                    },
-                },
-                markers: {
-                    size: 0
-                },
-                markers: {
-                    label: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
-                },
-                xaxis: {
-                    type: 'category'
-                },
-                yaxis: {
-                    min: 0,
-                },
-                tooltip: {
-                    shared: true,
-                    intersect: false,
-                    y: {
-                        formatter: function(y) {
-                            if (typeof y !== "undefined") {
-                                return y.toFixed(0) + " Watt";
-                            }
-                            return y;
-
-                        }
-                    }
-                },
-                legend: {
-                    labels: {
-                        useSeriesColors: true
-                    },
-                    markers: {
-                        customHTML: [
-                            function() {
-                                return ''
-                            },
-                            function() {
-                                return ''
-                            },
-                            function() {
-                                return ''
-                            }
-                        ]
-                    }
-                }
-            }
-            var chart = new ApexCharts(
-                document.querySelector("#lastmanagement-dynamisch-statisch"),
-                options
-            );
-            chart.render();
-        });
+        
         $(function() {
             var options = {
                 chart: {

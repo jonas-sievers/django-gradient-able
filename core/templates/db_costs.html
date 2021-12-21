@@ -15,132 +15,6 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="mb-3">Aufbau Dashboard</h5>
-                            <div class="row">
-                                <div class="col-md-3 col-sm-12">
-                                    <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Angaben Immobilie</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Stromkosten</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Steuerbare Verbrauchseinrichtung</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Verlustenergie</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-9 col-sm-12">
-                                    <div class="tab-content" id="v-pills-tabContent">
-                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card" id="charging_form">
-                        <div class="card-body">
-                            <h5 class="mt-5">Angaben Immobilie</h5>
-                            <hr>
-                            <form class="needs-validation" method="POST" novalidate>
-                                {% csrf_token %}
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">{{ form.driving_profile.label_tag }}</label>                                       
-                                        <select name="driving_profile" class="form-control">
-                                            {{form.driving_profile.0}}
-                                            {{form.driving_profile.1}}
-                                            {{form.driving_profile.2}}
-                                            {{form.driving_profile.3}}
-                                        </select>
-                                        <div class="valid-feedback">
-                                            vollständig!
-                                        </div>
-                                        <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Im Durchschnitt fährt eine Person in Deutschland 40 km am Tag.
-                                        </small>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">{{ form.cable_length.label_tag }}</label>
-                                        <select name="cable_length" class="form-control">
-                                            {{form.cable_length.0}}
-                                            {{form.cable_length.1}}
-                                            {{form.cable_length.2}}
-                                            {{form.cable_length.3}}
-                                            {{form.cable_length.4}}
-                                            {{form.cable_length.5}}
-                                            {{form.cable_length.6}}
-                                            {{form.cable_length.7}}
-                                        </select>
-                                        <div class="valid-feedback">
-                                            vollständig!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">{{ form.usage_years.label_tag }}</label>
-                                        <select name="usage_years" class="form-control">
-                                            {{form.usage_years.0}}
-                                            {{form.usage_years.1}}
-                                            {{form.usage_years.2}}
-                                            {{form.usage_years.3}}
-                                        </select>
-                                        <div class="valid-feedback">
-                                            vollständig!
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn  btn-primary" type="submit">Berechnen</button>
-                            </form>
-                            <script>
-                                // Example starter JavaScript for disabling form submissions if there are invalid fields
-                                (function() {
-                                    'use strict';
-                                    window.addEventListener('load', function() {
-                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                        var forms = document.getElementsByClassName('needs-validation');
-                                        // Loop over them and prevent submission
-                                        var validation = Array.prototype.filter.call(forms, function(form) {
-                                            form.addEventListener('submit', function(event) {
-                                                if (form.checkValidity() === false) {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                }
-                                                form.classList.add('was-validated');
-                                            }, false);
-                                        });
-                                    }, false);
-                                })();
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
                             <h5>
                                 Stromkosten <br>
                             </h5>
@@ -191,81 +65,7 @@
                     </div>
                 </div>
             </div>  
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                               Verlustleistung und Kosten <br>
-                            </h5>
-                            <p>
-                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
-                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
-                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
-                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
-                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
-                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
-                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
-                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
-                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- [ form-element ] start -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Verlustleistung Kabel</h5>
-                            <p>
-                                <br>
-                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
-                                Die Verlustenergie berechnet sich durch: ... Bild
-                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
-                            </p>
-                            <div id="area-chart-1-verlustleistung"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Optimale Dimensionierung Kabel</h5>
-                            <div id="area-chart-1-cable-costs"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- [ form-element ] end -->    
-            <div class="row">   
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                               Dynamische Strompreise <br>
-                            </h5>
-                            <p>
-                               Grundlagen zu dynamischen Strompreisen erklären <br>
-                               <br><br><br><br><br><br><br><br>
-                               TO Dos: Ersparnis dynamischer Stromtarif lohnt es sich oder nicht?
-                               To Dos: duchschnitt oder Flex. optimiert
-                               
-                            </p>
-                        </div>
-                    </div>
-                </div>       
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Dynamische Strompreise 2020</h5>
-                            <div id="area-chart-1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-            <!-- [ Main Content ] end -->
         </div>
     </div>
     <!-- [ Main Content ] end -->
@@ -275,9 +75,9 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
     <script>
-        var driving_profile = "{{charging.driving_profile}}";
-        var cable_length = "{{charging.cable_length}}";
-        var usage_years = "{{charging.usage_years}}";
+        var driving_profile = "{{request.session.driving_profile}}";
+        var cable_length = "{{request.session.cable_length}}";
+        var usage_years = "{{request.session.usage_years}}";
     </script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
