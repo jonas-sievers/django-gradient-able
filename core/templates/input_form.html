@@ -50,6 +50,33 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.water_heating.label_tag }}</label>
+                                        <select name="water_heating" class="form-control">
+                                            {{form.water_heating.0}}
+                                            {{form.water_heating.1}} 
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.number_persons.label_tag }}</label>
+                                        <select name="number_persons" class="form-control">
+                                            {{form.number_persons.0}}
+                                            {{form.number_persons.1}}
+                                            {{form.number_persons.2}}
+                                            {{form.number_persons.3}}
+                                            {{form.number_persons.4}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.charging_points_to_install.label_tag }}</label>
                                         <input type="text" name="charging_points_to_install" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="4" required>
                                         <div class="valid-feedback">

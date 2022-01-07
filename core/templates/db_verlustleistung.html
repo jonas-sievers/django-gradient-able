@@ -1,0 +1,103 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard Allgemein {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card alert-success">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                </div>
+                                <div class="col-11">
+                                    <h5>
+                                       <br> Ergebnis Kabel Verlust
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-11">
+                                    <p>
+                                        Für die Eingabe ... eignet sich folgendes Konzept, weil ...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                               Verlustleistung und Kosten <br>
+                            </h5>
+                            <p>
+                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
+                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
+                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
+                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
+                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
+                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
+                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
+                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
+                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Verlustleistung Kabel</h5>
+                            <p>
+                                <br>
+                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
+                                Die Verlustenergie berechnet sich durch: ... Bild
+                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
+                            </p>
+                            <div id="area-chart-1-verlustleistung"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Optimale Dimensionierung Kabel</h5>
+                            <div id="area-chart-1-cable-costs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+        var driving_profile = "{{request.session.driving_profile}}";
+        var cable_length = "{{request.session.cable_length}}";
+        var usage_years = "{{request.session.usage_years}}";
+    </script>
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <script src="/static/assets/js/pages/chart-apex.js"></script>
+
+{% endblock javascripts %}

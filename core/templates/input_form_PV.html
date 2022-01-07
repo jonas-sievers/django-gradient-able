@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Angaben Immobilie {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}	
+
+    <!-- [ Main Content ] start -->
+    <section class="pcoded-main-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Wieso werden diese Daten erfasst?</h5>
+                            </div>
+                            <p class="card-text">
+                              Die folgenden Angaben werden benötigt, um hieraus Ihren individuellen Bedarf zu errechnen. Dabei werden möglichst wenig persönliche Daten abgefragt.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ form-element ] start -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mt-5">Angaben lokale Stromerzeugung</h5>
+                            <hr>
+                            <form class="needs-validation" method="POST" novalidate>
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.roof_size.label_tag }}</label>
+                                        <select name="roof_size" class="form-control">
+                                            {{form.roof_size.0}}
+                                            {{form.roof_size.1}} 
+                                            {{form.roof_size.2}} 
+                                            {{form.roof_size.3}} 
+                                            {{form.roof_size.4}} 
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.roof_tilt.label_tag }}</label>
+                                        <select name="roof_tilt" class="form-control">
+                                            {{form.roof_tilt.0}}
+                                            {{form.roof_tilt.1}} 
+                                            {{form.roof_tilt.2}} 
+                                            {{form.roof_tilt.3}} 
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="validationCustom01">{{ form.roof_orientation.label_tag }}</label>
+                                        <select name="roof_orientation" class="form-control">
+                                            {{form.roof_orientation.0}}
+                                            {{form.roof_orientation.1}} 
+                                            {{form.roof_orientation.2}} 
+                                            {{form.roof_orientation.3}} 
+                                            {{form.roof_orientation.4}} 
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-3 mb-3">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/Sonneneinstrahlung.png" alt="Card image cap">
+                                    </div>
+                                    <div class="col-md-9 mb-3">
+                                        <label for="validationCustom01">{{ form.solar_radiation.label_tag }}</label>
+                                        <select name="solar_radiation" class="form-control">
+                                            {{form.solar_radiation.0}}
+                                            {{form.solar_radiation.1}}
+                                            {{form.solar_radiation.2}}
+                                            {{form.solar_radiation.3}}
+                                        </select>
+                                        <div class="valid-feedback">
+                                            vollständig!
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn  btn-primary" type="submit">Speichern</button>
+                            </form>
+                            <script>
+                                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                                (function() {
+                                    'use strict';
+                                    window.addEventListener('load', function() {
+                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                        var forms = document.getElementsByClassName('needs-validation');
+                                        // Loop over them and prevent submission
+                                        var validation = Array.prototype.filter.call(forms, function(form) {
+                                            form.addEventListener('submit', function(event) {
+                                                if (form.checkValidity() === false) {
+                                                    event.preventDefault();
+                                                    event.stopPropagation();
+                                                }
+                                                form.classList.add('was-validated');
+                                            }, false);
+                                        });
+                                    }, false);
+                                })();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ form-element ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+
+        </div>
+    </section>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

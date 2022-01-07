@@ -17,6 +17,7 @@ function getData() {
     }            
 }
 
+
 $(document).ready(function() {
     setTimeout(function() {
         $(function() {
@@ -133,56 +134,61 @@ $(document).ready(function() {
                     type: 'line',
                     stacked: false,
                 },
-                title: {
-                    text: 'Solarstrom-Eigenverbrauch'
-                },
                 stroke: {
-                    width: [2, 2, 2],
-                    curve: 'straight'
+                    width: [0, 2, 2, 5],
+                    curve: 'smooth'
                 },
                 plotOptions: {
                     bar: {
-                        columnWidth: '50%'
+                        columnWidth: '100%'
                     }
                 },
-                colors: ['#FFB64D',"#0e9e4a", '#4099ff'],
+                colors: ['#FF5370', '#A3CDFF', "#9AD6B2", '#FFB64D'],
                 series: [{
-                    name: 'PV-Erzeugung',
-                    type: 'area',
-                    data: [0, 0, 0, 0, 0, 1, 2, 4, 5, 5, 5, 5, 5, 5.1, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0]
+                    name: 'Verbrauch',
+                    type: 'column',
+                    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 23, 23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 23]
                 },{
-                    name: 'PV-Einspeisung',
+                    name: 'dyn. Lastmanagement',
                     type: 'area',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 5, 10, 12, 12, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                },
+                    data: [45, 45, 45, 45, 45, 45.01, 45, 45, 45, 45, 45, 45.01,45, 45, 45, 45, 45, 45.01,45, 45, 45, 45, 45, 45.01,]
+                },{
+                    name: 'stat. Lastmanagement',
+                    type: 'area',
+                    data: [60, 60, 60, 60, 60, 60.01, 60, 60, 60, 60, 60, 60.01, 60, 60, 60, 60, 60, 60.01, 60, 60, 60, 60, 60, 60.01]
+                }, 
                 {
-                    name: 'Netzbezug',
-                    type: 'area',
-                    data: [5, 5, 5, 5, 5, 5, 5.1, 5, 5, 5, 5, 5, 5.1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+                    name: 'Hausanschluss',
+                    type: 'line',
+                    data: [63, 63, 63.01, 63, 63, 63.01,63, 63, 63.01,63, 63, 63.01,63, 63, 63.01,63, 63, 63.01,63, 63, 63.01,63, 63, 63.01]
                 }],
                 fill: {
                     type: 'gradient',
                     gradient: {
                         shade: 'light',
                         type: "vertical",
-                        shadeIntensity: 0.25,
+                        shadeIntensity: 0,
                         inverseColors: true,
                         opacityFrom: 1,
-                        opacityTo: 1.0, 
+                        opacityTo: 1,
                         stops: [50, 100]
                     },
                 },
-                labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'],
                 markers: {
                     size: 0
                 },
-                xaxis: {
-                    type: 'category', 
-                    title: {text: "Uhrzeit"}
-                },
                 yaxis: {
+                    title: {
+                        text: 'Ladeleistung [kW]',
+                    },
                     min: 0,
-                    title: {text: "Leistung [kW]"}
+                },
+                xaxis: { 
+                    title: {
+                        text: 'Uhrzeit',
+                    },
+                    categories: ["1 Uhr", "2 Uhr", "3 Uhr", "4 Uhr", "5 Uhr", "6 Uhr", "7 Uhr", "8 Uhr", "9 Uhr", "10 Uhr", "11 Uhr", "12 Uhr", "13 Uhr", "14 Uhr", "15 Uhr", "16 Uhr", "17 Uhr", "18 Uhr", "19 Uhr", "20 Uhr", "21 Uhr", "22 Uhr", "23 Uhr", "24 Uhr"],
+                    
                 },
                 tooltip: {
                     shared: true,
@@ -190,7 +196,7 @@ $(document).ready(function() {
                     y: {
                         formatter: function(y) {
                             if (typeof y !== "undefined") {
-                                return y.toFixed(0) + " kW";
+                                return y + " kWh";
                             }
                             return y;
 
@@ -211,10 +217,195 @@ $(document).ready(function() {
                             },
                             function() {
                                 return ''
+                            },
+                            function() {
+                                return ''
                             }
                         ]
                     }
                 }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#lastmanagement"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                    stacked: true,
+                    toolbar: {
+                        show: true
+                    },
+                    zoom: {
+                        enabled: true
+                    }
+                },
+                colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370","#4099ff", "#0e9e4a"],
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        legend: {
+                            position: 'bottom',
+                            offsetX: -10,
+                            offsetY: 0
+                        }
+                    }
+                }],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '100%'
+                    },
+                },
+                series: [{
+                    name: 'PRODUCT A',
+                    data: [44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43, 44, 55, 41, 67, 22, 43]
+                }, {
+                    name: 'PRODUCT B',
+                    data: [13, 23, 20, 8, 13, 27, 13, 23, 20, 8, 13, 27, 13, 23, 20, 8, 13, 27, 13, 23, 20, 8, 13, 27]
+                }, {
+                    name: 'PRODUCT C',
+                    data: [11, 17, 15, 15, 21, 14, 11, 17, 15, 15, 21, 14, 11, 17, 15, 15, 21, 14, 11, 17, 15, 15, 21, 14]
+                }, {
+                    name: 'PRODUCT D',
+                    data: [21, 7, 25, 13, 22, 8, 21, 7, 25, 13, 22, 8, 21, 7, 25, 13, 22, 8, 21, 7, 25, 13, 22, 8]
+                }],
+                yaxis: {
+                    title: {
+                        text: 'Ladeleistung [kW]',
+                    },
+                    min: 0,
+                },
+                xaxis: { 
+                    title: {
+                        text: 'Uhrzeit',
+                    },
+                    categories: ["1 Uhr", "2 Uhr", "3 Uhr", "4 Uhr", "5 Uhr", "6 Uhr", "7 Uhr", "8 Uhr", "9 Uhr", "10 Uhr", "11 Uhr", "12 Uhr", "13 Uhr", "14 Uhr", "15 Uhr", "16 Uhr", "17 Uhr", "18 Uhr", "19 Uhr", "20 Uhr", "21 Uhr", "22 Uhr", "23 Uhr", "24 Uhr"],
+                    
+                },
+                legend: {
+                    position: 'right',
+                    offsetY: 40
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "horizontal",
+                        shadeIntensity: 0,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    },
+                },
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#lastmanagement2"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    stacked: false,
+                },
+                title: {
+                    text: 'Solarstrom-Eigenverbrauch'
+                },
+                stroke: {
+                    width: [2, 2, 2],
+                    curve: 'straight'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '100%'
+                    },
+                },
+                colors: ['#FFB64D',"#0e9e4a", '#4099ff'],
+                series: [{
+                    name: 'PV-Erzeugung',
+                    type: 'area',
+                    data: [0, 0, 0, 0, 0, 0, 0, (0.01*electricity_generation_day).toFixed(3), (0.02*electricity_generation_day).toFixed(3), (0.05*electricity_generation_day).toFixed(3), (0.08*electricity_generation_day).toFixed(3), (0.11*electricity_generation_day).toFixed(3), (0.12*electricity_generation_day).toFixed(3), (0.13*electricity_generation_day).toFixed(3), (0.13*electricity_generation_day).toFixed(3), (0.12*electricity_generation_day).toFixed(3), (0.10*electricity_generation_day).toFixed(3), (0.08*electricity_generation_day).toFixed(3), (0.04*electricity_generation_day).toFixed(3), (0.01*electricity_generation_day).toFixed(3), 0, 0, 0, 0]
+                },
+                {
+                    name: 'Stromverbrauch Haus',
+                    type: 'line',
+                    data: [(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
+                },
+                {
+                    name: 'Stromverbrauch Elektroauto',
+                    type: 'line',
+                    data: [(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day + 0.5).toFixed(3), (0.051*electricity_consumption_day + 0.5).toFixed(3), (0.0437*electricity_consumption_day + 0.5).toFixed(3), (0.0306*electricity_consumption_day + 0.5).toFixed(3)]
+                }],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'light',
+                        type: "vertical",
+                        shadeIntensity: 0,
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [50, 100]
+                    },
+                },
+                markers: {
+                    size: 0
+                },
+                yaxis: {
+                    title: {
+                        text: 'Ladeleistung [kW]',
+                    },
+                    min: 0,
+                },
+                xaxis: { 
+                    title: {
+                        text: 'Uhrzeit',
+                    },
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y + " kWh";
+                            }
+                            return y;
+
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        useSeriesColors: true
+                    },
+                    markers: {
+                        customHTML: [
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            },
+                            function() {
+                                return ''
+                            }
+                        ]
+                    }
+                }                
             }
             var chart = new ApexCharts(
                 document.querySelector("#mixed-chart-PV-Erzeugung"),
@@ -233,7 +424,7 @@ $(document).ready(function() {
                     text: 'Solarstrom-Eigenverbrauch'
                 },
                 stroke: {
-                    width: [2, 2, 2, 2, 2],
+                    width: [2, 2, 5, 5],
                     curve: 'straight'
                 },
                 plotOptions: {
@@ -241,44 +432,26 @@ $(document).ready(function() {
                         columnWidth: '50%'
                     }
                 },
-                colors: ['#FFB64D',"#0e9e4a", '#4099ff', '#FF5370', '#FF5370'],
+                colors: ['#FF5370', '#FFB64D', '#4099ff', "#0e9e4a"],
                 series: [{
-                    name: 'Stromproduktoin/ Jahr',
-                    type: 'line',
-                    data: [3800, 5700, 7600, 9500]
-                },{
-                    name: 'Preis je kWp',
-                    type: 'line',
-                    data: [1525, 1400, 1310, 1250]
-                },
-                {
                     name: 'Kosten PV-Anlage',
-                    type: 'line',
-                    data: [6100, 8400, 10500, 12500]
+                    type: 'area',
+                    data: [pv_1KWpeak_investment_cost, pv_2KWpeak_investment_cost, pv_3KWpeak_investment_cost, pv_4KWpeak_investment_cost, pv_5KWpeak_investment_cost, pv_6KWpeak_investment_cost, pv_7KWpeak_investment_cost, pv_8KWpeak_investment_cost, pv_9KWpeak_investment_cost, pv_10KWpeak_investment_cost]
                 },
                 {
-                    name: 'PV Gewinn 10',
+                    name: 'Gewinn PV-Anlage',
+                    type: 'area',
+                    data: [Math.round((parseFloat(pv_1KWpeak_earnings_sold_electricity) + parseFloat(pv_1KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_2KWpeak_earnings_sold_electricity) + parseFloat(pv_2KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_3KWpeak_earnings_sold_electricity) + parseFloat(pv_3KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_4KWpeak_earnings_sold_electricity) + parseFloat(pv_4KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_5KWpeak_earnings_sold_electricity) + parseFloat(pv_5KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_6KWpeak_earnings_sold_electricity) + parseFloat(pv_6KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_7KWpeak_earnings_sold_electricity) + parseFloat(pv_7KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_8KWpeak_earnings_sold_electricity) + parseFloat(pv_8KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_9KWpeak_earnings_sold_electricity) + parseFloat(pv_9KWpeak_saved_costs_own_electricity))), Math.round((parseFloat(pv_10KWpeak_earnings_sold_electricity) + parseFloat(pv_10KWpeak_saved_costs_own_electricity)))]
+                },{
+                    name: 'Stromkosten gespart',
                     type: 'line',
-                    data: [11930, 13680, 15100, 16530]
-                },
-                {
-                    name: 'PV Gewinn 5',
+                    data: [pv_1KWpeak_saved_costs_own_electricity, pv_2KWpeak_saved_costs_own_electricity, pv_3KWpeak_saved_costs_own_electricity, pv_4KWpeak_saved_costs_own_electricity, pv_5KWpeak_saved_costs_own_electricity, pv_6KWpeak_saved_costs_own_electricity, pv_7KWpeak_saved_costs_own_electricity, pv_8KWpeak_saved_costs_own_electricity, pv_9KWpeak_saved_costs_own_electricity, pv_10KWpeak_saved_costs_own_electricity]
+                },{
+                    name: 'Gewinn verkaufter Strom',
                     type: 'line',
-                    data: [5965, 6840, 7550, 8265]
+                    data: [pv_1KWpeak_earnings_sold_electricity, pv_2KWpeak_earnings_sold_electricity, pv_3KWpeak_earnings_sold_electricity, pv_4KWpeak_earnings_sold_electricity, pv_5KWpeak_earnings_sold_electricity, pv_6KWpeak_earnings_sold_electricity, pv_7KWpeak_earnings_sold_electricity, pv_8KWpeak_earnings_sold_electricity, pv_9KWpeak_earnings_sold_electricity, pv_10KWpeak_earnings_sold_electricity]
                 }],
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shade: 'light',
-                        type: "vertical",
-                        shadeIntensity: 0.25,
-                        inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1.0, 
-                        stops: [50, 100]
-                    },
-                },
-                labels: ["4 kWp", "6 kWp", "8 kWp", "10 kWp"],
+                labels: ["1 kWp", "2 kWp", "3 kWp", "4 kWp", "5 kWp", "6 kWp", "7 kWp", "8 kWp", "9 kWp", "10 kWp"],
                 markers: {
                     size: 0
                 },
@@ -379,68 +552,53 @@ $(document).ready(function() {
             var options = {
                 chart: {
                     height: 350,
-                    type: 'bar',
+                    type: 'area',
                     stacked: true,
-                    toolbar: {
-                        show: true
-                    },
-                    zoom: {
-                        enabled: true
-                    }
                 },
-                colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370"],
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        legend: {
-                            position: 'bottom',
-                            offsetX: -10,
-                            offsetY: 0
-                        }
-                    }
-                }],
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                    },
+                dataLabels: {
+                    enabled: false
                 },
+                stroke: {
+                    curve: 'smooth'
+                },
+                colors: ["#FFB64D", "#FF5370"],
                 series: [{
-                    name: 'Herd',
-                    data: [0, 0, 5.6, 0, 5.6, 0]
-                }, {
-                    name: 'Backofen',
-                    data: [0, 0, 0, 0, 3, 0]
-                }, {
-                    name: 'Waschmaschine',
-                    data: [0, 0, 0, 0, 2, 0]
-                }, {
-                    name: 'Grundverbrauch',
-                    data: [1, 1, 1, 1, 1, 1]
-                }],
-                labels: ['4 Uhr', '8 Uhr', '12 Uhr', '15 Uhr', '18 Uhr', '22 Uhr'],
-                xaxis: {
-                    type: 'category',
-                    title: {text: 'Uhrzeit'},
+                    name: 'Stromverbrauch',
+                    data: [(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
+                },
+               ], 
+                yaxis: {
+                    title: {
+                        text: 'Ladeleistung [kW]',
+                    },
+                    min: 0,
+                },
+                xaxis: { 
+                    title: {
+                        text: 'Uhrzeit',
+                    },
+                    categories: ["1 Uhr", "2 Uhr", "3 Uhr", "4 Uhr", "5 Uhr", "6 Uhr", "7 Uhr", "8 Uhr", "9 Uhr", "10 Uhr", "11 Uhr", "12 Uhr", "13 Uhr", "14 Uhr", "15 Uhr", "16 Uhr", "17 Uhr", "18 Uhr", "19 Uhr", "20 Uhr", "21 Uhr", "22 Uhr", "23 Uhr", "24 Uhr"],
+                    
                 },
                 legend: {
-                    position: 'right',
-                    offsetY: 40
-                },
-                fill: {
-                    type: 'gradient',
-                    gradient: {
-                        shade: 'light',
-                        type: "horizontal",
-                        shadeIntensity: 0.25,
-                        inverseColors: true,
-                        opacityFrom: 0.8,
-                        opacityTo: 1,
-                        stops: [0, 100]
-                    },
+                    show: true,
+                }, 
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y + " kWh";
+                            }
+                            return y;
+
+                        }
+                    }
                 },
             }
             var chart = new ApexCharts(
-                document.querySelector("#lastmanagement-dynamisch-statisch"),
+                document.querySelector("#lastprofil"),
                 options
             );
             chart.render();
@@ -1724,7 +1882,7 @@ $(document).ready(function() {
                         enabled: true
                     }
                 },
-                colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370"],
+                colors: ["#4099ff", "#0e9e4a", "#FFB64D", "#FF5370",  "#FF5370"],
                 responsive: [{
                     breakpoint: 480,
                     options: {
@@ -1752,7 +1910,8 @@ $(document).ready(function() {
                 }, {
                     name: 'PRODUCT D',
                     data: [21, 7, 25, 13, 22, 8]
-                }],
+                }
+                ],
                 xaxis: {
                     type: 'datetime',
                     categories: ['01/01/2011 GMT', '01/02/2011 GMT', '01/03/2011 GMT', '01/04/2011 GMT', '01/05/2011 GMT', '01/06/2011 GMT'],

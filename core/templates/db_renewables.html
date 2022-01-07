@@ -18,23 +18,32 @@
                             <h5>Eigene Stromerzeugung und Speicherung</h5>
                         </div>
                         <div class="card-body">
-                            <p>
-                                Wer Solarstrom aus einer neuen <b>Photovoltaikanalge</b> (PV-Anlage) erzeugt,
-                                ist gut beraten, so viel Strom wie möglich selbst zu nutzen. 
-                                Denn im Gegensatz zu dem Strom, den Dir ein Versorger liefert, 
-                                fallen auf selbsterzeugten Strom keine Stromsteuer, kein Netzentgelt 
-                                und keine einzige Umlage an. So kostet Dich der eigene Strom nur halb
-                                so viel wie der über das Stromnetz bezogene – oder sogar noch weniger.
-                                <br><br>
-                                Mit einem <b>Speichersystem</b> für zu Hause können Sie tagsüber einen Teil
-                                Ihres selbst erzeugten Sonnenstroms zwischenspeichern, um ihn abends 
-                                und bis zum nächsten Morgen zu verbrauchen. Erzeugt die Photovoltaikanlage
-                                mehr Strom als zum gleichen Zeitpunkt verbraucht wird, lädt der Speicher, 
-                                anstatt den Strom ins allgemeine Netz einzuspeisen. Besteht mehr Strombedarf 
-                                als die PV-Anlage liefern kann – wie nachts oder in der Dämmerung – 
-                                kann durch das Entladen des Speichers zeitversetzt der eigene Strom genutzt 
-                                werden.
-                            </p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/Pv_Speicher_haus.png" alt="Card image cap">
+                                </div>
+                                <div class="col-9">
+                                    <p>
+                                        Die Hauptbestandteile von Photovoltaik-Anlagen sind Solarmodule und ein Wechselrichter, 
+                                        der den von den Modulen erzeugten Gleichstrom in Wechselstrom (50 Hz, 220 V) umwandelt, 
+                                        sowie die Verkabelung der Module untereinander und mit dem Wechselrichter. Außerdem sind 
+                                        verschiedene Schaltvorrichtungen (Freischalter für Servicearbeiten, 
+                                        Notabschaltungsvorrichtungen für den Brandfall), Sicherungen und Blitzschutzeinrichtungen 
+                                        erforderlich. Weitere Anlagenkomponenten variieren je nach Systemtyp.
+                                        <br><br>
+                                        Mit einem <b>Speichersystem</b> für zu Hause können Sie tagsüber einen Teil
+                                        Ihres selbst erzeugten Sonnenstroms zwischenspeichern, um ihn abends 
+                                        und bis zum nächsten Morgen zu verbrauchen. Erzeugt die Photovoltaikanlage
+                                        mehr Strom als zum gleichen Zeitpunkt verbraucht wird, lädt der Speicher, 
+                                        anstatt den Strom ins allgemeine Netz einzuspeisen. Besteht mehr Strombedarf 
+                                        als die PV-Anlage liefern kann – wie nachts oder in der Dämmerung – 
+                                        kann durch das Entladen des Speichers zeitversetzt der eigene Strom genutzt 
+                                        werden.
+                                        <br><br>
+                                        <b> TO DO: Bild, dass klickbar ist mit Erklärung der Komponenten </b>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,13 +55,6 @@
                         </div>
                         <div class="card-body">
                             <p>
-                                Die Hauptbestandteile von Photovoltaik-Anlagen sind Solarmodule und ein Wechselrichter, 
-                                der den von den Modulen erzeugten Gleichstrom in Wechselstrom (50 Hz, 220 V) umwandelt, 
-                                sowie die Verkabelung der Module untereinander und mit dem Wechselrichter. Außerdem sind 
-                                verschiedene Schaltvorrichtungen (Freischalter für Servicearbeiten, 
-                                Notabschaltungsvorrichtungen für den Brandfall), Sicherungen und Blitzschutzeinrichtungen 
-                                erforderlich. Weitere Anlagenkomponenten variieren je nach Systemtyp.
-                                <br><br>
                                 Beim Eigenverbrauch (auch Eigenstromnutzung genannt) nutzen Sie den erzeugten Strom 
                                 in Teilen oder vollständig für Ihren Bedarf. Damit senken Sie Ihre Kosten gleich zwei Mal: 
                                 Erstens müssen Sie bei Ihrem Versorger weniger Strom einkaufen, zweitens sind Sie unabhängiger 
@@ -61,6 +63,16 @@
                                 In konventionellen Photovoltaikanlagen wird der erzeugte Strom direkt genutzt. Der überschüssige 
                                 Strom aus dem System wir ins öffentliche Netz eingespeist. Liefert die Photovoltaikanlage weniger 
                                 Strom als benötigt, wird dieser aus dem öffentlichen Netz bezogen.
+                                <br><br>
+                                Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                Anlage der Größe <b> {{request.session.pv_kw_peak}} kWpeak </b> bauen. <br>
+                                Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
+                                einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
+                                <b> {{request.session.electricity_generation_year}} kWh </b> Strom im Jahr erzeugt werden, 
+                                bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_year}} kWh </b>
+                                <br><br>
+                                Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab. Grundsätzliche 
+                                
                             </p>
                         </div>
                     </div>
@@ -78,10 +90,95 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5>PV-Anlage</h5>
+                            <h5>Dimensionierung PV-Anlage und Speicher</h5>
                         </div>
                         <div class="card-body">
                             <p>
+                                Mit einer Fläche von <b> 1 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_1KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_1KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_1KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 2 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_2KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_2KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_2KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 3 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_3KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_3KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_3KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 4 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_4KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_4KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_4KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 5 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_5KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_5KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_5KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 6 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_6KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_6KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_6KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 7 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_7KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_7KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_7KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 8 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_8KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_8KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_8KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 9 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_9KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_9KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_9KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                                Mit einer Fläche von <b> 10 KWpeak </b> kostet die PV-Anlage
+                                <b> {{request.session.pv_10KWpeak_investment_cost}} €</b>. Hiermit können
+                                am Tag <b> {{request.session.pv_10KWpeak_saved_costs_own_electricity}} €</b> 
+                                gespart werden, durch den eigenen Strom und
+                                <b> {{request.session.pv_10KWpeak_earnings_sold_electricity}} €</b> durch 
+                                den Verkauf des Stroms. <br><br>
+                            </p>
+                            <p>
+                               Welche Kosten und Gewinne entstehem für verschiedene PV-Anlage Größen?<br>
+                               Welche Kosten und Gewinne entsteht durch die Speicher?<br>
+                               <br><br>
+                               Gegenüberstellung: Eigenstromverbrauch, Netzbezug, Stromkosten, Gewinn <br>
+                               
                                 <br><br><br><br><br><br><br><br><br><br><br>
                             </p>
                         </div>
@@ -107,6 +204,52 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+<script>
+    var electricity_generation_year = "{{request.session.electricity_generation_year}}";
+    var electricity_generation_day = Number(electricity_generation_year/365).toFixed(2);
+    var electricity_consumption_year =  "{{request.session.electricity_consumption_year}}"
+    var electricity_consumption_day = Number(electricity_consumption_year/365).toFixed(2);
+
+    var pv_1KWpeak_investment_cost = "{{request.session.pv_1KWpeak_investment_cost}}"
+    var pv_1KWpeak_saved_costs_own_electricity = "{{request.session.pv_1KWpeak_saved_costs_own_electricity}}"
+    var pv_1KWpeak_earnings_sold_electricity = "{{request.session.pv_1KWpeak_earnings_sold_electricity}}"
+    
+    var pv_2KWpeak_investment_cost = "{{request.session.pv_2KWpeak_investment_cost}}"
+    var pv_2KWpeak_saved_costs_own_electricity = "{{request.session.pv_2KWpeak_saved_costs_own_electricity}}"
+    var pv_2KWpeak_earnings_sold_electricity = "{{request.session.pv_2KWpeak_earnings_sold_electricity}}"
+    
+    var pv_3KWpeak_investment_cost = "{{request.session.pv_3KWpeak_investment_cost}}"
+    var pv_3KWpeak_saved_costs_own_electricity = "{{request.session.pv_3KWpeak_saved_costs_own_electricity}}"
+    var pv_3KWpeak_earnings_sold_electricity = "{{request.session.pv_3KWpeak_earnings_sold_electricity}}"
+    
+    var pv_4KWpeak_investment_cost = "{{request.session.pv_4KWpeak_investment_cost}}"
+    var pv_4KWpeak_saved_costs_own_electricity = "{{request.session.pv_4KWpeak_saved_costs_own_electricity}}"
+    var pv_4KWpeak_earnings_sold_electricity = "{{request.session.pv_4KWpeak_earnings_sold_electricity}}"
+    
+    var pv_5KWpeak_investment_cost = "{{request.session.pv_5KWpeak_investment_cost}}"
+    var pv_5KWpeak_saved_costs_own_electricity = "{{request.session.pv_5KWpeak_saved_costs_own_electricity}}"
+    var pv_5KWpeak_earnings_sold_electricity = "{{request.session.pv_5KWpeak_earnings_sold_electricity}}"
+
+    var pv_6KWpeak_investment_cost = "{{request.session.pv_6KWpeak_investment_cost}}"
+    var pv_6KWpeak_saved_costs_own_electricity = "{{request.session.pv_6KWpeak_saved_costs_own_electricity}}"
+    var pv_6KWpeak_earnings_sold_electricity = "{{request.session.pv_6KWpeak_earnings_sold_electricity}}"
+
+    var pv_7KWpeak_investment_cost = "{{request.session.pv_7KWpeak_investment_cost}}"
+    var pv_7KWpeak_saved_costs_own_electricity = "{{request.session.pv_7KWpeak_saved_costs_own_electricity}}"
+    var pv_7KWpeak_earnings_sold_electricity = "{{request.session.pv_7KWpeak_earnings_sold_electricity}}"
+
+    var pv_8KWpeak_investment_cost = "{{request.session.pv_8KWpeak_investment_cost}}"
+    var pv_8KWpeak_saved_costs_own_electricity = "{{request.session.pv_8KWpeak_saved_costs_own_electricity}}"
+    var pv_8KWpeak_earnings_sold_electricity = "{{request.session.pv_8KWpeak_earnings_sold_electricity}}"
+
+    var pv_9KWpeak_investment_cost = "{{request.session.pv_9KWpeak_investment_cost}}"
+    var pv_9KWpeak_saved_costs_own_electricity = "{{request.session.pv_9KWpeak_saved_costs_own_electricity}}"
+    var pv_9KWpeak_earnings_sold_electricity = "{{request.session.pv_9KWpeak_earnings_sold_electricity}}"
+
+    var pv_10KWpeak_investment_cost = "{{request.session.pv_10KWpeak_investment_cost}}"
+    var pv_10KWpeak_saved_costs_own_electricity = "{{request.session.pv_10KWpeak_saved_costs_own_electricity}}"
+    var pv_10KWpeak_earnings_sold_electricity = "{{request.session.pv_10KWpeak_earnings_sold_electricity}}"
+</script>
 
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>
