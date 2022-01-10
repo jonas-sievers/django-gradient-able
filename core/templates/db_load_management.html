@@ -16,17 +16,30 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Was ist ein Lastprofil?</h5>
+                                <h5 class="m-b-10">Was ist ein Lastmanagement?</h5>
                             </div>
                             <p class="card-text">
-                            Ein Lastprofil zeigt ... <br><br>
-                            Ein standardisiertes Lastprofil zeigt ... <br><br>
-                            Lastprofil und Haushaltsgeräte<br><br>
-                            Mit einer/ einem <b> {{request.session.property_type}} </b> mit 
-                            <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufereitung
-                            <b> {{request.session.water_heating}} </b> Verbrauchen Sie im Jahr 
-                            <b> {{request.session.electricity_consumption_year}} </b> Strom.
-                            <br><br>
+                                Eine wesentliche Komponente bei der Umsetzung von Smart Charging 
+                                Konzepten spielt das <b>Lastmanagement</b>. Ein Lastmanagementsystem begrenzt 
+                                die an den Ladepunkten verfügbare Gesamtleistung zum Laden der EVs. 
+                                <br><br>
+                                Hierbei kann zwischen einem <b>dynamischen und statischen Lastmanagement unterschieden </b>
+                                werden. Ein <b>dynamisches Lastmanagementsystem</b> bestimmt dynamisch das Leistungsniveau 
+                                zu einem bestimmten Zeitpunkt unter Berücksichtigung des aktuellen Leistungsbedarfs 
+                                der übrigen Verbraucher. Im Gegensatz dazu wird bei 
+                                <b>statischen Lastmanagementsystemen</b> eine feste Leistungsgrenze vorkonfiguriert. 
+                                Diese bestimmt sich aus der Differenz zwischen der Netzanschlusskapazität und 
+                                dem maximalen Leistungsbedarf der übrigen Verbraucher. Bei einem dynamischen 
+                                Lastmanagement hingegen wird der Leistungsbedarf der Verbraucher als flexibel angesehen. 
+                                So kann beispielsweise Nachts mehr Leistung für das Laden der EVs bereitgestellt werden.
+                                <br><br>
+                                Um den elektrischen Energieverbrauch der Verbraucher abschätzen zu können benötigen 
+                                Energielieferanten sogenannte <b>Lastprofile</b>. Der VDEW führt zwölf verschiedene Arten von 
+                                <b>Standardlastprofilen</b> auf. SLP sind repräsentative Lastprofile, die für die 
+                                unterschiedlichen Kundengruppen (Haushalt, Landwirtschaft und Gewerbe) angewendet werden, 
+                                bei denen jeweils ein ähnliches Abnahmeverhalten anzunehmen ist. Diese
+                                beruhen auf tatsächlichen Messungen einer Vielzahl solcher Haushalte, deren Lastgänge 
+                                anschließend gemittelt und auf einen Leistungswert normiert wurden.
                             </p>
                         </div>
                     </div>
@@ -37,8 +50,7 @@
                             <h5>Lastprofil Haushalt</h5>
                             <p>
                                 Anhand dieser Grafik können Sie beispielhaft erkennen, wie der Lastgang ihres Haushaltes 
-                                aussehen könnte. Durch ein Lastmanagement wird das Elektrofahrzeug intelligent geladen, 
-                                damit eine kostenspielige Netzanschlusserweiterung vermieden werden kann. 
+                                aussehen könnte.
                             </p>                        
                             <div id="lastprofil"></div>
                         </div>
@@ -47,15 +59,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-success">
-                        <div class="card-body">
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
                             <div class="row">
                                 <div class="col-1">
                                     <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                       <br> Ergebnis Statisch / Dynamisch
+                                       <br> Ergebnis Auswahl Lastmanagement
                                     </h5>
                                 </div>
                             </div>
@@ -63,7 +75,19 @@
                                 <div class="col-1"></div>
                                 <div class="col-11">
                                     <p>
-                                        Für die Eingabe ... eignet sich folgendes Konzept, weil ...
+                                        Mit einer/ einem <b> {{request.session.property_type}} </b> mit 
+                                        <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufereitung
+                                        <b> {{request.session.water_heating}} </b> Verbrauchen Sie im Jahr 
+                                        <b> {{request.session.electricity_consumption_year}} kWh </b> Strom.
+                                        <br><br>
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>,
+                                       ...
+                                       <b>
+                                        TO DO: Ihre minimale Ladegeschwindigkeit ist ... <br>
+                                        TO DO: Für Ihr Fahrprofil müssen Sie hiermit maximal täglich  ... Stunden laden <br>
+                                        TO DO: Durch eine SVE würden Sie ... weniger laden können <br>
+                                        </b>
                                     </p>
                                 </div>
                             </div>
@@ -77,25 +101,9 @@
                         <div class="card-body">
 							<h5 class="card-title">Statisches und Dynamisches Lastmanagement</h5>
 							<p class="card-text">
-								Lastmanagement: Ein Lastmanagemnet kann die verfügbare Leistung auf 
-								die angeschlossenen Fahrzeuge verteilen und somit den möglicherweise 
-								erfolderlichen Ausbau des Netzanschlusses verhindern. <br><br>
-								Damit die Enerieversrgung zuverlässig und problemlos ablaufen kann, ist ein 
-								passendes Lastmanagement notwendig. <br>
-								Wenn die Summe aller Ladeströme die maximale Vorgabe der Stromwerte überschreitet, 
-								greift das Lastmanagement ein und reduziert die Ladeströme. <br>
-								Die Reduktion der Ladeströme kann hierbei entweder gleichmäßig für alle Ladepunkte 
-								erfolgen oder einer Priorisierung folgen. Bspw. wenn zuerst die Fahrzeuge mit dem 
-								niedrigsten Ladestand geladen werden. <br>
-								Bei der Festlegung der maximalen Ladeströme kann zwischen einem statischen und dynamischen
-								Lastmanagement unterschieden werden. <br>
-								Im Gegensatz zum statischen Lastmanagement wird beim dynamischen Lastmanagement die maximale Anschlussleistung
-								in Abhängigkeit von dem aktuellen Stromverbrauch des Gebäudes berechnet. Nachts wenn wenig Strom 
-								für Haushaltsgeräte benötigt wird, kann dann mehr Strom für das Laden der Elektrofahrzeuge 
-								verwendet werden. <br>
+								...
 
-								TO DOs: Diagaramm: Hausanschluss, SLP, Abweichung -> dynamisch, statisch, Empfehlung statisch oder dynamisch <br>
-							</p>
+								</p>
 						</div>
                     </div>
                 </div>
@@ -106,35 +114,9 @@
 							<p>
 								Anhand dieser Grafik können Sie beispielhaft erkennen, wie der Lastgang ihres Haushaltes 
 								aussehen könnte. Durch ein Lastmanagement wird das Elektrofahrzeug intelligent geladen, 
-								damit eine kostenspielige Netzanschlusserweiterung vermieden werden kann. 
+								damit eine kostenspielige Netzanschlusserweiterung vermieden werden kann. <br><br>
 							</p>                        
                             <div id="lastmanagement"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card alert-success">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
-                                </div>
-                                <div class="col-11">
-                                    <h5>
-                                       <br> Ergebnis Backend/ Controller/ L-F
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                        Für die Eingabe ... eignet sich folgendes Konzept, weil ...
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,26 +125,31 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-							<h5 class="card-title">Backend, Controller, Leader, Follower</h5>
+							<h5 class="card-title">Technische Umsetzung Lastmanagement</h5>
 							<p class="card-text">
-								Lastmanagement: Ein Lastmanagemnet kann die verfügbare Leistung auf 
-								die angeschlossenen Fahrzeuge verteilen und somit den möglicherweise 
-								erfolderlichen Ausbau des Netzanschlusses verhindern. <br><br>
-								Damit die Enerieversrgung zuverlässig und problemlos ablaufen kann, ist ein 
-								passendes Lastmanagement notwendig. <br>
-								Wenn die Summe aller Ladeströme die maximale Vorgabe der Stromwerte überschreitet, 
-								greift das Lastmanagement ein und reduziert die Ladeströme. <br>
-								Die Reduktion der Ladeströme kann hierbei entweder gleichmäßig für alle Ladepunkte 
-								erfolgen oder einer Priorisierung folgen. Bspw. wenn zuerst die Fahrzeuge mit dem 
-								niedrigsten Ladestand geladen werden. <br>
-								Bei der Festlegung der maximalen Ladeströme kann zwischen einem statischen und dynamischen
-								Lastmanagement unterschieden werden. <br>
-								Im Gegensatz zum statischen Lastmanagement wird beim dynamischen Lastmanagement die maximale Anschlussleistung
-								in Abhängigkeit von dem aktuellen Stromverbrauch des Gebäudes berechnet. Nachts wenn wenig Strom 
-								für Haushaltsgeräte benötigt wird, kann dann mehr Strom für das Laden der Elektrofahrzeuge 
-								verwendet werden. <br>
-
-								TO DOs: Diagaramm: Hausanschluss, SLP, Abweichung -> dynamisch, statisch, Empfehlung statisch oder dynamisch <br>
+								Grundsätzlich kann bei Lastmanagementsystemen zwischen <b>drei 
+                                grundlegenden Verfahren</b> unterschieden werden. <br><br>
+                                - einem <b>Backensystem</b>, bei welchem eine cloudbasierte Software
+                                die Steuerung übernimmt, <br>
+                                - ein <b>Leader-Follower System</b>, bei welchem eine Leader-Wallbox
+                                die anderen Follower-Wallboxen steuert <br>
+                                - ein <b>Controller</b>, welcher die Steruerung der Wallbox vor Optimaler
+                                durchführt.
+                                <br><br>
+                                Die Systeme verfolgen je nach Hersteller unterschiedliche Lösungsansätze:
+                                Bei <b>geschlossenen Systemen</b> wie denen von ABL, KEBA und WEBASTO ist nur 
+                                die Integration von Wallboxen des gleichen Typs möglich. 
+                                Das hat den Vorteil, dass der Hersteller das System genau auf seine
+                                Produkte auslegen kann. Erweiterungen mit Wallboxen anderer Hersteller 
+                                sind jedoch nicht möglich und es ist ungewiss, ob künftige Wallboxen des 
+                                Herstellers bei späteren Erweiterungen der Ladepunktanzahl abwärtskompatibel 
+                                sein werden. <br>
+                                Im Gegensatz dazu können bei <b>offenen Systemen</b> (wie ChargePilot“ von The Mobility 
+                                House (TMH)) Wallboxen unterschiedlicher Hersteller in das Lastmanagement-System 
+                                eingebunden werden. Sie bauen auf dem standardisierten Open Charge Point Protokoll 
+                                (OCPP) auf. Hierbei ist der Integrationsaufwand beim Hersteller zwar höher, 
+                                die Auswahl der Wallboxen für den Anwender jedoch weitaus größer und er
+                                muss sich nicht von vorneherein auf eine Variante festlegen.
 							</p>
 						</div>
                     </div>

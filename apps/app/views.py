@@ -48,10 +48,12 @@ def pages(request):
                     real_estate.save()
                     #Save Results as Session Variable
                     #Otherwise they would need to stand in the url
+                    ##Lastprofil und Stromverbrauch
                     request.session['property_type'] = real_estate.property_type
                     request.session['water_heating'] = real_estate.water_heating
                     request.session['number_persons'] = real_estate.number_persons
                     request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
+                    #Laden
                     request.session['charging_points_to_install'] = real_estate.charging_points_to_install
                     request.session['charging_points_expandable'] = real_estate.charging_points_expandable
                     request.session['house_connection_power'] = real_estate.house_connection_power
@@ -59,8 +61,35 @@ def pages(request):
                     request.session['driving_profile'] = real_estate.driving_profile
                     request.session['arrival_time'] = real_estate.arrival_time
                     request.session['departure_time'] = real_estate.departure_time
+                    #Kabel
                     request.session['cable_length'] = real_estate.cable_length
                     request.session['usage_years'] = real_estate.usage_years
+
+                    # Calculate optimal Verlustleistung
+                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years)
+                    request.session['opt_querschnitt'] = verlustleistung_results[0]
+                    request.session['opt_cable_costs'] = verlustleistung_results[1]
+                    request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
+                    request.session['opt_min_costs'] = verlustleistung_results[3]
+                    request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
+                    request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
+                    request.session['costs_1_5mm'] = verlustleistung_results[6]
+                    
+                    #Calculate Steuerbare Verbrauchseinrichtung
+                    sve_results = get_sve_results(real_estate.driving_profile)
+           
+                    request.session['jahres_stromverbrauch'] = sve_results[0]
+                    request.session['sve_einsparung_monat'] = sve_results[1]
+                    request.session['sve_einsparung_jahr'] = sve_results[2]
+
+                    #Calculate dynamische Stromtarife
+                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile)
+           
+                    request.session['dyn_stromtarife_haushaltsstrom_kosten'] = dyn_Stromtarife_results[0]
+                    request.session['dyn_stromtarife_ladestrom_kosten'] = dyn_Stromtarife_results[1]
+                    request.session['dyn_stromtarife_kosten'] = dyn_Stromtarife_results[2]
+                    request.session['dyn_stromtarife_opt_tarif'] = dyn_Stromtarife_results[3]
+
                     return redirect('db_load_management.html')
             else: 
                 form = Real_estateForm()
@@ -192,6 +221,31 @@ def pages(request):
             request.session['departure_time'] = real_estate.departure_time
             request.session['cable_length'] = real_estate.cable_length
             request.session['usage_years'] = real_estate.usage_years
+        if 'opt_querschnitt' not in request.session:
+            # Calculate optimal Verlustleistung
+            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20)
+            request.session['opt_querschnitt'] = verlustleistung_results[0]
+            request.session['opt_cable_costs'] = verlustleistung_results[1]
+            request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
+            request.session['opt_min_costs'] = verlustleistung_results[3]
+            request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
+            request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
+            request.session['costs_1_5mm'] = verlustleistung_results[6]
+                    
+            #Calculate Steuerbare Verbrauchseinrichtung
+            sve_results = get_sve_results(40)
+    
+            request.session['jahres_stromverbrauch'] = sve_results[0]
+            request.session['sve_einsparung_monat'] = sve_results[1]
+            request.session['sve_einsparung_jahr'] = sve_results[2]
+
+            #Calculate dynamische Stromtarife
+            dyn_Stromtarife_results = get_dyn_stromtarife_results(40)
+    
+            request.session['dyn_stromtarife_haushaltsstrom_kosten'] = dyn_Stromtarife_results[0]
+            request.session['dyn_stromtarife_ladestrom_kosten'] = dyn_Stromtarife_results[1]
+            request.session['dyn_stromtarife_kosten'] = dyn_Stromtarife_results[2]
+            request.session['dyn_stromtarife_opt_tarif'] = dyn_Stromtarife_results[3]
 
         lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
         if 'roof_size' not in request.session:
@@ -201,7 +255,7 @@ def pages(request):
             request.session['solar_radiation'] = lokal_energy.solar_radiation
             request.session['pv_kw_peak'] = lokal_energy.pv_kw_peak
             request.session['electricity_generation_year'] = lokal_energy.electricity_generation_year
-              
+                
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 
@@ -213,6 +267,96 @@ def pages(request):
     except:
         html_template = loader.get_template('page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+######
+######Getter Methoden
+######
+
+def get_optimal_verlustleistung(cable_length, driving_profile, usage_years):
+    verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    verlustleistung_costs_2_5mm = round(((((768*int(cable_length))/(56*2.5)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    verlustleistung_costs_4mm = round(((((768*int(cable_length))/(56*4)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    verlustleistung_costs_6mm = round(((((768*int(cable_length))/(56*6)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    verlustleistung_costs_10mm = round(((((768*int(cable_length))/(56*10)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    verlustleistung_costs_16mm = round(((((768*int(cable_length))/(56*16)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+    
+    verlustleistungscosts = [verlustleistung_costs_1_5mm, verlustleistung_costs_2_5mm, verlustleistung_costs_4mm, verlustleistung_costs_6mm, verlustleistung_costs_10mm, verlustleistung_costs_16mm]
+
+    cable_costs_1_5mm = round( (1*int(cable_length)), 1)
+    cable_costs_2_5mm = round((1.6*int(cable_length)), 1)
+    cable_costs_4mm = round((3.5*int(cable_length)), 1)
+    cable_costs_6mm = round((4.7*int(cable_length)), 1)
+    cable_costs_10mm = round((7.4*int(cable_length)), 1)
+    cable_costs_16mm = round((12*int(cable_length)), 1)
+    cable_costs = [cable_costs_1_5mm, cable_costs_2_5mm, cable_costs_4mm, cable_costs_6mm, cable_costs_10mm, cable_costs_16mm]
+    
+    complete_costs = [(verlustleistung_costs_1_5mm+cable_costs_1_5mm), (verlustleistung_costs_2_5mm+cable_costs_2_5mm), (verlustleistung_costs_4mm+cable_costs_4mm), (verlustleistung_costs_6mm+cable_costs_6mm), (verlustleistung_costs_10mm+cable_costs_10mm), (verlustleistung_costs_16mm+cable_costs_16mm)]
+    
+    min_costs = complete_costs[0]
+    opt_index = 0
+    for i in range(len(complete_costs)):
+        if min_costs >= complete_costs[i]:
+            min_costs = complete_costs[i]
+            opt_index = i
+
+
+    costs_1_5mm = complete_costs[0]
+
+    if(opt_index == 0):
+        opt_a = 1,5
+    elif(opt_index == 1):
+        opt_a = 2.5
+    elif(opt_index == 2):
+        opt_a = 4.0
+    elif(opt_index == 3):
+        opt_a = 6.0
+    elif(opt_index == 4):
+        opt_a = 10
+    elif(opt_index == 5):
+        opt_a = 16
+
+
+    return [opt_a, cable_costs[opt_index], verlustleistungscosts[opt_index], min_costs, cable_costs_1_5mm, verlustleistung_costs_1_5mm, costs_1_5mm]
+    
+def get_sve_results(driving_profile):
+    jahres_stromverbrauch = round((int(driving_profile)*0.2*365),1)
+    sve_einsparung_monat = round(((int(driving_profile)*0.2*0.03*30)-1.66), 2)
+    sve_einsparung_jahr = round(((int(driving_profile)*0.2*0.03*365)-1.66), 2)
+    result = [jahres_stromverbrauch, sve_einsparung_monat, sve_einsparung_jahr]
+    return result
+
+def get_dyn_stromtarife_results(driving_profile):
+    
+    dyn_stromtarife_haushaltsstrom_kosten = round((int(driving_profile)*30*0.2*0.3216),2)
+    dyn_stromtarife_ladestrom_kosten = round(((int(driving_profile)*30*0.2*0.2987)+10.6),2)
+    dyn_stromtarife_kosten = 0
+    if (int(driving_profile) == 20):
+        dyn_stromtarife_kosten == round( (( (int(driving_profile)*30*0.2*(0.1812+0.06464+0.00025))+4.58)),2)
+    elif (int(driving_profile) == 40):
+        dyn_stromtarife_kosten = round(( (int(driving_profile)*30*0.2*(0.1812 + 0.06464 + 0.00025))+ 4.58 ),2)
+    elif (int(driving_profile) == 60):
+        dyn_stromtarife_kosten = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+    elif (int(driving_profile) == 100):
+        dyn_stromtarife_kosten = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+
+    dyn_Stromtarife_results = [dyn_stromtarife_haushaltsstrom_kosten, dyn_stromtarife_ladestrom_kosten, dyn_stromtarife_kosten]
+    
+    opt_tarif_index = 0
+    opt_tarif = dyn_Stromtarife_results[0]
+    for i in range(len(dyn_Stromtarife_results)):
+        if opt_tarif > dyn_Stromtarife_results[i]:
+            opt_tarif_index = i
+
+    if opt_tarif_index == 0:
+        opt_tarif = "Haushaltsstrom"
+    elif opt_tarif_index ==1:
+        opt_tarif = "Ladestrom"
+    elif opt_tarif_index ==2:
+        opt_tarif = "Dynamischer Stromtarif"
+
+    dyn_Stromtarife_results.append(opt_tarif)
+    return dyn_Stromtarife_results
+           
 
 def get_kW_peak(roof_size):
     result = round((int(roof_size)/6), 1)

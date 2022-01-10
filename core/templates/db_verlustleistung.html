@@ -10,17 +10,46 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+						<div class="col-md-9">
+                            <h5>
+                                Verlustleistung und Kosten <br>
+                             </h5>
+                             <p>
+                                 Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden.
+                                 Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. 
+                                 <br><br>
+                                 Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
+                                 Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
+                                 Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
+                                 Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. 
+                                 <br><br>
+                                 Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
+                                 1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
+                                 Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2.
+                                 Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
+                                
+                             </p>
+                        </div>
+                        <div class="col-md-3">
+							<img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
+						</div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-success">
-                        <div class="card-body">
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
                             <div class="row">
                                 <div class="col-1">
                                     <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                       <br> Ergebnis Kabel Verlust
+                                       <br> Ergebnis Optimaler Kabelquerschnitt
                                     </h5>
                                 </div>
                             </div>
@@ -28,32 +57,31 @@
                                 <div class="col-1"></div>
                                 <div class="col-11">
                                     <p>
-                                        Für die Eingabe ... eignet sich folgendes Konzept, weil ...
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                        einer Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                        und einer Nutzungsdauer von 
+                                        <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
+                                        optimale Kabeldimensionierung: 
+                                        <br><br>
+
+                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit
+                                        <b> Querschnitt {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.opt_min_costs}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
+                                        
+                                        <br><br>
+                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit
+                                        <b> Querschnitt 1,5 mm</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-			<div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                               Verlustleistung und Kosten <br>
-                            </h5>
-                            <p>
-                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
-                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
-                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
-                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
-                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
-                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
-                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
-                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
-                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -66,8 +94,6 @@
                             <h5>Verlustleistung Kabel</h5>
                             <p>
                                 <br>
-                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
-                                Die Verlustenergie berechnet sich durch: ... Bild
                                 Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
                             </p>
                             <div id="area-chart-1-verlustleistung"></div>
@@ -78,6 +104,10 @@
                     <div class="card">
                         <div class="card-body">
                             <h5>Optimale Dimensionierung Kabel</h5>
+                            <p>
+                                <br>
+                                Hier können Sie für Ihre Eingabe die Auswirkung des Kabelquerschnitts auf die Kosten sehen.
+                            </p>
                             <div id="area-chart-1-cable-costs"></div>
                         </div>
                     </div>

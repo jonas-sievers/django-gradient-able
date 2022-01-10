@@ -11,49 +11,161 @@
     <div class="pcoded-main-container">
         <div class="pcoded-content">
             <!-- [ Main Content ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Zusammenfassung der Ergebnisse</h5>
+                            </div>
+                            <p class="card-text">
+                              An dieser Stelle finden Sie eine Zusammenfassung der Ergebnisse 
+                              aus den in den vorherigen Dashboards ausführlich dargestellten 
+                              Kalkulationen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="mb-3">Ergebnisse</h5>
+                <div class="col-md-6">
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
                             <div class="row">
-                                <div class="col-md-3 col-sm-12">
-                                    <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                        <li><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Angaben Immobilie</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Stromkosten</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Steuerbare Verbrauchseinrichtung</a></li>
-                                        <li><a class="nav-link text-left" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Verlustenergie</a></li>
-                                    </ul>
+                                <div class="col-2">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
-                                <div class="col-md-9 col-sm-12">
-                                    <div class="tab-content" id="v-pills-tabContent">
-                                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                                            <p class="mb-0">
-                                                ...
-                                            </p>
-                                        </div>
-                                    </div>
+                                <div class="col-10">
+                                    <h5>
+                                       <br> Ergebnis optimaler Kabelquerschnitt von {{request.session.opt_querschnitt}} mm
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-10">
+                                    <p>
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                        einer Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                        und einer Nutzungsdauer von 
+                                        <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
+                                        optimale Kabeldimensionierung: 
+                                        <br><br>
+
+                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit
+                                        <b> Querschnitt {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.opt_min_costs}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
+                                        
+                                        <br><br>
+                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit
+                                        <b> Querschnitt 1,5 mm</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Optimale Dimensionierung Kabel</h5>
+                            <p>
+                                <br>
+                                Hier können Sie für Ihre Eingabe die Auswirkung des Kabelquerschnitts auf die Kosten sehen.
+                            </p>
+                            <div id="area-chart-1-cable-costs"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card alert-primary ">
+                        <div class="card-body bg-patern-white">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                </div>
+                                <div class="col-10">
+                                    <h5>
+                                       <br> Ergebnis Steuerbare Verbrauchseinrichtung spart {{request.session.sve_einsparung_jahr}} €  im Jahr
+                                    </h5>
+                                    <p>
+                                        <br>
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b> müssen
+                                        bei einem Verbrauch von 0,2kWh/km im Jahr 
+                                        <b>{{request.session.jahres_stromverbrauch}} kWh</b> geladen werden.
+                                        Durch eine SVE und den 3 Cent niedrigeren Strompreis, sparen Sie im Monat 
+                                        <b>{{request.session.sve_einsparung_monat}} €</b> und im Jahr
+                                        <b>{{request.session.sve_einsparung_jahr}} €</b>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Stromkosten Steuerbare Verbrauchseinrichtung für einen Ladepunkt</h5>
+                            <div id="mixed-chart-2-SVE"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card alert-primary ">
+                        <div class="card-body bg-patern-white">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                </div>
+                                <div class="col-10">
+                                    <h5>
+                                       <br> Ergebnis optimale Wahl - {{request.session.dyn_stromtarife_opt_tarif}}
+                                    </h5>
+                                    <p>
+                                        <br>
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>,
+                                        entstehen für Sie folgende Kosten im Monat
+                                        <br><br>
+                                        <b>Optimal</b> für Sie wäre <b> {{request.session.dyn_stromtarife_opt_tarif}}. </b>
+                                        <br><br>
+                                        Die Kosten mit Haushaltsstrom liegen bei
+                                        <b> {{request.session.dyn_stromtarife_haushaltsstrom_kosten}} € </b>. <br>
+                                        Die Kosten mit Ladestrom liegen bei
+                                        <b> {{request.session.dyn_stromtarife_ladestrom_kosten}} € </b>. <br>
+                                        Die Kosten mit dynamischen Strompreisen liegen bei
+                                        <b> {{request.session.dyn_stromtarife_kosten}} € </b>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Ergebnis Auswahl Stromtarif</h5>
+                            <div id="mixed-chart-dynamische-strompreise"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--ENDE-->
             <div class="row">
                 <div class="col-xl-12">
 					<div class="card">
@@ -160,107 +272,7 @@
 					</div>						
 				</div>
 			</div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                                Stromkosten <br>
-                            </h5>
-                            <p>
-                                Wie hoch ist der Haushaltsstrom <br>
-                                Extra Angebote für Ladestrom <br>
-                                Oft eigener Zähler benötigt <br>
-                                Zusätzlich möglichkeit von dynamischen Strompreisen zu profitieren <br>
-                                To DOs: Verbrauch EV, Dynamische Strompreise, Diagramm dynamische Strompreise
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- [ variant-chart ] end -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Steuerbare Verbrauchseinrichtung</h5>
-                            <p>
-                                Durch eine steuerbare Verbrauchseinrichtung können Sie zuhause dabei helfen die Netzstabilität zu verbessern und damit Geld sparen <br>
-                                Durch die teils hohe Ladeleistung eines Elektroautos, kann es im Verteilnetz zu Lastspitzen kommen. <br>
-                                Eine steuerbare Verbrauchseinrichtung ermöglicht es hierbei, dass Ihr Ladevorgang für 2 Stunden um 50% rreduziert werden kann <br>
-                                Als Gegenleistung können Sie Ihren Ladestrom für ein reduziertes Netzentgeld beziehen. <br>
-                                Hierdurch sparen Sie rund 3 Cent die kWh. <br><br>
-                                <b>Auswirkungen für Ihre Immobilie: </b><br>
-                                Hausanschluss: {{real_estate.house_connection_power}} <br>
-                                Ladepunkte: {{real_estate.charging_points_to_install }} ({{real_estate.charging_points_expandable }} erweiterbar )<br>
-                                Fahrprofil: {{charging.driving_profile}} <br><br>
-                                
-                                <b>
-                                TO DO: LOHNT ES SICH UND WAS IST OPTIMALER QUERSCHNITT? <br>
-                                TO DO: Ihre minimale Ladegeschwindigkeit ist ... <br>
-                                TO DO: Für Ihr Fahrprofil müssen Sie hiermit maximal täglich  ... Stunden laden <br>
-                                TO DO: Durch eine SVE würden Sie ... weniger laden können <br>
-                                </b>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Stromkosten Steuerbare Verbrauchseinrichtung für einen Ladepunkt</h5>
-                            <div id="mixed-chart-2-SVE"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>  
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>
-                               Verlustleistung und Kosten <br>
-                            </h5>
-                            <p>
-                                Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden. <br>
-                                Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. <br>
-                                Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
-                                Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
-                                Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
-                                Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. <br><br>
-                                Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
-                                1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
-                                Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2. <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- [ form-element ] start -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Verlustleistung Kabel</h5>
-                            <p>
-                                <br>
-                                2. Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
-                                Die Verlustenergie berechnet sich durch: ... Bild
-                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
-                            </p>
-                            <div id="area-chart-1-verlustleistung"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Optimale Dimensionierung Kabel</h5>
-                            <div id="area-chart-1-cable-costs"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- [ form-element ] end -->    
         </div>
     </div>
@@ -271,9 +283,11 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
     <script>
-        var driving_profile = "{{charging.driving_profile}}";
-        var cable_length = "{{charging.cable_length}}";
-        var usage_years = "{{charging.usage_years}}";
+        var driving_profile = "{{request.session.driving_profile}}";
+        var cable_length = "{{request.session.cable_length}}";
+        var usage_years = "{{request.session.usage_years}}";
+        var arrival_time = "{{request.session.arrival_time}}"
+        var departure_time = "{{request.session.departure_time}}"
     </script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>

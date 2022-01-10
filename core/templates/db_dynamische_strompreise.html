@@ -12,45 +12,55 @@
         <div class="pcoded-content">
             <!-- [ Main Content ] start -->
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <h5>
                                 Stromtarife und Preise <br>
                             </h5>
                             <p>
-                                Stromtarife unterscheiden sich je nachdem, wie Du den Strom nutzt. <br><br>
-                                Es gibt <b>Haushaltsstrom</b> für alle Geräte in der Wohnung – von der Waschmaschine, 
-                                über den Fön bis zum Fernseher. Haushaltsstrom ist am teuersten.
-                                Musst Du auf Strom aus dem Netz zugreifen, um Dein Auto zu laden, 
-                                hast Du die Wahl zwischen Haushaltsstrom und <b>Autostrom</b>. Nutzt Du Haushaltsstrom 
-                                für Dein Auto, brauchst Du keinen zusätzlichen Stromvertrag. Deine Wallbox reiht 
-                                sich dann in alle anderen Elektrogeräte ein, die Du in Deinem Haushalt hast. 
-                                Ein einziger Stromzähler misst den Bezug aller Geräte, einschließlich der Wallbox. 
-                                Dein Stromverbrauch steigt natürlich durch das Fahrzeug.
+                                <b>Aktuell unteliegen die Strompreise starken Schwankungen, weshalb die 
+                                    hinterlegten Werte ggf. nicht mehr aktuell sind. Die Kalkulation 
+                                    kann trotzdem zum Verständnis betrachtet werden.
+                                </b>
                                 <br><br>
+                                Für das Laden von Elektroautos zuhause kann zwischen unterschiedlichen
+                                Stromtarifen gewählt werden. Grundsätzlich wird hierbei zwischen
+                                Haushaltsstrom, Autostrom und dynamischen Stromatrifen unterschieden. 
+                                <br><br>
+                                Bei <b>Haushaltsstrom</b> wird das Elektrofahrzeug mit dem 
+                                gleichen Stromtarif geladen wie die anderen Geräte im Haushalt. 
+                                Hier lag der <b> Preis 2021 bei 32,16 Cent/ kWh </b>.
+                               <br><br>
                                 Daneben ist es möglich, einen Stromvertrag nur für das Auto zu schließen – <b>Autostrom.</b> 
-                                Dazu brauchst Du einen <b>zweiten Stromzähler</b>, der den Bezug der Wallbox separat erfasst. 
+                                Ein beispielhafter Stromtarif kostet hier als <b>Grundpreis 10,6€ im Monat </b> sowie 
+                                ein <b>Arbeitspreis von 0,2987 €/kWh </b>. 
+                                Weitere Vergleichsangebote finden Sie unter verschiedenen
+                                Vergleichsportalen, wie bspw. 
+                                <a href="https://www.autobild.de/artikel/autostrom-vertrag-strom-fuers-e-auto-e-auto-stromtarif-vergleich-zu-hause-wallbox-19481535.html" target="_blank">Hier Vergleichen</a> 
                                 <br><br> 
-                                Der Strompreis in <b>variablen Stromtarifen</b> verändert sich im Laufe des Tages: <br>
-                                Er kann steigen und sinken – er ist im Gegensatz zu fixen Stromtarifen flexibel. 
-                                Diese flexiblen oder variablen Tarife unterscheiden sich dabei:
-                                <b>Zeitvariable Tarife mit NT- und HT-Zeiten</b>: Hier besteht in bestimmten Stunden 
-                                ein niedrigerer Strompreis (NT-Tarif), meist nachts. Tagsüber gilt dann ein höherer
-                                Preis (HT-Tarif). 
-                                <b>Dynamische Tarife</b>: Dynamische Stromtarife gehören auch zu den zeitvariablen Tarifen. 
-                                Ihr Strompreis ist sehr flexibel – er verändert sich zig-mal am Tag und kann stärker 
-                                #steigen und fallen als die zeitvariablen Tarife mit Preisgrenzen oder festen oder 
-                                gemittelten Preisen. Um einen dynamischen Stromtarif abzuschließen, brauchst Du ein 
-                                intelligentes Messsystem.
+                                Mit einem <b>dynamischen Stromtarif</b> ist ein Strombelieferungsvertrag gemeint, 
+                                bei welchem nicht wie üblich ein statischer Preis für jede verbrauchte kWh 
+                                zwischen Stromkunde und Energieversorger vertraglich festgehalten wird. 
+                                Ein dynamischer Stromtarif gibt zeitliche Strompreisschwankungen an den 
+                                Stromkunden weiter. D.h. der Strom ist bei dynamischen Stromtarifen, 
+                                anders als bei konventionellen Stromtarifen, nicht zu jedem Zeitpunkt gleich 
+                                viel wert. 
                             </p>
-                            <p>
-                               To DOs: Verbrauch EV, Dynamische Strompreise, Diagramm dynamische Strompreise
-                            </p>
+                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Dynamische Strompreise Jan 2021</h5>
+                            <div id="dynamische_strompreise_übersicht"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <h5>Zusammensetzung Strompreis <br>
@@ -68,15 +78,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-success">
-                        <div class="card-body">
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
                             <div class="row">
                                 <div class="col-1">
                                     <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                       <br> Ergebnis Stromtarif
+                                       <br> Ergebnis Auswahl Stromtarif
                                     </h5>
                                 </div>
                             </div>
@@ -84,14 +94,25 @@
                                 <div class="col-1"></div>
                                 <div class="col-11">
                                     <p>
-                                        Für die Eingabe ... eignet sich folgendes Konzept, weil ...
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>,
+                                        entstehen für Sie folgende Kosten im Monat
+                                        <br><br>
+                                        <b>Optimal</b> für Sie wäre <b> {{request.session.dyn_stromtarife_opt_tarif}}.
+                                        <br><br>
+                                        Die Kosten mit Haushaltsstrom liegen bei
+                                        <b> {{request.session.dyn_stromtarife_haushaltsstrom_kosten}} € </b>. <br>
+                                        Die Kosten mit Ladestrom liegen bei
+                                        <b> {{request.session.dyn_stromtarife_ladestrom_kosten}} € </b>. <br>
+                                        Die Kosten mit dynamischen Strompreisen liegen bei
+                                        <b> {{request.session.dyn_stromtarife_kosten}} € </b>.
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>
             <div class="row">   
                 <div class="col-md-6">
                     <div class="card">
@@ -100,62 +121,31 @@
                                Dynamische Strompreise <br>
                             </h5>
                             <p>
-                                Mit einem dynamischen Stromtarif ist ein Strombelieferungsvertrag gemeint, 
-                                bei welchem nicht wie üblich ein statischer Preis für jede verbrauchte kWh 
-                                zwischen Stromkunde und Energieversorger vertraglich festgehalten wird. 
-                                Ein dynamischer Stromtarif gibt zeitliche Strompreisschwankungen an den 
-                                Stromkunden weiter. D.h. der Strom ist bei dynamischen Stromtarifen, 
-                                anders als bei konventionellen Stromtarifen, nicht zu jedem Zeitpunkt gleich 
-                                viel wert. Hierbei ist zu beachten, dass letztendlich der Energieversorger 
-                                festlegt, wie die Strompreise zusammengesetzt sind, welche an den Stromkunden 
-                                weiter gegeben werden. Der Strompreis kann beispielsweise an den 
-                                Börsenstrompreis angelehnt sein. 
-                                <br> <br>
-                                Da ein dynamischer Stromtarif nicht den einen Strompreis bietet, 
-                                sondern der Strompreis je nach Belieferungszeitpunkt und Zeitpunkt 
-                                des Stromeinkaufs stark variieren kann, müssen die Strompreissignale 
-                                vollautomatisch zwischen Energieversorger und Stromkunden kommuniziert 
-                                werden. 
-                                <br> <br>
-                                Ein solcher Anbieter ist aWATTar (<a href="https://www.awattar.at/tariffs/hourly" target="_blank">aWATTar</a>). 
+                                Der erste Anbieter, der im deutschen Raum
+                                dynamische Stromstarife anbietet ist 
+                                (<a href="https://www.awattar.at/tariffs/hourly" target="_blank">aWATTar</a>). 
                                 Mit HOURLY gibt es 24 Preise pro Tag, die auf einer detaillierten Wetterprognose 
-                                aufbauen und am Vortag an der Börse EPEX Spot ® bekanntgegeben werden. Je windiger und sonniger, 
+                                aufbauen und am Vortag an der Börse EPEX Spot bekanntgegeben werden. Je windiger und sonniger, 
                                 desto günstiger der Preis! Mit einem intelligenten Stromzähler, der Ihnen von Ihrem Netzbetreiber 
                                 zur Verfügung gestellt wird, wird Ihr Verbrauch stündlich gemessen und die Daten an Ihren Netzbetreiber
                                 übermittelt, der sie dann an uns für die Abrechnung weiterleitet. 
                                 Durch die exakte Übermittlung Ihres stündlichen Verbrauchs gelingt jeden Monat
                                 eine genaue Abrechnung. Sie bezahlen also nur Ihren tatsächlichen Verbrauch und 
                                 keine Schätzung oder Einstufung. 
-                            </p>
-                            <p><b>
-                               TO Dos: Ersparnis dynamischer Stromtarif lohnt es sich oder nicht?
-                               To Dos: duchschnitt oder Flex. optimiert
-                            </b>
+                                <br><br>
+                                Der zu zahlende Strompreis setzt sich hierbei aus einem
+                                <b>Grundpreis (4,58 € im Monat) </b> und einem <b>Arbeitspreis</b> zusammen. 
+                                Der Arbeitspreis berechnet sich dabei durch einen Festbetrag, wie aus der ersten Abbildung 
+                                zu entnehmen ist von 18,12 cent/ kWh + EPEX SPOT Preis + 0,25 Cent/kWh zusammen.
+                                <br><br>
+                                Für ein besseres Verständnis realistischer Preisschwankungen ist in der 
+                                rechten Grafik der Strompreis Verlauf an der Strombörse für den Januar 2021
+                                dargestellt. Hier lag der Höchstpreis bei 11 Cent/ kWH und der niedrigste 
+                                Preis bei genau 0 Cent/ kWh.
                             </p>
                         </div>
                     </div>
                 </div>       
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Dynamische Strompreise Jan 2021</h5>
-                            <div id="dynamische_strompreise_übersicht"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Optimales Ladeverhalten</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Das optimale Ladeverhalten 
-                                <br><br><br><br><br><br><br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">

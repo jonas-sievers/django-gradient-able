@@ -124,7 +124,7 @@ function floatchart() {
                     left: 0
                 },
             },
-            colors: ["#4680ff", "#85C854"],
+            colors: ["#4680ff", "#3A548A"],
             fill: {
                 opacity: [1, 1]
             },
@@ -165,7 +165,7 @@ function floatchart() {
                     left: 0
                 },
             },
-            colors: ["#fff", "#85C854"],
+            colors: ["#fff", "#3A548A"],
             fill: {
                 opacity: [1, 1]
             },
@@ -231,7 +231,7 @@ function floatchart() {
                 type: 'gradient',
                 gradient: {
                     shade: 'light',
-                    gradientToColors: ['#4099ff', '#85C854'],
+                    gradientToColors: ['#4099ff', '#3A548A'],
                     shadeIntensity: 0.5,
                     type: 'horizontal',
                     opacityFrom: 1,
@@ -241,7 +241,7 @@ function floatchart() {
             },
             markers: {
                 size: 5,
-                colors: ['#4099ff', '#85C854'],
+                colors: ['#4099ff', '#3A548A'],
                 opacity: 0.9,
                 strokeWidth: 2,
                 hover: {
