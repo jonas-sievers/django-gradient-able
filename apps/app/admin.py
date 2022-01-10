@@ -10,7 +10,7 @@ from .models import Lokal_Energy, Real_estate
 class RealEstateAdmin(admin.ModelAdmin):
     model = Real_estate
     fieldsets = [
-        ('Real estate', {'fields': ['property_type', 'water_heating', 'number_persons', 'electricity_consumption_year', 'charging_points_to_install', 'charging_points_expandable', 'house_connection_power']}),
+        ('Real estate', {'fields': ['property_type', 'water_heating', 'number_persons', 'electricity_consumption_year', 'charging_points_to_install', 'house_connection_power']}),
         ('Charging', {'fields': ['driving_profile', 'cable_length', 'usage_years']}),
         ('General information', {'fields': ['pub_date', 'person', 'image_path']}),
     ] 

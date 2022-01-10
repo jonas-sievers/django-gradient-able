@@ -48,6 +48,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="">
+                                    <div class="col-md-12 mb-3">
+                                        <p>
+                                            <br><br>
+                                            Hier noch Anzahl der Objekte abfragen für Lastmanagement
+                                            <br><br>
+                                        </p>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.water_heating.label_tag }}</label>
@@ -82,26 +91,24 @@
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="validationCustom01">{{ form.charging_points_expandable.label_tag }}</label>
-                                        <input type="number" name="charging_points_expandable" class="form-control" id="validationCustom01" placeholder="z.B. 5" value="5" required>
-                                        <div class="valid-feedback">
-                                            vollständig!
-                                        </div>
+                                        <small id="passwordHelpBlock" class="form-text text-muted">
+                                            Bedenken Sie hierbei auch, dass Sie ggf. später noch weitere Ladestationen erweitern möchten.
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.house_connection_power.label_tag }}</label>
-                                        <input type="number" name="house_connection_power" class="form-control" id="validationCustom01" placeholder="z.B. 40" value="40" required>
+                                        <input type="number" name="house_connection_power" class="form-control" id="validationCustom01" placeholder="z.B. 43" value="43" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Wenn Sie den Wert nicht kennen, lassen Sie den Wert einfach unverändert.
+                                            Für eine Wohneinheit liegt der Standardwert bei 43 kW. Nähere Informationen finden Sie
+                                            auf Seite 12 in folgendem PDF
+                                            <b>(<a href="https://www.voltimum.de/sites/www.voltimum.de/files/fields/attachment_file/de/others/E/200407146820PlanungundBemessungHauptstromversorgungssysteme.pdf" target="_blank">hier</a>)</b>.
+								
+
                                         </small>
                                     </div>
                                 </div>

@@ -19,20 +19,6 @@
                                 <h5 class="m-b-10">Was ist ein Lastmanagement?</h5>
                             </div>
                             <p class="card-text">
-                                Eine wesentliche Komponente bei der Umsetzung von Smart Charging 
-                                Konzepten spielt das <b>Lastmanagement</b>. Ein Lastmanagementsystem begrenzt 
-                                die an den Ladepunkten verfügbare Gesamtleistung zum Laden der EVs. 
-                                <br><br>
-                                Hierbei kann zwischen einem <b>dynamischen und statischen Lastmanagement unterschieden </b>
-                                werden. Ein <b>dynamisches Lastmanagementsystem</b> bestimmt dynamisch das Leistungsniveau 
-                                zu einem bestimmten Zeitpunkt unter Berücksichtigung des aktuellen Leistungsbedarfs 
-                                der übrigen Verbraucher. Im Gegensatz dazu wird bei 
-                                <b>statischen Lastmanagementsystemen</b> eine feste Leistungsgrenze vorkonfiguriert. 
-                                Diese bestimmt sich aus der Differenz zwischen der Netzanschlusskapazität und 
-                                dem maximalen Leistungsbedarf der übrigen Verbraucher. Bei einem dynamischen 
-                                Lastmanagement hingegen wird der Leistungsbedarf der Verbraucher als flexibel angesehen. 
-                                So kann beispielsweise Nachts mehr Leistung für das Laden der EVs bereitgestellt werden.
-                                <br><br>
                                 Um den elektrischen Energieverbrauch der Verbraucher abschätzen zu können benötigen 
                                 Energielieferanten sogenannte <b>Lastprofile</b>. Der VDEW führt zwölf verschiedene Arten von 
                                 <b>Standardlastprofilen</b> auf. SLP sind repräsentative Lastprofile, die für die 
@@ -40,6 +26,15 @@
                                 bei denen jeweils ein ähnliches Abnahmeverhalten anzunehmen ist. Diese
                                 beruhen auf tatsächlichen Messungen einer Vielzahl solcher Haushalte, deren Lastgänge 
                                 anschließend gemittelt und auf einen Leistungswert normiert wurden.
+                                <br><br>
+                                Eine wesentliche Komponente bei der Umsetzung von Smart Charging 
+                                Konzepten spielt das <b>Lastmanagement</b>. Ein Lastmanagementsystem begrenzt 
+                                die an den Ladepunkten verfügbare Gesamtleistung zum Laden der EVs. 
+                                <br><br>
+                                Hierbei kann zwischen einem <b>dynamischen und statischen Lastmanagement unterschieden </b>
+                                werden. Ein <b>dynamisches Lastmanagementsystem</b> berücksichtigt dabei den aktuellen Leistungsbedarfs 
+                                der übrigen Verbraucher (Waschmaschine, Herd, etc.), wohingegen ein 
+                                <b>statisches Lastmanagement</b> eine feste Leistungsgrenze vorkonfiguriert.                                
                             </p>
                         </div>
                     </div>
@@ -76,18 +71,20 @@
                                 <div class="col-11">
                                     <p>
                                         Mit einer/ einem <b> {{request.session.property_type}} </b> mit 
-                                        <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufereitung
+                                        <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufbereitung
                                         <b> {{request.session.water_heating}} </b> Verbrauchen Sie im Jahr 
                                         <b> {{request.session.electricity_consumption_year}} kWh </b> Strom.
                                         <br><br>
-                                        Bei einem Fahrverhalten von durchschnittlich 
-                                        <b>{{request.session.driving_profile}} km am Tag</b>,
+                                        Um Ihr Elektroauto wieder voll zu laden, benötigen Sie täglich
+                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b>. 
+                                        Mit einem statischen Lastmanagement können Sie mit 
+                                        <b> {{request.session.max_charge_leistung}} kW </b> laden
+                                        und Ihr Auto wäre somit nach 
+                                        <b>{{request.session.stat_loadmanagement_needed_hours}} Stunden geladen </b>. 
+                                        <br><br>
                                        ...
-                                       <b>
-                                        TO DO: Ihre minimale Ladegeschwindigkeit ist ... <br>
-                                        TO DO: Für Ihr Fahrprofil müssen Sie hiermit maximal täglich  ... Stunden laden <br>
-                                        TO DO: Durch eine SVE würden Sie ... weniger laden können <br>
-                                        </b>
+                                       <br><br>
+                                       
                                     </p>
                                 </div>
                             </div>
@@ -101,8 +98,27 @@
                         <div class="card-body">
 							<h5 class="card-title">Statisches und Dynamisches Lastmanagement</h5>
 							<p class="card-text">
-								...
-
+                                Bei einem Fahrverhalten von durchschnittlich 
+                                <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                Auto wieder voll zu laden.
+                                Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
+                                einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
+                                haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                Zeit zu laden</b>.
+                                <br><br>
+                                Mit einem statischen Lastmanagement können Sie 
+                                bei  <b> {{request.session.charging_points_to_install}}</b> Wallboxen 
+                                und mit <b> {{request.session.house_connection_power}} kW</b> Hausanschlussleistung 
+                                mit <b> {{request.session.max_charge_leistung}} kW </b> laden.
+                                Ihr Auto wäre somit nach 
+                                <b>{{request.session.stat_loadmanagement_needed_hours}} Stunden geladen </b>. 
+                                Theoretisch könnten Sie also mit Ihrer Hausanschlussleistung 
+                                <b>{{request.session.stat_loadmanagement_max_evs_to_charge}} Autos laden </b>
+                                <br><br>
+                                In dieser Zeit können Sie mit einem dynamischen Lastmanagement <b> ... kWh </b> laden.
+                                Ihr Auto wäre somit nach <b>... Stunden geladen </b>. 
+                                Theoretisch könnten Sie also mit Ihrer Hausanschlussleistung <b>... Autos laden </b>
 								</p>
 						</div>
                     </div>
@@ -112,11 +128,12 @@
                         <div class="card-body">
                             <h5>Lastprofil Haushalt</h5>
 							<p>
-								Anhand dieser Grafik können Sie beispielhaft erkennen, wie der Lastgang ihres Haushaltes 
-								aussehen könnte. Durch ein Lastmanagement wird das Elektrofahrzeug intelligent geladen, 
-								damit eine kostenspielige Netzanschlusserweiterung vermieden werden kann. <br><br>
+								Anhand dieser Grafik können Sie beispielhaft erkennen, wie sich 
+                                die zur Verfügung stehende Ladeleistung bei einem statischen und
+                                einem dynamischen Lastmanagement verhält.                                 
+                                <br><br>
 							</p>                        
-                            <div id="lastmanagement"></div>
+                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_dyn_lastmanagement.png" alt="Card image cap">
                         </div>
                     </div>
                 </div>
@@ -137,19 +154,11 @@
                                 durchführt.
                                 <br><br>
                                 Die Systeme verfolgen je nach Hersteller unterschiedliche Lösungsansätze:
-                                Bei <b>geschlossenen Systemen</b> wie denen von ABL, KEBA und WEBASTO ist nur 
+                                Bei <b>geschlossenen Systemen</b> ist nur 
                                 die Integration von Wallboxen des gleichen Typs möglich. 
-                                Das hat den Vorteil, dass der Hersteller das System genau auf seine
-                                Produkte auslegen kann. Erweiterungen mit Wallboxen anderer Hersteller 
-                                sind jedoch nicht möglich und es ist ungewiss, ob künftige Wallboxen des 
-                                Herstellers bei späteren Erweiterungen der Ladepunktanzahl abwärtskompatibel 
-                                sein werden. <br>
-                                Im Gegensatz dazu können bei <b>offenen Systemen</b> (wie ChargePilot“ von The Mobility 
-                                House (TMH)) Wallboxen unterschiedlicher Hersteller in das Lastmanagement-System 
-                                eingebunden werden. Sie bauen auf dem standardisierten Open Charge Point Protokoll 
-                                (OCPP) auf. Hierbei ist der Integrationsaufwand beim Hersteller zwar höher, 
-                                die Auswahl der Wallboxen für den Anwender jedoch weitaus größer und er
-                                muss sich nicht von vorneherein auf eine Variante festlegen.
+                                Im Gegensatz dazu können bei <b>offenen Systemen</b> 
+                                Wallboxen unterschiedlicher Hersteller in das Lastmanagement-System 
+                                eingebunden werden.
 							</p>
 						</div>
                     </div>

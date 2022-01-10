@@ -5,13 +5,12 @@ from .models import Lokal_Energy, Real_estate
 class Real_estateForm(ModelForm):
     class Meta:
         model = Real_estate
-        fields = ('property_type', 'water_heating', 'number_persons', 'charging_points_to_install', 'charging_points_expandable', 'house_connection_power', 'driving_profile', 'arrival_time', 'departure_time', 'cable_length', 'usage_years')
+        fields = ('property_type', 'water_heating', 'number_persons', 'charging_points_to_install', 'house_connection_power', 'driving_profile', 'arrival_time', 'departure_time', 'cable_length', 'usage_years')
         labels = {
             'property_type': ('In welchem Gebäudetyp wohnen Sie?'),
             'water_heating': ('Womit erhitzen Sie Ihr Wasser?'),
             'number_persons': ('Wie viele Personen leben in Ihrem Haushalt?'),
             'charging_points_to_install': ('Wie viele Ladestationen sollen installiert werden?'),
-            'charging_points_expandable': ('Wie viele Ladestationen sollen später erweitert werden können?'),
             'house_connection_power': ('Welche Hausanschlussleistung steht den Stellplätzen zur Verfügung [kW]?'),
             'driving_profile': ('Wie viele km fahren Sie pro Tag?'),
             'arrival_time': ('Um wie viel Uhr können Sie Ihr Fahrzeug an das Ladesystem anschließen?'),

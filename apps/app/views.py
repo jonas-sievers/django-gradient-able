@@ -36,7 +36,7 @@ def pages(request):
         if load_template == 'admin':
             return HttpResponseRedirect(reverse('admin:index'))
 
-        if load_template == 'input_form.html':
+        if load_template == 'input_form_house.html':
             if request.method == "POST":  
                 form = Real_estateForm(request.POST)  
                 if form.is_valid():
@@ -55,7 +55,6 @@ def pages(request):
                     request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
                     #Laden
                     request.session['charging_points_to_install'] = real_estate.charging_points_to_install
-                    request.session['charging_points_expandable'] = real_estate.charging_points_expandable
                     request.session['house_connection_power'] = real_estate.house_connection_power
                     request.session['image_path'] = real_estate.image_path
                     request.session['driving_profile'] = real_estate.driving_profile
@@ -65,6 +64,15 @@ def pages(request):
                     request.session['cable_length'] = real_estate.cable_length
                     request.session['usage_years'] = real_estate.usage_years
 
+                    #Calculate Stat. and dyn. Loadmanagement
+                    stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(real_estate.electricity_consumption_year, real_estate.house_connection_power, real_estate.charging_points_to_install, real_estate.driving_profile, real_estate.arrival_time, real_estate.departure_time)
+                    request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
+                    request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
+                    request.session['max_charge_leistung'] = stat_dyn_loadmanagement_results[2]
+                    request.session['stat_loadmanagement_usable_kWh'] = stat_dyn_loadmanagement_results[3]
+                    request.session['stat_loadmanagement_needed_hours'] = stat_dyn_loadmanagement_results[4]
+                    request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[5]
+                    
                     # Calculate optimal Verlustleistung
                     verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years)
                     request.session['opt_querschnitt'] = verlustleistung_results[0]
@@ -93,9 +101,10 @@ def pages(request):
                     return redirect('db_load_management.html')
             else: 
                 form = Real_estateForm()
-            return render(request, 'input_form.html', {'form': form})                      
+            return render(request, 'input_form_house.html', {'form': form})                      
             
         context['segment'] = load_template
+
 
         if load_template == 'input_form_PV.html':
             if request.method == "POST":  
@@ -213,7 +222,6 @@ def pages(request):
             request.session['number_persons'] = real_estate.number_persons
             request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
             request.session['charging_points_to_install'] = real_estate.charging_points_to_install
-            request.session['charging_points_expandable'] = real_estate.charging_points_expandable
             request.session['house_connection_power'] = real_estate.house_connection_power
             request.session['image_path'] = real_estate.image_path
             request.session['driving_profile'] = real_estate.driving_profile
@@ -271,6 +279,46 @@ def pages(request):
 ######
 ######Getter Methoden
 ######
+
+def get_stat_dyn_loadmanagement(electricity_consumption_year, house_connection_power, charging_points_to_install, driving_profile, arrival_time, departure_time):
+    
+    if int(arrival_time) >= int(departure_time):
+        hours_to_charge = (24-int(arrival_time)) + int(departure_time)
+    else:
+        hours_to_charge = 24
+    
+    needed_electricity_ev_day = round((int(driving_profile)*0.2),1)
+
+    #Peak 20 Uhr
+    helper_max_leistungsnachfrage = 0.0729*(int(electricity_consumption_year)/365)
+    #2kW Puffer
+    ##
+    #
+    #Einfügen Leistungsspitzen 14,5 vs 34 kW
+    #
+    #
+
+    verfügbare_max_leistung = int(house_connection_power)-14.5-2
+    #24*Statischer Wert
+    stat_loadmanagement_usable_kWh = round((24*verfügbare_max_leistung),2)
+    #Ladeleistung nach Anzahl Ladepunkten, max 11, sonst drosseln
+    if (int(house_connection_power)/charging_points_to_install) >= 11:
+        max_charge_leistung = 11
+    else: 
+        max_charge_leistung = (int(house_connection_power)/charging_points_to_install)
+
+    stat_loadmanagement_needed_hours = round((needed_electricity_ev_day/max_charge_leistung),2)
+
+    #Wie viele Autos könnte man laden
+    stat_loadmanagement_max_evs_to_charge = round((hours_to_charge/stat_loadmanagement_needed_hours),1)
+    #[(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
+                   
+    dyn_loadmanagement_usable_kWh = 0
+    dyn_loadmanagement_needed_hours = 0
+    dyn_loadmanagement_max_evs_to_charge = 0
+
+    loadmanagement_results = [hours_to_charge, needed_electricity_ev_day, max_charge_leistung, stat_loadmanagement_usable_kWh, stat_loadmanagement_needed_hours, stat_loadmanagement_max_evs_to_charge]
+    return loadmanagement_results
 
 def get_optimal_verlustleistung(cable_length, driving_profile, usage_years):
     verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)

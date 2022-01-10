@@ -25,8 +25,7 @@ class Real_estate(models.Model):
     electricity_consumption_year = models.IntegerField(default= 3800)
 
     charging_points_to_install = models.IntegerField(default=4)
-    charging_points_expandable = models.IntegerField(default=5)
-    house_connection_power = models.IntegerField(default=40)
+    house_connection_power = models.IntegerField(default=43)
     image_path = models.CharField(max_length=200, default="")
     driving_profile = models.CharField(max_length=200, choices= CHOICES_driving_profile, default='40')
     arrival_time = models.CharField(max_length=200, choices= CHOICES_arrival_time, default='17')

@@ -32,6 +32,60 @@
                     <div class="card alert-primary">
                         <div class="card-body bg-patern-white">
                             <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                </div>
+                                <div class="col-11">
+                                    <h5>
+                                       <br> Ergebnis Auswahl Lastmanagement
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-11">
+                                    <p>
+                                        Mit einer/ einem <b> {{request.session.property_type}} </b> mit 
+                                        <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufbereitung
+                                        <b> {{request.session.water_heating}} </b> Verbrauchen Sie im Jahr 
+                                        <b> {{request.session.electricity_consumption_year}} kWh </b> Strom.
+                                        <br><br>
+                                        Um Ihr Elektroauto wieder voll zu laden, benötigen Sie täglich
+                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b>. 
+                                        Mit einem statischen Lastmanagement können Sie mit 
+                                        <b> {{request.session.max_charge_leistung}} kW </b> laden
+                                        und Ihr Auto wäre somit nach 
+                                        <b>{{request.session.stat_loadmanagement_needed_hours}} Stunden geladen </b>. 
+                                        <br><br>
+                                       ...
+                                       <br><br>
+                                       
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Lastprofil Haushalt</h5>
+							<p>
+								Anhand dieser Grafik können Sie beispielhaft erkennen, wie sich 
+                                die zur Verfügung stehende Ladeleistung bei einem statischen und
+                                einem dynamischen Lastmanagement verhält.                                 
+                                <br><br>
+							</p>                        
+                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_dyn_lastmanagement.png" alt="Card image cap">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
+                            <div class="row">
                                 <div class="col-2">
                                     <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
