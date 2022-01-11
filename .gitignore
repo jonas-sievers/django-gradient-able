@@ -29,3 +29,8 @@ core/static/assets/node_modules
 core/static/assets/yarn.lock
 core/static/assets/.temp
 
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
