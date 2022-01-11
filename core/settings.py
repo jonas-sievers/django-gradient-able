@@ -76,7 +76,7 @@ DATABASES = {
         'NAME': 'db.sqlite3',
     }
 }
-
+"""
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
@@ -88,6 +88,8 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+"""
+
 
 
 # Password validation
