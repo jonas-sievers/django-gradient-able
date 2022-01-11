@@ -18,7 +18,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
-ALLOWED_HOSTS = ['django-env.eba-savdscyx.us-west-2.elasticbeanstalk.com', 'aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com', 'localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
 
 # Application definition
 
@@ -69,18 +69,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['ebdb'],
-            'USER': os.environ['jonas'],
-            'PASSWORD': os.environ['Karlsruhe2022!'],
-            'HOST': os.environ['aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com'],
-            'PORT': os.environ['3306'],
-        }
-    }
 
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -88,18 +77,18 @@ DATABASES = {
     }
 }
 
-if 'aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com' in os.environ:
+if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['ebdb'],
-            'USER': os.environ['jonas'],
-            'PASSWORD': os.environ['Karlsruhe2022!'],
-            'HOST': os.environ['aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com'],
-            'PORT': os.environ['3306'],
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
         }
     }
-"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
