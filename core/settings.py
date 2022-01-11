@@ -75,8 +75,8 @@ DATABASES = {
         'NAME': 'ebdb',
         'USER': 'jonas',
         'PASSWORD': 'Karlsruhe',
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+        'HOST': 'aa1dl6wlk0zb8a5.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
