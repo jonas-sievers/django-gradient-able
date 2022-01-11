@@ -75,6 +75,18 @@ DATABASES = {
         'NAME': 'db.sqlite3',
     }
 }
+if 'aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['ebdb'],
+            'USER': os.environ['jonas'],
+            'PASSWORD': os.environ['Karlsruhe2022!'],
+            'HOST': os.environ['aav8nusbvjxffw.c83mnndoq5fn.us-west-2.rds.amazonaws.com'],
+            'PORT': os.environ['3306'],
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
