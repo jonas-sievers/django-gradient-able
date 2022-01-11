@@ -76,7 +76,7 @@ DATABASES = {
         'USER': 'jonas',
         'PASSWORD': 'Karlsruhe2022',
         'HOST': 'aa5pp0skoxown6.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
-        'PORT': '3306',
+        'PORT': 3306,
     }
 }
 
