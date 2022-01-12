@@ -13,29 +13,40 @@
             <div class="page-header">
                 <div class="page-block">
                     <div class="row align-items-center">
-						<div class="col-md-9">
+						<div class="col-md-12">
                             <h5>
-                                Verlustleistung und Kosten <br>
+                                Verlustleistung<br>
                              </h5>
                              <p>
-                                 Damit mit der Wallbox geladen werden kann, muss diese mit einem <b>Kupferkabel</b> an den Stromkreis angeschlossen werden.
-                                 Bei der Wahl des Kabels ist dabei auf den <b>Querschnitt</b> der Leitung zu achten. 
+                                 <b>Annahme: Wenn das Dashboard Lastmanagement ergibt, dass eine Netzanschlusserweiterung
+                                     notwendig ist, wird hier angenommen, dass diese stattgefunden hat 
+                                     und Sie mit 11 kW laden können.</b>
+                                <br><br>
+                                 Damit Sie Ihr Elektroauto mit der Wallbox laden können, 
+                                 muss diese mit einem <b>Kabel</b> an den Stromkreis angeschlossen werden. 
+                                 Beim Laden des Elektroautos kann es hierbei zu <b>Verlustleistung</b> kommen, 
+                                 wodurch nicht der gesamte Strom zum Laden verwendet werden kann.
+                                 Entscheidend für die Verlustleistung ist hierbei vor allem das <b>Material</b>,
+                                 die <b>Länge</b> und der <b>Querschnitt</b> des Kabels sowie die <b>Stromstärke</b> und die Anzahl 
+                                 der verwendeten <b>Phasen</b>. 
+                                <br><br>
+                                 <b>Der Querschnitt kann jedoch optimiert werden.</b> 
+                                 Hierbei ist entscheidend, dass ein Kupferkabel mit geringem Querschnitt weniger kostet als 
+                                 eines mit größerem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a>
+                                 Gleichzeitig ist bei geringerem Querschnitt jedoch die 
+                                 Verlustleistung höher, wodurch mehr Strom zum laden verwendet wird und somit die Stromkostensten 
+                                 steigen. Es gilt somit die Gesamtkosten aus Stom- und Kabelkosten zu minimieren.
                                  <br><br>
-                                 Wie groß der Querschnitt minimal gewählt werden muss, hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab. <br>
-                                 Mehr Informationen finden Sie bei der VDE unter <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a> <br>
-                                 Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, Drehstrom durch 3 Adern fließt und eine Stromstärke von 16 Ampere anliegt. <br>
-                                 Die minimale Kabeldicke von 1.5 mm2 ist damit technisch ausreichend. 
-                                 <br><br>
-                                 Bei der Wahl des Kabels ist neben den technischen Mindestanforderungen auch der <b>Kaufpreis</b> und die <b>Verlustenergie</b> entscheidend. <br>
-                                 1. Der Kaufpreis orientiert sich bei dem Mantelkabel an dem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a> <br>
-                                 Die Preise reichen von rd. 1€/m bei 1,5mm2 bis 12 €/m bei 16 mm2.
-                                 Die Verlustenergie steigt mit der Länge und sinkt mit dem Querschnitt des Kabels. <br>
-                                
+                                 Als Material für das Kabel wird üblicherweise <b>Kupfer</b> verwendet und die Länge
+                                 des Kabels haben Sie mit <b>{{request.session.cable_length}} m</b> angegeben.
+                                 Der <b>minimal zulässige Querschnitt </b>
+                                 hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab.
+                                 Mehr Informationen finden Sie bei der VDE unter 
+                                 <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a>.
+                                 Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, <b>Drehstrom durch 3 Adern 
+                                 fließt und eine Stromstärke von 16 Ampere </b>anliegt. Ein <b>minimaler Kabelquerschnitt von 1.5 mm2</b> ist damit technisch ausreichend.                         
                              </p>
                         </div>
-                        <div class="col-md-3">
-							<img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
-						</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +60,7 @@
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                       <br> Ergebnis Optimaler Kabelquerschnitt
+                                       <br> Ergebnis optimaler Kabelquerschnitt {{request.session.opt_querschnitt}} mm
                                     </h5>
                                 </div>
                             </div>
@@ -82,6 +93,38 @@
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h5>
+                                Herleitung des optimalen Kabelquerschnitts<br>
+                            </h5>
+                            <p>
+                                Die <b>Gesamtkosten</b> errechnen sich aus den <b>Kosten für das Kupferkabel</b> und den <b>zusätzlichen 
+                                Stromkosten durch die Verlustleistung</b> in Abhängigkeit vom Kabelquerschnitt.
+                                <br><br>
+                                Die Verlustleistung errechnet sich dabei aus der Formel rechts, wobei die Länge die
+                                angegebenen <b>{{request.session.cable_length}} m</b> sind, der Leitwert von Kupfer bei 56 liegt
+                                und eine Stromstärke von 16 A angenommen wird. Der Querschnitt variiert von 1,5 bis 16 mm2.
+                                Dieser Wert wird dann mit der benötigten täglich benötigte Strommenge multipliziert
+                                und auf ein Jahr hochgerechnet, mit dem Strompreis multipliziert sowie mit der Anzahl Jahre,
+                                die das Kabel verwendet wird. 
+                                <br><br>
+                                <b>Annahme</b>:
+                                Wie in dem <b>Dashboard Lastmanagement</b> dargelegt, kann mit
+                                <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
+                                Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
+                                dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
+                                Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
+                                dass die Spannung abfällt und die Stromstärke konstant bleibt.
+                        </div>
+                        <div class="col-md-3">
+                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
                         </div>
                     </div>
                 </div>
@@ -126,6 +169,12 @@
         var driving_profile = "{{request.session.driving_profile}}";
         var cable_length = "{{request.session.cable_length}}";
         var usage_years = "{{request.session.usage_years}}";
+        var value = "{{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}}";     
+        if(value == 0){
+            dyn_verfuegbare_ladeleistung_fuer_wallbox = 11
+        } else {
+            dyn_verfuegbare_ladeleistung_fuer_wallbox = value
+        } 
     </script>
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
     <script src="/static/assets/js/pages/chart-apex.js"></script>

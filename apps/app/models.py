@@ -11,6 +11,7 @@ from django.utils import timezone
 class Real_estate(models.Model):
     #person = models.ForeignKey(Person, on_delete=models.CASCADE)
     CHOICES_property_type = (('Haus', 'Haus'), ('Wohnung', 'Wohnung'))
+    CHOICES_number_properties = (('1', '1'), ('5', '5'), ('10', '10'), ('20', '20'), ('30', '30'))
     CHOICES_water_heating = (('ohne Strom', 'ohne Strom'), ('mit Strom', 'mit Strom'))
     CHOICES_number_persons = (('1 Person', '1 Person'), ('2 Personen', '2 Personen'), ('3 Personen', '3 Personen'), ('4 Personen', '4 Personen'), ('> 4 Personen', '> 4 Personen'))
     CHOICES_driving_profile = (('20', '20 km/Tag'), ('40', '40 km/Tag'), ('60', '60 km/Tag'), ('100', '100 km/Tag'))
@@ -20,6 +21,7 @@ class Real_estate(models.Model):
     CHOICES_departure_time = (('23', 'Home Office'), ('4', '4 Uhr'), ('5', '5 Uhr'), ('6', '6 Uhr'), ('7', '7 Uhr'), ('8', '8 Uhr'), ('9', '9 Uhr'))
     
     property_type = models.CharField(max_length=200, choices= CHOICES_property_type, default='Haus')
+    number_properties = models.CharField(max_length=200, choices= CHOICES_number_properties, default='1')
     water_heating = models.CharField(max_length=200, choices= CHOICES_water_heating, default='mit Strom')
     number_persons = models.CharField(max_length=200, choices= CHOICES_number_persons, default='2 Personen')
     electricity_consumption_year = models.IntegerField(default= 3800)

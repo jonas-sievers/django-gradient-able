@@ -41,7 +41,7 @@ def pages(request):
                 form = Real_estateForm(request.POST)  
                 if form.is_valid():
                     real_estate = form.save(commit=False)   
-                    real_estate.electricity_consumption_year = get_electricity_consumption_year(real_estate.property_type, real_estate.water_heating, real_estate.number_persons)
+                    real_estate.electricity_consumption_year = get_electricity_consumption_year(real_estate.property_type, real_estate.number_properties,  real_estate.water_heating, real_estate.number_persons)
                     real_estate.person = request.user.username
                     real_estate.pub_date = timezone.now()
                     real_estate.image_path = get_image_path(real_estate.property_type, real_estate.charging_points_to_install)
@@ -50,9 +50,11 @@ def pages(request):
                     #Otherwise they would need to stand in the url
                     ##Lastprofil und Stromverbrauch
                     request.session['property_type'] = real_estate.property_type
+                    request.session['number_properties'] = real_estate.number_properties
                     request.session['water_heating'] = real_estate.water_heating
                     request.session['number_persons'] = real_estate.number_persons
                     request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
+                    request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
                     #Laden
                     request.session['charging_points_to_install'] = real_estate.charging_points_to_install
                     request.session['house_connection_power'] = real_estate.house_connection_power
@@ -65,16 +67,22 @@ def pages(request):
                     request.session['usage_years'] = real_estate.usage_years
 
                     #Calculate Stat. and dyn. Loadmanagement
-                    stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(real_estate.electricity_consumption_year, real_estate.house_connection_power, real_estate.charging_points_to_install, real_estate.driving_profile, real_estate.arrival_time, real_estate.departure_time)
+                    stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(real_estate.electricity_consumption_year, real_estate.number_properties, real_estate.water_heating, real_estate.house_connection_power, real_estate.charging_points_to_install, real_estate.driving_profile, real_estate.arrival_time, real_estate.departure_time)
                     request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
                     request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
-                    request.session['max_charge_leistung'] = stat_dyn_loadmanagement_results[2]
-                    request.session['stat_loadmanagement_usable_kWh'] = stat_dyn_loadmanagement_results[3]
-                    request.session['stat_loadmanagement_needed_hours'] = stat_dyn_loadmanagement_results[4]
-                    request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[5]
-                    
+                    request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
+                    request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
+                    request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
+                    request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
+                    request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
+                    request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
+                    request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
+                    request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
+                    request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
+                    request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+                        
                     # Calculate optimal Verlustleistung
-                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years)
+                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years, request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'])
                     request.session['opt_querschnitt'] = verlustleistung_results[0]
                     request.session['opt_cable_costs'] = verlustleistung_results[1]
                     request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
@@ -91,13 +99,17 @@ def pages(request):
                     request.session['sve_einsparung_jahr'] = sve_results[2]
 
                     #Calculate dynamische Stromtarife
-                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile)
-           
-                    request.session['dyn_stromtarife_haushaltsstrom_kosten'] = dyn_Stromtarife_results[0]
-                    request.session['dyn_stromtarife_ladestrom_kosten'] = dyn_Stromtarife_results[1]
-                    request.session['dyn_stromtarife_kosten'] = dyn_Stromtarife_results[2]
-                    request.session['dyn_stromtarife_opt_tarif'] = dyn_Stromtarife_results[3]
-
+                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year']) 
+                    request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
+                    request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
+                    request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
+                    request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
+                    request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
+                    request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
+                    request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
+                    request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+                    request.session['opt_tarif'] = dyn_Stromtarife_results[8]
+                    
                     return redirect('db_load_management.html')
             else: 
                 form = Real_estateForm()
@@ -218,9 +230,11 @@ def pages(request):
         real_estate = get_object_or_404(Real_estate, pk=1)
         if 'property_type' not in request.session:
             request.session['property_type'] = real_estate.property_type
+            request.session['number_properties'] = real_estate.number_properties
             request.session['water_heating'] = real_estate.water_heating
             request.session['number_persons'] = real_estate.number_persons
             request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
+            request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
             request.session['charging_points_to_install'] = real_estate.charging_points_to_install
             request.session['house_connection_power'] = real_estate.house_connection_power
             request.session['image_path'] = real_estate.image_path
@@ -229,9 +243,27 @@ def pages(request):
             request.session['departure_time'] = real_estate.departure_time
             request.session['cable_length'] = real_estate.cable_length
             request.session['usage_years'] = real_estate.usage_years
+
+        #Calculate Stat. and dyn. Loadmanagement
+        if 'hours_to_charge' not in request.session:        
+            stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(3800, 1, 'mit Strom', 43, 4, 40, 17, 8)
+            request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
+            request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
+            request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
+            request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
+            request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
+            request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
+            request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
+            request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
+            request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
+            request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
+            request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
+            request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+                    
+
         if 'opt_querschnitt' not in request.session:
             # Calculate optimal Verlustleistung
-            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20)
+            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64)
             request.session['opt_querschnitt'] = verlustleistung_results[0]
             request.session['opt_cable_costs'] = verlustleistung_results[1]
             request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
@@ -248,12 +280,16 @@ def pages(request):
             request.session['sve_einsparung_jahr'] = sve_results[2]
 
             #Calculate dynamische Stromtarife
-            dyn_Stromtarife_results = get_dyn_stromtarife_results(40)
-    
-            request.session['dyn_stromtarife_haushaltsstrom_kosten'] = dyn_Stromtarife_results[0]
-            request.session['dyn_stromtarife_ladestrom_kosten'] = dyn_Stromtarife_results[1]
-            request.session['dyn_stromtarife_kosten'] = dyn_Stromtarife_results[2]
-            request.session['dyn_stromtarife_opt_tarif'] = dyn_Stromtarife_results[3]
+            dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800)
+            request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
+            request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
+            request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
+            request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
+            request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
+            request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
+            request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
+            request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+            request.session['opt_tarif'] = dyn_Stromtarife_results[8]
 
         lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
         if 'roof_size' not in request.session:
@@ -280,65 +316,151 @@ def pages(request):
 ######Getter Methoden
 ######
 
-def get_stat_dyn_loadmanagement(electricity_consumption_year, house_connection_power, charging_points_to_install, driving_profile, arrival_time, departure_time):
+def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties, warm_water_heating, house_connection_power, charging_points_to_install, driving_profile, arrival_time, departure_time):
+    print("---get_stat_dyn_loadmanagement")
+    #Declare variables
+    #EV
+    hours_to_charge = 0
+    needed_electricity_ev_day = 0
+    ###Stat. Variables for calculation
+    stat_Leistungs_peak_ohne_ev_kW = 0
+    stat_verfuegbare_ladeleistung_fuer_alle_wallboxen = 0
+    stat_verfuegbare_ladeleistung_fuer_wallbox = 0
+    ###Result stat Lastmanagement
+    stat_needed_time_to_charge = 0
+    stat_loadmanagement_max_evs_to_charge = 0
     
+    ########################################
+    ###Dyn. Lastmanagement Variables for calculation
+    dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen = 0
+    dyn_verfuegbare_ladeleistung_fuer_wallbox = 0
+    ###Result stat Lastmanagement
+    dyn_needed_time_to_charge = 0
+    dyn_loadmanagement_max_evs_to_charge = 0
+    ###Result Lastmanagement
+    opt_lastmanagement = 'Kein Lastmanagement'
+
+    #calculate
+    ##Statisches Lastmanagement
+    ###Take values from table
+    if int(number_properties) == 1:
+        if(warm_water_heating == 'ohne Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 14.5
+        elif(warm_water_heating == 'mit Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 34
+    elif int(number_properties) == 5:
+        if(warm_water_heating == 'ohne Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 41
+        elif(warm_water_heating == 'mit Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 81
+    elif int(number_properties) == 10:
+        if(warm_water_heating == 'ohne Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 55
+        elif(warm_water_heating == 'mit Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 107
+    elif int(number_properties) == 20:
+        if(warm_water_heating == 'ohne Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 72
+        elif(warm_water_heating == 'mit Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 134
+    elif int(number_properties) == 30:
+        if(warm_water_heating == 'ohne Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 82
+        elif(warm_water_heating == 'mit Strom'):
+            stat_Leistungs_peak_ohne_ev_kW = 153
+
+    #Calculate available Leistung
+    stat_verfuegbare_ladeleistung_fuer_alle_wallboxen = round((float(house_connection_power) - float(stat_Leistungs_peak_ohne_ev_kW)),2)
+    stat_verfuegbare_ladeleistung_fuer_wallbox = round(((float(stat_verfuegbare_ladeleistung_fuer_alle_wallboxen) / float(charging_points_to_install))),2)
+    if float(stat_verfuegbare_ladeleistung_fuer_alle_wallboxen) < 0:
+        stat_verfuegbare_ladeleistung_fuer_alle_wallboxen = 0
+
+    if float(stat_verfuegbare_ladeleistung_fuer_wallbox) < 0:
+        stat_verfuegbare_ladeleistung_fuer_wallbox = 0
+
+    #Calculate for EV
     if int(arrival_time) >= int(departure_time):
         hours_to_charge = (24-int(arrival_time)) + int(departure_time)
     else:
         hours_to_charge = 24
     
-    needed_electricity_ev_day = round((int(driving_profile)*0.2),1)
+    needed_electricity_ev_day = round((int(driving_profile)*0.2),2)
 
-    #Peak 20 Uhr
-    helper_max_leistungsnachfrage = 0.0729*(int(electricity_consumption_year)/365)
-    #2kW Puffer
-    ##
-    #
-    #Einfügen Leistungsspitzen 14,5 vs 34 kW
-    #
-    #
-
-    verfügbare_max_leistung = int(house_connection_power)-14.5-2
-    #24*Statischer Wert
-    stat_loadmanagement_usable_kWh = round((24*verfügbare_max_leistung),2)
-    #Ladeleistung nach Anzahl Ladepunkten, max 11, sonst drosseln
-    if (int(house_connection_power)/charging_points_to_install) >= 11:
-        max_charge_leistung = 11
+    #Result for stat Loadmanagement
+    if int(stat_verfuegbare_ladeleistung_fuer_wallbox != 0):
+        stat_needed_time_to_charge = round(((float(needed_electricity_ev_day)/float(stat_verfuegbare_ladeleistung_fuer_wallbox))),2)
+        stat_loadmanagement_max_evs_to_charge = round((hours_to_charge/stat_needed_time_to_charge),2)
+    
+        if int(stat_needed_time_to_charge > hours_to_charge):
+            stat_needed_time_to_charge = "zu lange"
+            stat_loadmanagement_max_evs_to_charge = 0
     else: 
-        max_charge_leistung = (int(house_connection_power)/charging_points_to_install)
+        stat_needed_time_to_charge = "zu lange"
+        stat_loadmanagement_max_evs_to_charge = 0
 
-    stat_loadmanagement_needed_hours = round((needed_electricity_ev_day/max_charge_leistung),2)
+    ################################################################
+    #Dynamisches Lastmanagement
 
-    #Wie viele Autos könnte man laden
-    stat_loadmanagement_max_evs_to_charge = round((hours_to_charge/stat_loadmanagement_needed_hours),1)
-    #[(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
-                   
-    dyn_loadmanagement_usable_kWh = 0
-    dyn_loadmanagement_needed_hours = 0
-    dyn_loadmanagement_max_evs_to_charge = 0
+    #Rechnung: Summiere Differenz aus Leistungsnachfrage und Hausanschluss
+    #Auflösung: Stündliche Leistungswerte aus Standardlastprofil
+    electricity_consumption_day_kWh = round(((int(electricity_consumption_year)*int(number_properties))/365),3)       
+    #Stromverbauch nach Standardlastprofil für gesamte Immobilie
+    #array leistungsnachfrage stündlich
+    ln_h = [round((0.0197*electricity_consumption_day_kWh),3), round((0.0168*electricity_consumption_day_kWh),3), round((0.0160*electricity_consumption_day_kWh),3), round((0.0160*electricity_consumption_day_kWh),3), round((0.0160*electricity_consumption_day_kWh),3), round((0.0219*electricity_consumption_day_kWh),3), round((0.0437*electricity_consumption_day_kWh),3), round((0.0518*electricity_consumption_day_kWh),3), round((0.0539*electricity_consumption_day_kWh),3), round((0.0481*electricity_consumption_day_kWh),3), round((0.0466*electricity_consumption_day_kWh),3), round((0.0466*electricity_consumption_day_kWh),3), round((0.0510*electricity_consumption_day_kWh),3), round((0.0474*electricity_consumption_day_kWh),3), round((0.0437*electricity_consumption_day_kWh),3), round((0.0401*electricity_consumption_day_kWh),3), round((0.0437*electricity_consumption_day_kWh),3), round((0.0547*electricity_consumption_day_kWh),3), round((0.062*electricity_consumption_day_kWh),3), round((0.0729*electricity_consumption_day_kWh),3), round((0.062*electricity_consumption_day_kWh),3), round((0.051*electricity_consumption_day_kWh),3), round((0.0437*electricity_consumption_day_kWh),3), round((0.0306*electricity_consumption_day_kWh),3)]
+    dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen = round((((int(house_connection_power) - ln_h[0]) + (int(house_connection_power) - ln_h[1]) + (int(house_connection_power) - ln_h[2]) + (int(house_connection_power) - ln_h[3]) + (int(house_connection_power) - ln_h[4]) + (int(house_connection_power) - ln_h[5]) + (int(house_connection_power) - ln_h[6]) + (int(house_connection_power) - ln_h[7]) + (int(house_connection_power) - ln_h[8]) + (int(house_connection_power) - ln_h[9]) + (int(house_connection_power) - ln_h[10])+ (int(house_connection_power) - ln_h[11]) + (int(house_connection_power) - ln_h[12]) + (int(house_connection_power) - ln_h[13]) + (int(house_connection_power) - ln_h[14]) + (int(house_connection_power) - ln_h[15]) + (int(house_connection_power) - ln_h[16]) + (int(house_connection_power) - ln_h[17]) + (int(house_connection_power) - ln_h[18]) + (int(house_connection_power) - ln_h[19]) + (int(house_connection_power) - ln_h[20]) + (int(house_connection_power) - ln_h[21]) + (int(house_connection_power) - ln_h[22]) + (int(house_connection_power) - ln_h[23]))/24),2)
+    dyn_verfuegbare_ladeleistung_fuer_wallbox = round((dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen/int(charging_points_to_install)), 2)
+    
+    if float(dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen) < 0:
+        dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen = 0
+    if float(dyn_verfuegbare_ladeleistung_fuer_wallbox) < 0:
+        dyn_verfuegbare_ladeleistung_fuer_wallbox = 0
 
-    loadmanagement_results = [hours_to_charge, needed_electricity_ev_day, max_charge_leistung, stat_loadmanagement_usable_kWh, stat_loadmanagement_needed_hours, stat_loadmanagement_max_evs_to_charge]
+    if int(dyn_verfuegbare_ladeleistung_fuer_wallbox != 0):
+        dyn_needed_time_to_charge = round(((float(needed_electricity_ev_day)/float(dyn_verfuegbare_ladeleistung_fuer_wallbox))),2)
+        dyn_loadmanagement_max_evs_to_charge = round((hours_to_charge/dyn_needed_time_to_charge),2)
+    
+        if int(dyn_needed_time_to_charge > hours_to_charge):
+            dyn_needed_time_to_charge = "zu lange"
+            dyn_loadmanagement_max_evs_to_charge = 0
+    else: 
+        dyn_needed_time_to_charge = "zu lange"
+        dyn_loadmanagement_max_evs_to_charge = 0
+    
+    #Result wich Loadmanagement
+    if float(stat_verfuegbare_ladeleistung_fuer_wallbox >= 11):
+        opt_lastmanagement = 'kein Lastmanagement'
+    elif float(stat_verfuegbare_ladeleistung_fuer_wallbox < 11 and dyn_needed_time_to_charge != "zu lange"):
+        opt_lastmanagement = 'ein Lastmanagement'
+    else:
+        opt_lastmanagement = 'eine Netzanschlusserweiterung'
+     
+    loadmanagement_results = [hours_to_charge, needed_electricity_ev_day, stat_Leistungs_peak_ohne_ev_kW, stat_verfuegbare_ladeleistung_fuer_alle_wallboxen, stat_verfuegbare_ladeleistung_fuer_wallbox, stat_needed_time_to_charge, stat_loadmanagement_max_evs_to_charge, opt_lastmanagement, dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen, dyn_verfuegbare_ladeleistung_fuer_wallbox, dyn_needed_time_to_charge, dyn_loadmanagement_max_evs_to_charge]
+    
     return loadmanagement_results
 
-def get_optimal_verlustleistung(cable_length, driving_profile, usage_years):
-    verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
-    verlustleistung_costs_2_5mm = round(((((768*int(cable_length))/(56*2.5)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
-    verlustleistung_costs_4mm = round(((((768*int(cable_length))/(56*4)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
-    verlustleistung_costs_6mm = round(((((768*int(cable_length))/(56*6)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
-    verlustleistung_costs_10mm = round(((((768*int(cable_length))/(56*10)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
-    verlustleistung_costs_16mm = round(((((768*int(cable_length))/(56*16)) * ((int(driving_profile)*73)/(11000)) * (0.25*int(usage_years)))), 1)
+
+def get_optimal_verlustleistung(cable_length, driving_profile, usage_years, dyn_verfuegbare_ladeleistung_fuer_wallbox):
+    print("--------------get_optimal_verlustleistung")
+    if dyn_verfuegbare_ladeleistung_fuer_wallbox == 0:
+        dyn_verfuegbare_ladeleistung_fuer_wallbox = 11
+    verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_2_5mm = round(((((768*int(cable_length))/(56*2.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_4mm = round(((((768*int(cable_length))/(56*4)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_6mm = round(((((768*int(cable_length))/(56*6)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_10mm = round(((((768*int(cable_length))/(56*10)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_16mm = round(((((768*int(cable_length))/(56*16)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
     
     verlustleistungscosts = [verlustleistung_costs_1_5mm, verlustleistung_costs_2_5mm, verlustleistung_costs_4mm, verlustleistung_costs_6mm, verlustleistung_costs_10mm, verlustleistung_costs_16mm]
 
-    cable_costs_1_5mm = round( (1*int(cable_length)), 1)
-    cable_costs_2_5mm = round((1.6*int(cable_length)), 1)
-    cable_costs_4mm = round((3.5*int(cable_length)), 1)
-    cable_costs_6mm = round((4.7*int(cable_length)), 1)
-    cable_costs_10mm = round((7.4*int(cable_length)), 1)
-    cable_costs_16mm = round((12*int(cable_length)), 1)
+    cable_costs_1_5mm = round( (1*int(cable_length)), 2)
+    cable_costs_2_5mm = round((1.6*int(cable_length)), 2)
+    cable_costs_4mm = round((3.5*int(cable_length)), 2)
+    cable_costs_6mm = round((4.7*int(cable_length)), 2)
+    cable_costs_10mm = round((7.4*int(cable_length)), 2)
+    cable_costs_16mm = round((12*int(cable_length)), 2)
     cable_costs = [cable_costs_1_5mm, cable_costs_2_5mm, cable_costs_4mm, cable_costs_6mm, cable_costs_10mm, cable_costs_16mm]
     
-    complete_costs = [(verlustleistung_costs_1_5mm+cable_costs_1_5mm), (verlustleistung_costs_2_5mm+cable_costs_2_5mm), (verlustleistung_costs_4mm+cable_costs_4mm), (verlustleistung_costs_6mm+cable_costs_6mm), (verlustleistung_costs_10mm+cable_costs_10mm), (verlustleistung_costs_16mm+cable_costs_16mm)]
+    complete_costs = [round((verlustleistung_costs_1_5mm+cable_costs_1_5mm),2), round((verlustleistung_costs_2_5mm+cable_costs_2_5mm),2), round((verlustleistung_costs_4mm+cable_costs_4mm),2), round((verlustleistung_costs_6mm+cable_costs_6mm),2), round((verlustleistung_costs_10mm+cable_costs_10mm),2), round((verlustleistung_costs_16mm+cable_costs_16mm),2)]
     
     min_costs = complete_costs[0]
     opt_index = 0
@@ -363,36 +485,59 @@ def get_optimal_verlustleistung(cable_length, driving_profile, usage_years):
     elif(opt_index == 5):
         opt_a = 16
 
-
     return [opt_a, cable_costs[opt_index], verlustleistungscosts[opt_index], min_costs, cable_costs_1_5mm, verlustleistung_costs_1_5mm, costs_1_5mm]
     
 def get_sve_results(driving_profile):
-    jahres_stromverbrauch = round((int(driving_profile)*0.2*365),1)
+    print("----------get_sve_results")
+    jahres_stromverbrauch = round((int(driving_profile)*0.2*365),2)
     sve_einsparung_monat = round(((int(driving_profile)*0.2*0.03*30)-1.66), 2)
     sve_einsparung_jahr = round(((int(driving_profile)*0.2*0.03*365)-1.66), 2)
     result = [jahres_stromverbrauch, sve_einsparung_monat, sve_einsparung_jahr]
     return result
 
-def get_dyn_stromtarife_results(driving_profile):
-    
-    dyn_stromtarife_haushaltsstrom_kosten = round((int(driving_profile)*30*0.2*0.3216),2)
-    dyn_stromtarife_ladestrom_kosten = round(((int(driving_profile)*30*0.2*0.2987)+10.6),2)
-    dyn_stromtarife_kosten = 0
-    if (int(driving_profile) == 20):
-        dyn_stromtarife_kosten == round( (( (int(driving_profile)*30*0.2*(0.1812+0.06464+0.00025))+4.58)),2)
-    elif (int(driving_profile) == 40):
-        dyn_stromtarife_kosten = round(( (int(driving_profile)*30*0.2*(0.1812 + 0.06464 + 0.00025))+ 4.58 ),2)
-    elif (int(driving_profile) == 60):
-        dyn_stromtarife_kosten = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
-    elif (int(driving_profile) == 100):
-        dyn_stromtarife_kosten = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year):
+    #Declare variables
+    electricity_consumption_month_ev = 0
+    #Haus
+    electricity_consumption_month_house = 0
+    hausstrom_electricity_cost_month_house = 0
+    #Haus und EV
+    hausstrom_electricity_cost_month_ev_house = 0
+    ladestrom_electricity_cost_month_ev = 0
+    ladestrom_electricity_cost_month_ev_house = 0
+    dyn_strom_electricity_cost_month_ev = 0
+    dyn_strom_electricity_cost_month_ev_house = 0
 
-    dyn_Stromtarife_results = [dyn_stromtarife_haushaltsstrom_kosten, dyn_stromtarife_ladestrom_kosten, dyn_stromtarife_kosten]
+    #Strom nur Haus
+    electricity_consumption_month_house = round((electricity_consumption_year/12),2)
+    hausstrom_electricity_cost_month_house = round(((electricity_consumption_month_house*0.4757)+10.20),2)
+    #Strom Haus und EV
+    electricity_consumption_month_ev = round((int(driving_profile)*30.5*0.2),2)
+    #Grundgebuhr + Arbeitspreis Stromverbrauch EV und Haus
+    hausstrom_electricity_cost_month_ev_house = round((((electricity_consumption_month_ev + (electricity_consumption_year/12)) *0.4757)+10.20),2)
+    #Strom Ladestrom: 
+    ladestrom_electricity_cost_month_ev = round(((electricity_consumption_month_ev *0.4409)+12.89),2)
+    ladestrom_electricity_cost_month_ev_house = round((ladestrom_electricity_cost_month_ev+hausstrom_electricity_cost_month_house),2)
+    #Strom Dynamisch
+   
+    #Anpassen
+    if (int(driving_profile) == 20):
+        dyn_strom_electricity_cost_month_ev == round( (( (int(driving_profile)*30*0.2*(0.1812+0.06464+0.00025))+4.58)),2)
+    elif (int(driving_profile) == 40):
+        dyn_strom_electricity_cost_month_ev = round(( (int(driving_profile)*30*0.2*(0.1812 + 0.06464 + 0.00025))+ 4.58 ),2)
+    elif (int(driving_profile) == 60):
+        dyn_strom_electricity_cost_month_ev = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+    elif (int(driving_profile) == 100):
+        dyn_strom_electricity_cost_month_ev = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+
+    dyn_strom_electricity_cost_month_ev_house = round((dyn_strom_electricity_cost_month_ev+hausstrom_electricity_cost_month_house),2)
+
+    stromtarife = [hausstrom_electricity_cost_month_ev_house, ladestrom_electricity_cost_month_ev_house, dyn_strom_electricity_cost_month_ev_house]
     
     opt_tarif_index = 0
-    opt_tarif = dyn_Stromtarife_results[0]
-    for i in range(len(dyn_Stromtarife_results)):
-        if opt_tarif > dyn_Stromtarife_results[i]:
+    opt_tarif = stromtarife[0]
+    for i in range(len(stromtarife)):
+        if opt_tarif > stromtarife[i]:
             opt_tarif_index = i
 
     if opt_tarif_index == 0:
@@ -402,12 +547,12 @@ def get_dyn_stromtarife_results(driving_profile):
     elif opt_tarif_index ==2:
         opt_tarif = "Dynamischer Stromtarif"
 
-    dyn_Stromtarife_results.append(opt_tarif)
+    dyn_Stromtarife_results = [electricity_consumption_month_house, electricity_consumption_month_ev, hausstrom_electricity_cost_month_house, hausstrom_electricity_cost_month_ev_house, ladestrom_electricity_cost_month_ev, ladestrom_electricity_cost_month_ev_house, dyn_strom_electricity_cost_month_ev, dyn_strom_electricity_cost_month_ev_house, opt_tarif]
     return dyn_Stromtarife_results
            
 
 def get_kW_peak(roof_size):
-    result = round((int(roof_size)/6), 1)
+    result = round((int(roof_size)/6), 2)
     return result
 
 def get_investment_cost(kw_peak):
@@ -455,7 +600,8 @@ def get_earnings_sold_electricity(kw_peak, solar_radiation, roof_tilt, roof_orie
 
     return earnings
     
-def get_electricity_consumption_year(property_type, water_heating, number_persons):
+def get_electricity_consumption_year(property_type, number_properties, water_heating, number_persons):
+    print("---get_electricity_consumption_year")
     if(property_type == "Haus"):
         if(water_heating == "ohne Strom"):
             if(number_persons == "1 Person"):
@@ -502,6 +648,8 @@ def get_electricity_consumption_year(property_type, water_heating, number_person
                 result = 4500
             elif(number_persons == "> 4 Personen"):
                 result = 5200
+    
+    result = round((result*int(number_properties)),2)
     return result
 
 def get_electricity_generation_year(kw_peak, solar_radiation, roof_tilt, roof_orientation):
@@ -543,7 +691,7 @@ def get_electricity_generation_year(kw_peak, solar_radiation, roof_tilt, roof_or
     else: 
         factor_tilt_orientation = 0        
    
-    result = round((int(kw_peak)*int(solar_radiation)*factor_tilt_orientation*0.8335), 1)
+    result = round((int(kw_peak)*int(solar_radiation)*factor_tilt_orientation*0.8335), 2)
     return result
 
 
