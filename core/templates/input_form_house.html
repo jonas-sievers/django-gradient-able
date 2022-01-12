@@ -16,12 +16,16 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title">
-                                <h5 class="m-b-10">Wieso werden diese Daten erfasst?</h5>
+                                <h5 class="m-b-10">Einführung Eingaben</h5>
                             </div>
                             <p class="card-text">
-                              Die folgenden Angaben werden benötigt, um hieraus Ihren individuellen Bedarf zu errechnen. Dabei werden möglichst wenig persönliche Daten abgefragt.
-                            <br><br>
-                            <b>Annahmen: Wenn zu Ihrer Immobilie mehrere Wohneinheiten gehören, muss
+                                1. Die folgenden Angaben werden benötigt, um hieraus <b>individualisierte Ergebnisse zu errechnen.</b>
+                                Dabei werden möglichst wenig persönliche Daten abgefragt.
+                                <br><br>
+                                2. Durch das Klicken auf den <b>Berechnen Button</b> am Ende der Seite werden die Eingaben für die
+                                <b>gesamte Zeit gespeichert</b>, bis Sie auf dieser Seite erneut Änderungen vornehmen.
+                                <br><br>
+                                <b>Annahmen: Wenn zu Ihrer Immobilie mehrere Wohneinheiten gehören, muss
                                 ein einheitlicher bzw. durchschnittlicher Wert eingegeben werden.
                             </b>
                             </p>
@@ -44,8 +48,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.property_type.label_tag }}</label>
                                         <select name="property_type" class="form-control">
-                                            {{form.property_type.0}}
-                                            {{form.property_type.1}} 
+                                            <option value="{{request.session.property_type}}">{{request.session.property_type}}</option>
+                                            {% for choice in form.property_type.field.choices %}
+                                                {% if  choice.1 != request.session.property_type %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -56,17 +64,18 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.number_properties.label_tag }}</label>
                                         <select name="number_properties" class="form-control">
-                                            {{form.number_properties.0}}
-                                            {{form.number_properties.1}} 
-                                            {{form.number_properties.2}} 
-                                            {{form.number_properties.3}} 
-                                            {{form.number_properties.4}} 
+                                            <option value="{{request.session.number_properties}}">{{request.session.number_properties}}</option>
+                                            {% for choice in form.number_properties.field.choices %}
+                                                {% if  choice.1 != request.session.number_properties %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
-                                            <b>WICHTIG: Wenn dieser Wert erhöht wird, sollten Sie auch die Hausanschlussleistung erhöhen! </b>
+                                            <b>WICHTIG: Wenn dieser Wert erhöht wird, sollten Sie auch die Hausanschlussleistung weiter unten erhöhen! </b>
                                         </small>
                                     </div>
                                 </div>
@@ -74,8 +83,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.water_heating.label_tag }}</label>
                                         <select name="water_heating" class="form-control">
-                                            {{form.water_heating.0}}
-                                            {{form.water_heating.1}} 
+                                            <option value="{{request.session.water_heating}}">{{request.session.water_heating}}</option>
+                                            {% for choice in form.water_heating.field.choices %}
+                                                {% if  choice.1 != request.session.water_heating %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -86,11 +99,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.number_persons.label_tag }}</label>
                                         <select name="number_persons" class="form-control">
-                                            {{form.number_persons.0}}
-                                            {{form.number_persons.1}}
-                                            {{form.number_persons.2}}
-                                            {{form.number_persons.3}}
-                                            {{form.number_persons.4}}
+                                            <option value="{{request.session.number_persons}}">{{request.session.number_persons}}</option>
+                                            {% for choice in form.number_persons.field.choices %}
+                                                {% if  choice.1 != request.session.number_persons %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -100,26 +114,26 @@
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.charging_points_to_install.label_tag }}</label>
-                                        <input type="number" min="1" name="charging_points_to_install" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="4" required>
+                                        <input type="number" min="1" name="charging_points_to_install" class="form-control" id="validationCustom01" placeholder="z.B. 4" value="{{request.session.charging_points_to_install}}" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Bedenken Sie hierbei auch, dass Sie ggf. später noch weitere Ladestationen erweitern möchten.
+                                            <b>Bedenken Sie hierbei, dass Sie ggf. später noch weitere Ladestationen erweitern möchten.</b>
                                         </small>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.house_connection_power.label_tag }}</label>
-                                        <input type="number" min="1" name="house_connection_power" class="form-control" id="validationCustom01" placeholder="z.B. 43" value="43" required>
+                                        <input type="number" min="1" name="house_connection_power" class="form-control" id="validationCustom01" placeholder="z.B. 43" value="{{request.session.house_connection_power}}" required>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
                                         <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Für eine Wohneinheit liegt der Standardwert bei 43 kW. Nähere Informationen finden Sie
-                                            auf Seite 12 in folgendem PDF
-                                            <b>(<a href="https://www.voltimum.de/sites/www.voltimum.de/files/fields/attachment_file/de/others/E/200407146820PlanungundBemessungHauptstromversorgungssysteme.pdf" target="_blank">hier</a>)</b>.
+                                            <b>Es gelten folgende Standardwerte:</b> Rechengrundlage <b>(<a href="https://www.voltimum.de/sites/www.voltimum.de/files/fields/attachment_file/de/others/E/200407146820PlanungundBemessungHauptstromversorgungssysteme.pdf" target="_blank">hier, Seite 12</a>)</b><br>
+                                            <b>- Mit Strom für Warmwasser:</b> 1 Wohneinheit: 43 kW, 5 Wohneinheiten: 86 kW, 10 Wohneinheiten: 110 kW, 20 Wohneinheiten: 138 kW, 30 Wohneinheiten: 172 kW <br>
+                                            <b>- Ohne Strom für Warmwasser:</b> 1 Wohneinheit: 43 kW, 5 Wohneinheiten: 43 kW, 10 Wohneinheiten: 55 kW, 20 Wohneinheiten: 86 kW, 30 Wohneinheiten: 86 kW 
 								        </small>
                                     </div>
                                 </div>
@@ -127,10 +141,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.driving_profile.label_tag }}</label>
                                         <select name="driving_profile" class="form-control">
-                                            {{form.driving_profile.0}}
-                                            {{form.driving_profile.1}}
-                                            {{form.driving_profile.2}}
-                                            {{form.driving_profile.3}}
+                                            <option value="{{request.session.driving_profile}}">{{request.session.driving_profile}} km/Tag</option>
+                                            {% for choice in form.driving_profile.field.choices %}
+                                                {% if  choice.0 != request.session.driving_profile %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -144,13 +160,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.arrival_time.label_tag }}</label>
                                         <select name="arrival_time" class="form-control">
-                                            {{form.arrival_time.0}}
-                                            {{form.arrival_time.1}}
-                                            {{form.arrival_time.2}}
-                                            {{form.arrival_time.3}}
-                                            {{form.arrival_time.4}}
-                                            {{form.arrival_time.5}}
-                                            {{form.arrival_time.6}}
+                                            <option value="{{request.session.arrival_time}}">{{request.session.arrival_time}} Uhr</option>
+                                            {% for choice in form.arrival_time.field.choices %}
+                                                {% if  choice.0 != request.session.arrival_time %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -161,13 +176,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.departure_time.label_tag }}</label>
                                         <select name="departure_time" class="form-control">
-                                            {{form.departure_time.0}}
-                                            {{form.departure_time.1}}
-                                            {{form.departure_time.2}}
-                                            {{form.departure_time.3}}
-                                            {{form.departure_time.4}}
-                                            {{form.departure_time.5}}
-                                            {{form.departure_time.6}}
+                                            <option value="{{request.session.departure_time}}">{{request.session.departure_time}} Uhr</option>
+                                            {% for choice in form.departure_time.field.choices %}
+                                                {% if  choice.0 != request.session.departure_time %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -178,13 +192,12 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.cable_length.label_tag }}</label>
                                         <select name="cable_length" class="form-control">
-                                            {{form.cable_length.0}}
-                                            {{form.cable_length.1}}
-                                            {{form.cable_length.2}}
-                                            {{form.cable_length.3}}
-                                            {{form.cable_length.4}}
-                                            {{form.cable_length.5}}
-                                            {{form.cable_length.6}}
+                                            <option value="{{request.session.cable_length}}">{{request.session.cable_length}} m</option>
+                                            {% for choice in form.cable_length.field.choices %}
+                                                {% if  choice.0 != request.session.cable_length %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
@@ -195,17 +208,19 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.usage_years.label_tag }}</label>
                                         <select name="usage_years" class="form-control">
-                                            {{form.usage_years.0}}
-                                            {{form.usage_years.1}}
-                                            {{form.usage_years.2}}
-                                            {{form.usage_years.3}}
+                                            <option value="{{request.session.usage_years}}">{{request.session.usage_years}} Jahre</option>
+                                            {% for choice in form.usage_years.field.choices %}
+                                                {% if  choice.0 != request.session.usage_years %}
+                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {%endif%}
+                                            {% endfor %}
                                         </select>
                                         <div class="valid-feedback">
                                             vollständig!
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn  btn-primary" type="submit">Speichern</button>
+                                <button class="btn  btn-primary" type="submit">Berechnen</button>
                             </form>
                             <script>
                                 // Example starter JavaScript for disabling form submissions if there are invalid fields

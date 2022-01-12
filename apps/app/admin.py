@@ -11,7 +11,7 @@ class RealEstateAdmin(admin.ModelAdmin):
     model = Real_estate
     fieldsets = [
         ('Real estate', {'fields': ['property_type', 'number_properties', 'water_heating', 'number_persons', 'electricity_consumption_year', 'charging_points_to_install', 'house_connection_power']}),
-        ('Charging', {'fields': ['driving_profile', 'cable_length', 'usage_years']}),
+        ('Charging', {'fields': ['driving_profile', 'arrival_time', 'departure_time', 'cable_length', 'usage_years']}),
         ('General information', {'fields': ['pub_date', 'person', 'image_path']}),
     ] 
     list_display = ('pk', 'person', 'property_type', 'charging_points_to_install','driving_profile', 'pub_date')
