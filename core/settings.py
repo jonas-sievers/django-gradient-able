@@ -18,7 +18,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
-ALLOWED_HOSTS = ['django-env.eba-ib6jpmha.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
+ALLOWED_HOSTS = ['django-env.eba-nihz3mgv.us-west-2.elasticbeanstalk.com', 'localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
 
 # Application definition
 
@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': 'ebdb',
         'USER': 'jonas',
         'PASSWORD': 'Karlsruhe2022',
-        'HOST': 'aa1dl6wlk0zb8a5.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
+        'HOST': 'aa1kjocb3xxjxtu.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
         'PORT': 5432,
     }
 }
