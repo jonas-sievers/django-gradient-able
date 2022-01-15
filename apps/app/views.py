@@ -80,9 +80,22 @@ def pages(request):
                     request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
                     request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
                     request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+
+                    #Calculate dynamische Stromtarife
+                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year'], request.session['dyn_needed_time_to_charge'],  request.session['arrival_time'], request.session['departure_time']) 
+                    request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
+                    request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
+                    request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
+                    request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
+                    request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
+                    request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
+                    request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
+                    request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+                    request.session['opt_tarif'] = dyn_Stromtarife_results[8]
+                    request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
                         
                     # Calculate optimal Verlustleistung
-                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years, request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'])
+                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years, request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'], request.session['opt_arbeitspreis_eur'])
                     request.session['opt_querschnitt'] = verlustleistung_results[0]
                     request.session['opt_cable_costs'] = verlustleistung_results[1]
                     request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
@@ -97,19 +110,7 @@ def pages(request):
                     request.session['jahres_stromverbrauch'] = sve_results[0]
                     request.session['sve_einsparung_monat'] = sve_results[1]
                     request.session['sve_einsparung_jahr'] = sve_results[2]
-
-                    #Calculate dynamische Stromtarife
-                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year']) 
-                    request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
-                    request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-                    request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
-                    request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
-                    request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
-                    request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
-                    request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
-                    request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
-                    request.session['opt_tarif'] = dyn_Stromtarife_results[8]
-                    
+                                        
                     return redirect('db_load_management.html')
             else: 
                 form = Real_estateForm()
@@ -124,102 +125,41 @@ def pages(request):
                 if form.is_valid():
                     lokal_energy = form.save(commit=False)   
                     lokal_energy.person = request.user.username
-                    lokal_energy.pub_date = timezone.now()
-
-                    lokal_energy.pv_kw_peak = get_kW_peak(lokal_energy.roof_size)
-                    lokal_energy.electricity_generation_year = get_electricity_generation_year(lokal_energy.pv_kw_peak, lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation)
-                    
-                    lokal_energy.pv_1KWpeak_investment_cost = get_investment_cost(1)
-                    lokal_energy.pv_1KWpeak_saved_costs_own_electricity = get_saved_costs(1,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_1KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(1,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-
-                    lokal_energy.pv_2KWpeak_investment_cost = get_investment_cost(2)
-                    lokal_energy.pv_2KWpeak_saved_costs_own_electricity = get_saved_costs(2,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_2KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(2,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-
-                    lokal_energy.pv_3KWpeak_investment_cost = get_investment_cost(3)
-                    lokal_energy.pv_3KWpeak_saved_costs_own_electricity = get_saved_costs(3,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_3KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(3,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_4KWpeak_investment_cost = get_investment_cost(4)
-                    lokal_energy.pv_4KWpeak_saved_costs_own_electricity = get_saved_costs(4,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_4KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(4,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_5KWpeak_investment_cost = get_investment_cost(5)
-                    lokal_energy.pv_5KWpeak_saved_costs_own_electricity = get_saved_costs(5,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_5KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(5,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_6KWpeak_investment_cost = get_investment_cost(6)
-                    lokal_energy.pv_6KWpeak_saved_costs_own_electricity = get_saved_costs(6,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_6KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(6,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_7KWpeak_investment_cost = get_investment_cost(7)
-                    lokal_energy.pv_7KWpeak_saved_costs_own_electricity = get_saved_costs(7,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_7KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(7,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_8KWpeak_investment_cost = get_investment_cost(8)
-                    lokal_energy.pv_8KWpeak_saved_costs_own_electricity = get_saved_costs(8,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_8KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(8,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_9KWpeak_investment_cost = get_investment_cost(9)
-                    lokal_energy.pv_9KWpeak_saved_costs_own_electricity = get_saved_costs(9,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_9KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(9,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                    lokal_energy.pv_10KWpeak_investment_cost = get_investment_cost(10)
-                    lokal_energy.pv_10KWpeak_saved_costs_own_electricity = get_saved_costs(10 ,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    lokal_energy.pv_10KWpeak_earnings_sold_electricity = get_earnings_sold_electricity(10 ,lokal_energy.solar_radiation, lokal_energy.roof_tilt, lokal_energy.roof_orientation, request.session['electricity_consumption_year'])
-                    
-                                    
-                    lokal_energy.save()
+                    lokal_energy.pub_date = timezone.now()   
+                    lokal_energy.save()                                 
                     #Save Results as Session Variable
                     #Otherwise they would need to stand in the url
+                   
                     request.session['roof_size'] = lokal_energy.roof_size
                     request.session['roof_tilt'] = lokal_energy.roof_tilt
                     request.session['roof_orientation'] = lokal_energy.roof_orientation
                     request.session['solar_radiation'] = lokal_energy.solar_radiation
-                    request.session['pv_kw_peak'] = lokal_energy.pv_kw_peak
-                    request.session['electricity_generation_year'] = lokal_energy.electricity_generation_year
+                    request.session['battery_capacity'] = lokal_energy.battery_capacity
                     
-                    request.session['pv_1KWpeak_investment_cost'] =  lokal_energy.pv_1KWpeak_investment_cost
-                    request.session['pv_1KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_1KWpeak_saved_costs_own_electricity
-                    request.session['pv_1KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_1KWpeak_earnings_sold_electricity
+                    #Calculated values
+                    pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
                     
-                    request.session['pv_2KWpeak_investment_cost'] =  lokal_energy.pv_2KWpeak_investment_cost
-                    request.session['pv_2KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_2KWpeak_saved_costs_own_electricity
-                    request.session['pv_2KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_2KWpeak_earnings_sold_electricity
+                    request.session['pv_kWpeak'] = pv_storage_results[0]
+                    request.session['battery_kWh'] = pv_storage_results[1]
+                    request.session['pv_investment_cost_eur'] = pv_storage_results[2]
+                    request.session['battery_investment_cost_eur'] = pv_storage_results[3]
+                    request.session['capex_pv_und_battery'] = pv_storage_results[4]
+                    request.session['battery_status'] = pv_storage_results[5]
+                    request.session['electricity_pv_generation_day'] = pv_storage_results[6]
+                    request.session['electricity_consumption_day'] = pv_storage_results[7]
+                    request.session['electricity_sold_grid'] = pv_storage_results[8]
+                    request.session['electricity_saved'] = pv_storage_results[9]
+                    request.session['quote_pv_nutzung'] = pv_storage_results[10]
+                    request.session['quote_eigenversorgung'] = pv_storage_results[11]
+                    request.session['einnahmen_tag'] = pv_storage_results[12]
+                    request.session['einnahmen_jahr'] = pv_storage_results[13]
+                    request.session['gewinn_10_jahre'] = pv_storage_results[14]
+                    request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
+                    request.session['ev_connected_time'] = pv_storage_results[16]
+                    request.session['ev_deconnected_time'] = pv_storage_results[17]
+                    request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
+                    request.session['ev_charged_electricity'] = pv_storage_results[19]
                     
-                    request.session['pv_3KWpeak_investment_cost'] =  lokal_energy.pv_3KWpeak_investment_cost
-                    request.session['pv_3KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_3KWpeak_saved_costs_own_electricity
-                    request.session['pv_3KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_3KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_4KWpeak_investment_cost'] =  lokal_energy.pv_4KWpeak_investment_cost
-                    request.session['pv_4KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_4KWpeak_saved_costs_own_electricity
-                    request.session['pv_4KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_4KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_5KWpeak_investment_cost'] =  lokal_energy.pv_5KWpeak_investment_cost
-                    request.session['pv_5KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_5KWpeak_saved_costs_own_electricity
-                    request.session['pv_5KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_5KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_6KWpeak_investment_cost'] =  lokal_energy.pv_6KWpeak_investment_cost
-                    request.session['pv_6KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_6KWpeak_saved_costs_own_electricity
-                    request.session['pv_6KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_6KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_7KWpeak_investment_cost'] =  lokal_energy.pv_7KWpeak_investment_cost
-                    request.session['pv_7KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_7KWpeak_saved_costs_own_electricity
-                    request.session['pv_7KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_7KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_8KWpeak_investment_cost'] =  lokal_energy.pv_8KWpeak_investment_cost
-                    request.session['pv_8KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_8KWpeak_saved_costs_own_electricity
-                    request.session['pv_8KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_8KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_9KWpeak_investment_cost'] =  lokal_energy.pv_9KWpeak_investment_cost
-                    request.session['pv_9KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_9KWpeak_saved_costs_own_electricity
-                    request.session['pv_9KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_9KWpeak_earnings_sold_electricity
-                    
-                    request.session['pv_10KWpeak_investment_cost'] =  lokal_energy.pv_10KWpeak_investment_cost
-                    request.session['pv_10KWpeak_saved_costs_own_electricity'] =  lokal_energy.pv_10KWpeak_saved_costs_own_electricity
-                    request.session['pv_10KWpeak_earnings_sold_electricity'] =  lokal_energy.pv_10KWpeak_earnings_sold_electricity
-                                        
                     return redirect('db_renewables.html')
             else: 
                 form = Lokal_EnergyForm()
@@ -262,8 +202,21 @@ def pages(request):
                     
 
         if 'opt_querschnitt' not in request.session:
+            #Calculate dynamische Stromtarife
+            dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
+            request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
+            request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
+            request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
+            request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
+            request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
+            request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
+            request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
+            request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+            request.session['opt_tarif'] = dyn_Stromtarife_results[8]
+            request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
+            
             # Calculate optimal Verlustleistung
-            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64)
+            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64, request.session['opt_arbeitspreis_eur'])
             request.session['opt_querschnitt'] = verlustleistung_results[0]
             request.session['opt_cable_costs'] = verlustleistung_results[1]
             request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
@@ -279,27 +232,38 @@ def pages(request):
             request.session['sve_einsparung_monat'] = sve_results[1]
             request.session['sve_einsparung_jahr'] = sve_results[2]
 
-            #Calculate dynamische Stromtarife
-            dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800)
-            request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
-            request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-            request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
-            request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
-            request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
-            request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
-            request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
-            request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
-            request.session['opt_tarif'] = dyn_Stromtarife_results[8]
-
         lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
         if 'roof_size' not in request.session:
             request.session['roof_size'] = lokal_energy.roof_size
             request.session['roof_tilt'] = lokal_energy.roof_tilt
             request.session['roof_orientation'] = lokal_energy.roof_orientation
             request.session['solar_radiation'] = lokal_energy.solar_radiation
-            request.session['pv_kw_peak'] = lokal_energy.pv_kw_peak
-            request.session['electricity_generation_year'] = lokal_energy.electricity_generation_year
-                
+            request.session['battery_capacity'] = lokal_energy.battery_capacity
+            
+            pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+                    
+            request.session['pv_kW_peak'] = pv_storage_results[0]
+            request.session['battery_kWh'] = pv_storage_results[1]
+            request.session['pv_investment_cost_eur'] = pv_storage_results[2]
+            request.session['battery_investment_cost_eur'] = pv_storage_results[3]
+            request.session['capex_pv_und_battery'] = pv_storage_results[4]
+            request.session['battery_status'] = pv_storage_results[5]
+            request.session['electricity_pv_generation_day'] = pv_storage_results[6]
+            request.session['electricity_consumption_day'] = pv_storage_results[7]
+            request.session['electricity_sold_grid'] = pv_storage_results[8]
+            request.session['electricity_saved'] = pv_storage_results[9]
+            request.session['quote_pv_nutzung'] = pv_storage_results[10]
+            request.session['quote_eigenversorgung'] = pv_storage_results[11]
+            request.session['einnahmen_tag'] = pv_storage_results[12]
+            request.session['einnahmen_jahr'] = pv_storage_results[13]
+            request.session['gewinn_10_jahre'] = pv_storage_results[14]
+            request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
+            request.session['ev_connected_time'] = pv_storage_results[16]
+            request.session['ev_deconnected_time'] = pv_storage_results[17]
+            request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
+            request.session['ev_charged_electricity'] = pv_storage_results[19]
+
+
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 
@@ -368,7 +332,7 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
             stat_Leistungs_peak_ohne_ev_kW = 82
         elif(warm_water_heating == 'mit Strom'):
             stat_Leistungs_peak_ohne_ev_kW = 153
-
+   
     #Calculate available Leistung
     stat_verfuegbare_ladeleistung_fuer_alle_wallboxen = round((float(house_connection_power) - float(stat_Leistungs_peak_ohne_ev_kW)),2)
     stat_verfuegbare_ladeleistung_fuer_wallbox = round(((float(stat_verfuegbare_ladeleistung_fuer_alle_wallboxen) / float(charging_points_to_install))),2)
@@ -377,12 +341,13 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
 
     if float(stat_verfuegbare_ladeleistung_fuer_wallbox) < 0:
         stat_verfuegbare_ladeleistung_fuer_wallbox = 0
-
-    #Calculate for EV
-    if int(arrival_time) >= int(departure_time):
+    
+    #Calculate for EV 
+    if arrival_time != "Home Office" and departure_time != "Home Office":
         hours_to_charge = (24-int(arrival_time)) + int(departure_time)
     else:
-        hours_to_charge = 24
+        hours_to_charge = 24 
+      
     
     needed_electricity_ev_day = round((int(driving_profile)*0.2),2)
 
@@ -392,10 +357,10 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
         stat_loadmanagement_max_evs_to_charge = round((hours_to_charge/stat_needed_time_to_charge),2)
     
         if int(stat_needed_time_to_charge > hours_to_charge):
-            stat_needed_time_to_charge = "zu lange"
+            stat_needed_time_to_charge = "-"
             stat_loadmanagement_max_evs_to_charge = 0
     else: 
-        stat_needed_time_to_charge = "zu lange"
+        stat_needed_time_to_charge = "-"
         stat_loadmanagement_max_evs_to_charge = 0
 
     ################################################################
@@ -420,16 +385,16 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
         dyn_loadmanagement_max_evs_to_charge = round((hours_to_charge/dyn_needed_time_to_charge),2)
     
         if int(dyn_needed_time_to_charge > hours_to_charge):
-            dyn_needed_time_to_charge = "zu lange"
+            dyn_needed_time_to_charge = "-"
             dyn_loadmanagement_max_evs_to_charge = 0
     else: 
-        dyn_needed_time_to_charge = "zu lange"
+        dyn_needed_time_to_charge = "-"
         dyn_loadmanagement_max_evs_to_charge = 0
     
     #Result wich Loadmanagement
     if float(stat_verfuegbare_ladeleistung_fuer_wallbox >= 11):
         opt_lastmanagement = 'kein Lastmanagement'
-    elif float(stat_verfuegbare_ladeleistung_fuer_wallbox < 11 and dyn_needed_time_to_charge != "zu lange"):
+    elif float(stat_verfuegbare_ladeleistung_fuer_wallbox < 11 and dyn_needed_time_to_charge != "-"):
         opt_lastmanagement = 'ein Lastmanagement'
     else:
         opt_lastmanagement = 'eine Netzanschlusserweiterung'
@@ -439,16 +404,17 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
     return loadmanagement_results
 
 
-def get_optimal_verlustleistung(cable_length, driving_profile, usage_years, dyn_verfuegbare_ladeleistung_fuer_wallbox):
-    print("--------------get_optimal_verlustleistung")
+def get_optimal_verlustleistung(cable_length, driving_profile, usage_years, dyn_verfuegbare_ladeleistung_fuer_wallbox, opt_arbeitspreis_eur):
+    #Die Ladeleistung wird durch das dynamische Lastamanagement vorgegeben
+    #Sollte ein Netzausbau notwendig sein, wird als Ladeleistung 11 kW angenommen
     if dyn_verfuegbare_ladeleistung_fuer_wallbox == 0:
         dyn_verfuegbare_ladeleistung_fuer_wallbox = 11
-    verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
-    verlustleistung_costs_2_5mm = round(((((768*int(cable_length))/(56*2.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
-    verlustleistung_costs_4mm = round(((((768*int(cable_length))/(56*4)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
-    verlustleistung_costs_6mm = round(((((768*int(cable_length))/(56*6)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
-    verlustleistung_costs_10mm = round(((((768*int(cable_length))/(56*10)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
-    verlustleistung_costs_16mm = round(((((768*int(cable_length))/(56*16)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*int(usage_years)))), 2)
+    verlustleistung_costs_1_5mm = round(((((768*int(cable_length))/(56*1.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
+    verlustleistung_costs_2_5mm = round(((((768*int(cable_length))/(56*2.5)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
+    verlustleistung_costs_4mm = round(((((768*int(cable_length))/(56*4)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
+    verlustleistung_costs_6mm = round(((((768*int(cable_length))/(56*6)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
+    verlustleistung_costs_10mm = round(((((768*int(cable_length))/(56*10)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
+    verlustleistung_costs_16mm = round(((((768*int(cable_length))/(56*16)) * ((int(driving_profile)*73)/(float(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (opt_arbeitspreis_eur*int(usage_years)))), 2)
     
     verlustleistungscosts = [verlustleistung_costs_1_5mm, verlustleistung_costs_2_5mm, verlustleistung_costs_4mm, verlustleistung_costs_6mm, verlustleistung_costs_10mm, verlustleistung_costs_16mm]
 
@@ -495,7 +461,8 @@ def get_sve_results(driving_profile):
     result = [jahres_stromverbrauch, sve_einsparung_monat, sve_einsparung_jahr]
     return result
 
-def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year):
+def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year, dyn_needed_time_to_charge, arrival_time, departure_time):
+    print("Stromtarife")
     #Declare variables
     electricity_consumption_month_ev = 0
     #Haus
@@ -510,28 +477,56 @@ def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year):
 
     #Strom nur Haus
     electricity_consumption_month_house = round((electricity_consumption_year/12),2)
-    hausstrom_electricity_cost_month_house = round(((electricity_consumption_month_house*0.4757)+10.20),2)
+    hausstrom_electricity_cost_month_house = round(((electricity_consumption_month_house*0.4778)+10.20),2)
     #Strom Haus und EV
     electricity_consumption_month_ev = round((int(driving_profile)*30.5*0.2),2)
     #Grundgebuhr + Arbeitspreis Stromverbrauch EV und Haus
-    hausstrom_electricity_cost_month_ev_house = round((((electricity_consumption_month_ev + (electricity_consumption_year/12)) *0.4757)+10.20),2)
+    hausstrom_electricity_cost_month_ev_house = round((((electricity_consumption_month_ev + (electricity_consumption_year/12)) *0.4754)+10.20),2)
     #Strom Ladestrom: 
-    ladestrom_electricity_cost_month_ev = round(((electricity_consumption_month_ev *0.4409)+12.89),2)
+    ladestrom_electricity_cost_month_ev = round(((electricity_consumption_month_ev *0.4409)+12.89+1.66),2)
     ladestrom_electricity_cost_month_ev_house = round((ladestrom_electricity_cost_month_ev+hausstrom_electricity_cost_month_house),2)
+       
     #Strom Dynamisch
-   
-    #Anpassen
-    if (int(driving_profile) == 20):
-        dyn_strom_electricity_cost_month_ev == round( (( (int(driving_profile)*30*0.2*(0.1812+0.06464+0.00025))+4.58)),2)
-    elif (int(driving_profile) == 40):
-        dyn_strom_electricity_cost_month_ev = round(( (int(driving_profile)*30*0.2*(0.1812 + 0.06464 + 0.00025))+ 4.58 ),2)
-    elif (int(driving_profile) == 60):
-        dyn_strom_electricity_cost_month_ev = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
-    elif (int(driving_profile) == 100):
-        dyn_strom_electricity_cost_month_ev = round(((int(driving_profile)*30*0.2*(0.1812+((0.06464+0.06564)/2)+0.00025)+4.58)),2)
+    #Array mit den stümdlichen durchschnittspreisen
+    array_hourly_prices = [7.376, 6.941, 6.685, 6.464, 6.564, 7.060, 8.608, 10.035, 10.538, 9.821, 9.027, 8.553, 8.041, 7.439, 7.224, 7.576, 8.239, 9.778, 10.872, 11.332, 10.527, 9.452, 8.866, 7.753]
+    #Array bereinigt um die Stunden, in denen das Auto nicht angeschlossen ist
+    #Bsp. 17 Uhr, 8 Uhr (-> lösche alles zwischen 8 und 17 Uhr -> Index 7 bis 16)
+    #Wenn Wert gelöscht verschiebt sich index um eins, daher im For Loop immer gleichen Index löschen
+    ev_connected_hourly_prices = [7.376, 6.941, 6.685, 6.464, 6.564, 7.060, 8.608, 10.035, 10.538, 9.821, 9.027, 8.553, 8.041, 7.439, 7.224, 7.576, 8.239, 9.778, 10.872, 11.332, 10.527, 9.452, 8.866, 7.753]
+    if arrival_time != "Home Office" and departure_time != "Home Office":
+        for x in range((int(departure_time)-1), (int(arrival_time)-1)):
+            ev_connected_hourly_prices.pop((int(departure_time)-1))
+    print("hier noch alles gut")
+    #Anzahl der zu ladenden Stunden
+    print(dyn_needed_time_to_charge) 
 
+    if dyn_needed_time_to_charge == "-":
+        dyn_needed_time_to_charge = round(((int(driving_profile)*0.2)/11), 2)
+    
+  
+
+    if arrival_time != "Home Office" and departure_time != "Home Office":
+        round_up_dyn_needed_time_to_charge = round((dyn_needed_time_to_charge+0.5),0)
+    else: 
+        round_up_dyn_needed_time_to_charge = 24
+    
+    #Es wird der Durchschnittspreis der zu ladenden Stunden gebildet
+    dyn_electricity_price__kWh_cent = 0
+    avg_dyn_electricity_price = 0
+    #Aufsummieren der Preise
+    for x in range(0, int(round_up_dyn_needed_time_to_charge)):
+        ev_connected_hourly_prices.sort()
+        avg_dyn_electricity_price = avg_dyn_electricity_price + ev_connected_hourly_prices[0]
+        ev_connected_hourly_prices.pop(0)
+    #Bilden des Durchschnitts
+    avg_dyn_electricity_price = avg_dyn_electricity_price/int(round_up_dyn_needed_time_to_charge)
+    #Baiserend auf dem var. Strompreis wird der monatliche Strompreis gebildet
+    dyn_electricity_price__kWh_cent = round((avg_dyn_electricity_price+18.12+0.25),2)
+    # Zuzuueglich dem extra Stromzähler
+    dyn_strom_electricity_cost_month_ev = round((((dyn_electricity_price__kWh_cent*electricity_consumption_month_ev)/100)+13.99),2) 
     dyn_strom_electricity_cost_month_ev_house = round((dyn_strom_electricity_cost_month_ev+hausstrom_electricity_cost_month_house),2)
 
+    
     stromtarife = [hausstrom_electricity_cost_month_ev_house, ladestrom_electricity_cost_month_ev_house, dyn_strom_electricity_cost_month_ev_house]
     
     opt_tarif_index = 0
@@ -539,66 +534,239 @@ def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year):
     for i in range(len(stromtarife)):
         if opt_tarif > stromtarife[i]:
             opt_tarif_index = i
-
+    opt_arbeitspreis_eur = 0
     if opt_tarif_index == 0:
         opt_tarif = "Haushaltsstrom"
+        opt_arbeitspreis_eur = 0.4754
     elif opt_tarif_index ==1:
         opt_tarif = "Ladestrom"
+        opt_arbeitspreis_eur = 0.4409
     elif opt_tarif_index ==2:
         opt_tarif = "Dynamischer Stromtarif"
+        opt_arbeitspreis_eur = round((dyn_electricity_price__kWh_cent/100),2)
 
-    dyn_Stromtarife_results = [electricity_consumption_month_house, electricity_consumption_month_ev, hausstrom_electricity_cost_month_house, hausstrom_electricity_cost_month_ev_house, ladestrom_electricity_cost_month_ev, ladestrom_electricity_cost_month_ev_house, dyn_strom_electricity_cost_month_ev, dyn_strom_electricity_cost_month_ev_house, opt_tarif]
+
+    dyn_Stromtarife_results = [electricity_consumption_month_house, electricity_consumption_month_ev, hausstrom_electricity_cost_month_house, hausstrom_electricity_cost_month_ev_house, ladestrom_electricity_cost_month_ev, ladestrom_electricity_cost_month_ev_house, dyn_strom_electricity_cost_month_ev, dyn_strom_electricity_cost_month_ev_house, opt_tarif, opt_arbeitspreis_eur]
     return dyn_Stromtarife_results
            
+def get_pv_storage_results(battery_capacity, roof_size, roof_tilt, roof_orientation, solar_radiation, electricity_consumption_year, driving_profile, arrival_time, departure_time):
+    #calculate results
+    # PV: 1, 7, 14 kWpeak
+    # Batterie: 4, 6, 9 kWh
+    
+    #################Szenario 1 kWpeak PV und 1 kWh Speicher
+    pv_kW_peak = round((int(roof_size)/6), 0)
+    #Annahme Speicher Kapazität gleich kWpeak PV
+    battery_kWh = int(battery_capacity)
+    #CAPEX PV und Batterie
+    pv_investment_cost_eur = round(1852.88*pv_kW_peak,2)
+    battery_investment_cost_eur = round(350*battery_kWh,2)
+    capex_pv_und_battery = round((pv_investment_cost_eur + battery_investment_cost_eur),2)
+    #OPEX PV und Batterie nach Lebenserwartung
+    opex_1kW_peak_pv_und_1kWh_battery = round(((pv_investment_cost_eur/20)+(battery_investment_cost_eur/10)),2)
+    #Einnahmen aus gesparten Stromkosten und eigenem Stromverkauf
+    
+    pv_batterie_calculations = get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, roof_orientation, electricity_consumption_year, driving_profile, arrival_time, departure_time)
+    battery_status = round(pv_batterie_calculations[0],2)
+    electricity_pv_generation_day = round(pv_batterie_calculations[1],2)
+    electricity_consumption_day = round(pv_batterie_calculations[2],2)
+    electricity_sold_grid = round(pv_batterie_calculations[3],2)
+    electricity_saved = round(pv_batterie_calculations[4],2)
+    ev_connected_time = pv_batterie_calculations[5]
+    ev_deconnected_time = pv_batterie_calculations[6]
+    ev_needed_electricity_kWh = round(pv_batterie_calculations[7],2)
+    ev_charged_electricity = round(pv_batterie_calculations[8],2)
 
-def get_kW_peak(roof_size):
-    result = round((int(roof_size)/6), 2)
+    quote_pv_nutzung = round((1-(electricity_sold_grid/electricity_pv_generation_day))*100,0)
+    quote_eigenversorgung = round(((electricity_saved/electricity_consumption_day)*100),0)
+    einnahmen_tag = round((electricity_sold_grid*0.068+electricity_saved*0.30),2)
+    einnahmen_jahr = round(einnahmen_tag*365,2)
+    gewinn_10_jahre = round(((10*((einnahmen_tag*365)-opex_1kW_peak_pv_und_1kWh_battery))-capex_pv_und_battery),2)
+    if gewinn_10_jahre > 0:
+        pv_speicher_sinnvoll = "sinnvoll"
+    else:
+        pv_speicher_sinnvoll = "nicht sinnvoll"
+    
+
+    results_pv_battery = [
+        pv_kW_peak,
+        battery_kWh,
+        pv_investment_cost_eur,
+        battery_investment_cost_eur, 
+        capex_pv_und_battery,
+        battery_status,
+        electricity_pv_generation_day,
+        electricity_consumption_day,
+        electricity_sold_grid,
+        electricity_saved,
+        quote_pv_nutzung,
+        quote_eigenversorgung,
+        einnahmen_tag,
+        einnahmen_jahr,
+        gewinn_10_jahre,
+        pv_speicher_sinnvoll, 
+        ev_connected_time, 
+        ev_deconnected_time,
+        ev_needed_electricity_kWh,
+        ev_charged_electricity
+        ]
+    return results_pv_battery
+   
+def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, roof_orientation, electricity_consumption_year, driving_profile, arrival_time, departure_time):
+    #Berechnen der PV Stromerzeugung
+    electricity_pv_generation_year = get_electricity_generation_year(pv_kW_peak, solar_radiation, roof_tilt, roof_orientation)
+    electricity_pv_generation_day= (electricity_pv_generation_year/365)
+    #Berechnung des Stromverbrauches der Immobilie
+    electricity_consumption_day = electricity_consumption_year/365
+    #Array mit stündlichen Erzeugungs- und Verbrauchswerten
+    list_electricity_generation_day = [0, 0, 0, 0, 0, 0, 0, round((0.01*electricity_pv_generation_day),3), round((0.02*electricity_pv_generation_day),3), round((0.05*electricity_pv_generation_day),3), round((0.08*electricity_pv_generation_day), 3), round((0.11*electricity_pv_generation_day), 3), round((0.12*electricity_pv_generation_day), 3), round((0.13*electricity_pv_generation_day), 3), round((0.13*electricity_pv_generation_day), 3), round((0.12*electricity_pv_generation_day), 3), round((0.10*electricity_pv_generation_day), 3), round((0.08*electricity_pv_generation_day), 3), round((0.04*electricity_pv_generation_day), 3), round((0.01*electricity_pv_generation_day), 3), 0, 0, 0, 0]
+    list_electricity_consumption_day = [round((0.0197*electricity_consumption_day), 3), round((0.0168*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0219*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0518*electricity_consumption_day), 3), round((0.0539*electricity_consumption_day), 3), round((0.0481*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0510*electricity_consumption_day), 3), round((0.0474*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0401*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0547*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.0729*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.051*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0306*electricity_consumption_day), 3)]
+    #Initilisieren
+    battery_status = 0 
+    ueberschuss_energie = 0
+    electricity_sold_grid = 0
+    electricity_saved = 0
+    #Wann kann das Auto geladen werden -> extra wegen Home Office
+    if departure_time == "Home Office" or arrival_time == "Home Office":
+        ev_connected_time = 0
+        ev_deconnected_time = 24
+    else: 
+        ev_connected_time = departure_time
+        ev_deconnected_time = arrival_time
+        
+   
+    ev_needed_electricity_kWh = round(int(driving_profile)*0.2,2)
+    ev_charged_electricity = 0
+      
+    #Für jede Stunde am Tag
+    for i in range(len(list_electricity_consumption_day)):
+        #Wenn die PV Erzeugung den Hausverbrauch übersteigt -> speichern oder verkaufen // oder EV laden
+        if list_electricity_consumption_day[i] < list_electricity_generation_day[i]:
+            #PV dominant
+            #Eigenverbrauch gedeckt
+            electricity_saved = electricity_saved + list_electricity_consumption_day[i]
+            
+            #Überschussstrom 1. versuchen EV laden, 2. Speicher, 3. verkaufen
+            #Auto laden wenn es angeschlossen ist
+            #Wenn Home Office, kann immer geladen werden
+            if departure_time == "Home Office" or arrival_time == "Home Office":
+                print("Home Office")
+                
+                #Wenn EV noch nicht voll, dann laden
+                if ev_charged_electricity < ev_needed_electricity_kWh:
+                    #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                    if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (ev_needed_electricity_kWh-ev_charged_electricity):
+                        print("EV lädt")
+                        ev_charged_electricity = ev_charged_electricity + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                    else:
+                        #ueberschuss energie, die nicht mehr in EV gespeichert werden kann.
+                        #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                        ueberschuss_energie_ev = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(ev_needed_electricity_kWh-ev_charged_electricity)
+                        ev_charged_electricity = ev_needed_electricity_kWh
+                        #ueberschuss_energie_ev
+                        print("EV voll")
+                #Wenn Batterie noch nicht voll, dann laden
+                elif battery_status < battery_kWh:
+                    #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                    if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
+                        print("Batterie lädt")
+                        battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                    else:
+                        #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
+                        #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                        ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
+                        battery_status = battery_kWh
+                        print("Batterie voll")
+                        print(ueberschuss_energie)
+                #Sonst ins Netz verkaufen
+                else:
+                    print("verkaufe Strom ins Netz")
+                    electricity_sold_grid = electricity_sold_grid + ueberschuss_energie_ev+ ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
+                    #Überschuss verrechnet
+                    ueberschuss_energie_ev = 0
+                    ueberschuss_energie = 0
+
+            #Wenn die Uhrzeit i=0 -> 1 Uhr vor der Abfahrtszeit oder nach der Ankunftszeit liegt, laden
+            #Wenn EV um 8 Uhr losfährt, kann es bis i < 7 laden
+            #Wenn EV um 17 Uhr wiederkommt, kann es ab i >= 16 laden
+            elif i < (int(departure_time)-1) or i >= (int(arrival_time)-1):
+                print("Auto da")
+                #Wenn EV noch nicht voll, dann laden
+                if ev_charged_electricity < ev_needed_electricity_kWh:
+                    #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                    if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (ev_needed_electricity_kWh-ev_charged_electricity):
+                        print("EV lädt")
+                        ev_charged_electricity = ev_charged_electricity + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                    else:
+                        #ueberschuss energie, die nicht mehr in EV gespeichert werden kann.
+                        #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                        ueberschuss_energie_ev = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(ev_needed_electricity_kWh-ev_charged_electricity)
+                        ev_charged_electricity = ev_needed_electricity_kWh
+                        #ueberschuss_energie_ev
+                        print("EV voll")
+                #Wenn Batterie noch nicht voll, dann laden
+                elif battery_status < battery_kWh:
+                    #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                    if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
+                        print("Batterie lädt")
+                        battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                    else:
+                        #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
+                        #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                        ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
+                        battery_status = battery_kWh
+                        print("Batterie voll")
+                        print(ueberschuss_energie)
+                #Sonst ins Netz verkaufen
+                else:
+                    print("verkaufe Strom ins Netz")
+                    electricity_sold_grid = electricity_sold_grid + ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
+                    #Überschuss verrechnet
+                    ueberschuss_energie = 0
+
+
+            #Auto gerade nicht angeschlossen
+            else:
+                print(i)
+                print("Auto weg")
+            #Wenn Batterie noch nicht voll, dann laden
+            if battery_status < battery_kWh:
+                #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
+                    print("Batterie lädt")
+                    battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                else:
+                    #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
+                    #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                    ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
+                    battery_status = battery_kWh
+                    print("Batterie voll")
+                    print(ueberschuss_energie)
+            #Sonst ins Netz verkaufen
+            else:
+                print("verkaufe Strom ins Netz")
+                electricity_sold_grid = electricity_sold_grid + ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
+                #Überschuss verrechnet
+                ueberschuss_energie = 0
+        #Wenn Verbrauch Immobilie, PV Erzeugung nicht übersteigt, dann selber verbrauchen
+        else:
+            print("------Verbrauch dominant-------------------")
+            electricity_saved = electricity_saved + list_electricity_generation_day[i]
+    
+    
+    result = [
+        battery_status, 
+        electricity_pv_generation_day, 
+        electricity_consumption_day, 
+        electricity_sold_grid, 
+        electricity_saved,
+        ev_connected_time, 
+        ev_deconnected_time,
+        ev_needed_electricity_kWh,
+        ev_charged_electricity
+        ]
     return result
 
-def get_investment_cost(kw_peak):
-    # Kosten_PV_Anlage + Kosten_Installation_PV + Operation_Maintenance_PV + Batterie_kosten + Operation_Maintenance_Battery
-    result = 1430*kw_peak + (1430*kw_peak)*0.08 + (1430*kw_peak)*0.015*25 + 1813 + 1813*0.08 + 22*kw_peak*25
-    
-    return round(result,2)
-
-def get_saved_costs(kw_peak, solar_radiation, roof_tilt, roof_orientation, electricity_consumption_year):
-    electricity_generation_year = get_electricity_generation_year(kw_peak, solar_radiation, roof_tilt, roof_orientation)
-    electricity_generation_day= (electricity_generation_year/365)
-    electricity_consumption_day = electricity_consumption_year/365
-    
-    #Wenn Erzeugung <= Verbrauch, dann mit 0,28 € multiplizieren
-
-    list_electricity_generation_day = [0, 0, 0, 0, 0, 0, 0, round((0.01*electricity_generation_day),3), round((0.02*electricity_generation_day),3), round((0.05*electricity_generation_day),3), round((0.08*electricity_generation_day), 3), round((0.11*electricity_generation_day), 3), round((0.12*electricity_generation_day), 3), round((0.13*electricity_generation_day), 3), round((0.13*electricity_generation_day), 3), round((0.12*electricity_generation_day), 3), round((0.10*electricity_generation_day), 3), round((0.08*electricity_generation_day), 3), round((0.04*electricity_generation_day), 3), round((0.01*electricity_generation_day), 3), 0, 0, 0, 0]
-    list_electricity_consumption_day = [round((0.0197*electricity_consumption_day), 3), round((0.0168*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0219*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0518*electricity_consumption_day), 3), round((0.0539*electricity_consumption_day), 3), round((0.0481*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0510*electricity_consumption_day), 3), round((0.0474*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0401*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0547*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.0729*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.051*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0306*electricity_consumption_day), 3)]
-    saved_costs = 0.0
-    for index in range(len(list_electricity_generation_day)):
-        if list_electricity_generation_day[index] <= list_electricity_consumption_day[index]:
-            saved_costs = saved_costs + (list_electricity_generation_day[index]*0.28)
-        else:
-            saved_costs = saved_costs + list_electricity_consumption_day[index]*0.28
-    
-    saved_costs = round((saved_costs*365*25), 2)
-   
-    return saved_costs
-
-def get_earnings_sold_electricity(kw_peak, solar_radiation, roof_tilt, roof_orientation, electricity_consumption_year):
-    electricity_generation_year = get_electricity_generation_year(kw_peak, solar_radiation, roof_tilt, roof_orientation)
-    electricity_generation_day = (electricity_generation_year/365)
-    electricity_consumption_day = electricity_consumption_year/365
-
-    #Wenn Erzeugung <= Verbrauch, dann mit 0,28 € multiplizieren
-
-    list_electricity_generation_day = [0, 0, 0, 0, 0, 0, 0, round((0.01*electricity_generation_day),3), round((0.02*electricity_generation_day),3), round((0.05*electricity_generation_day),3), round((0.08*electricity_generation_day), 3), round((0.11*electricity_generation_day), 3), round((0.12*electricity_generation_day), 3), round((0.13*electricity_generation_day), 3), round((0.13*electricity_generation_day), 3), round((0.12*electricity_generation_day), 3), round((0.10*electricity_generation_day), 3), round((0.08*electricity_generation_day), 3), round((0.04*electricity_generation_day), 3), round((0.01*electricity_generation_day), 3), 0, 0, 0, 0]
-    list_electricity_consumption_day = [round((0.0197*electricity_consumption_day), 3), round((0.0168*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0160*electricity_consumption_day), 3), round((0.0219*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0518*electricity_consumption_day), 3), round((0.0539*electricity_consumption_day), 3), round((0.0481*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0466*electricity_consumption_day), 3), round((0.0510*electricity_consumption_day), 3), round((0.0474*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0401*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0547*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.0729*electricity_consumption_day), 3), round((0.062*electricity_consumption_day), 3), round((0.051*electricity_consumption_day), 3), round((0.0437*electricity_consumption_day), 3), round((0.0306*electricity_consumption_day), 3)]
-    
-    earnings = 0.0
-    for index in range(len(list_electricity_generation_day)):
-        if list_electricity_generation_day[index] > list_electricity_consumption_day[index]:
-            earnings = earnings + (list_electricity_generation_day[index] - list_electricity_consumption_day[index])*0.06
-
-    earnings = round((earnings*365*25), 2)
-
-    return earnings
     
 def get_electricity_consumption_year(property_type, number_properties, water_heating, number_persons):
     print("---get_electricity_consumption_year")
@@ -648,7 +816,7 @@ def get_electricity_consumption_year(property_type, number_properties, water_hea
                 result = 4500
             elif(number_persons == "> 4 Personen"):
                 result = 5200
-    
+
     result = round((result*int(number_properties)),2)
     return result
 

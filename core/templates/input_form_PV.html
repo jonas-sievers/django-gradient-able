@@ -47,6 +47,22 @@
                                         {% csrf_token %}
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
+                                                <label for="validationCustom01">{{ form.solar_radiation.label_tag }}</label>
+                                                <select name="solar_radiation" class="form-control">
+                                                    <option value="{{request.session.solar_radiation}}">{{request.session.solar_radiation}} kWh/kWpeak</option>
+                                                    {% for choice in form.solar_radiation.field.choices %}
+                                                        {% if  choice.1 != request.session.solar_radiation %}
+                                                            <option value="{{ choice.0 }}">{{choice.1}} kWh/kWpeak</option>
+                                                        {%endif%}
+                                                    {% endfor %} 
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    vollständig!
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.roof_size.label_tag }}</label>
                                                 <select name="roof_size" class="form-control">
                                                     <option value="{{request.session.roof_size}}">{{request.session.roof_size}} m&#178</option>
@@ -95,12 +111,12 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12 mb-3">
-                                                <label for="validationCustom01">{{ form.solar_radiation.label_tag }}</label>
-                                                <select name="solar_radiation" class="form-control">
-                                                    <option value="{{request.session.solar_radiation}}">{{request.session.solar_radiation}} kWh/kWpeak</option>
-                                                    {% for choice in form.solar_radiation.field.choices %}
-                                                        {% if  choice.1 != request.session.solar_radiation %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}} kWh/kWpeak</option>
+                                                <label for="validationCustom01">{{ form.battery_capacity.label_tag }}</label>
+                                                <select name="battery_capacity" class="form-control">
+                                                    <option value="{{request.session.battery_capacity}}">{{request.session.battery_capacity}}</option>
+                                                    {% for choice in form.battery_capacity.field.choices %}
+                                                        {% if  choice.0 != request.session.battery_capacity %}
+                                                            <option value="{{ choice.0 }}">{{choice.1}}</option>
                                                         {%endif%}
                                                     {% endfor %} 
                                                 </select>
@@ -108,7 +124,7 @@
                                                     vollständig!
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                                          
                                         <button class="btn  btn-primary" type="submit">Berechnen</button>                              
                                     </form>
                                 </div>  

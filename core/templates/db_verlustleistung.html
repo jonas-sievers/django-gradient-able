@@ -10,44 +10,89 @@
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="row align-items-center">
-						<div class="col-md-12">
-                            <h5>
-                                Verlustleistung<br>
-                             </h5>
-                             <p>
-                                 <b>Annahme: Wenn das Dashboard Lastmanagement ergibt, dass eine Netzanschlusserweiterung
-                                     notwendig ist, wird hier angenommen, dass diese stattgefunden hat 
-                                     und Sie mit 11 kW laden können.</b>
-                                <br><br>
-                                 Damit Sie Ihr Elektroauto mit der Wallbox laden können, 
-                                 muss diese mit einem <b>Kabel</b> an den Stromkreis angeschlossen werden. 
-                                 Beim Laden des Elektroautos kann es hierbei zu <b>Verlustleistung</b> kommen, 
-                                 wodurch nicht der gesamte Strom zum Laden verwendet werden kann.
-                                 Entscheidend für die Verlustleistung ist hierbei vor allem das <b>Material</b>,
-                                 die <b>Länge</b> und der <b>Querschnitt</b> des Kabels sowie die <b>Stromstärke</b> und die Anzahl 
-                                 der verwendeten <b>Phasen</b>. 
-                                <br><br>
-                                 <b>Der Querschnitt kann jedoch optimiert werden.</b> 
-                                 Hierbei ist entscheidend, dass ein Kupferkabel mit geringem Querschnitt weniger kostet als 
-                                 eines mit größerem Querschnitt. Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a>
-                                 Gleichzeitig ist bei geringerem Querschnitt jedoch die 
-                                 Verlustleistung höher, wodurch mehr Strom zum laden verwendet wird und somit die Stromkostensten 
-                                 steigen. Es gilt somit die Gesamtkosten aus Stom- und Kabelkosten zu minimieren.
-                                 <br><br>
-                                 Als Material für das Kabel wird üblicherweise <b>Kupfer</b> verwendet und die Länge
-                                 des Kabels haben Sie mit <b>{{request.session.cable_length}} m</b> angegeben.
-                                 Der <b>minimal zulässige Querschnitt </b>
-                                 hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab.
-                                 Mehr Informationen finden Sie bei der VDE unter 
-                                 <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a>.
-                                 Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, <b>Drehstrom durch 3 Adern 
-                                 fließt und eine Stromstärke von 16 Ampere </b>anliegt. Ein <b>minimaler Kabelquerschnitt von 1.5 mm2</b> ist damit technisch ausreichend.                         
-                             </p>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+						<div class="card-body">
+							<h5 class="mb-3">Einführung Verlustleistung</h5>
+							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Was ist Verlustleistung?</a></li>
+								<li class="nav-item"><a class="nav-link text-left" id="v-pills-menu-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-menu" aria-selected="false">Graphisch erklärt!</a></li>
+								<li class="nav-item"><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ihre Vorteile</a></li>
+							</ul>
+							<div class="tab-content" id="v-pills-tabContent">
+								<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class= "row">
+                                        <div class="col-3">
+                                            <p>
+                                                <br>
+                                            </p>
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung_home.png" alt="Card image cap">
+                                        </div>
+                                        <div class="col-9">
+                                            <p class="card-text">
+                                                <br>
+                                                <b>Ladekabel intelligent auswählen</b>
+                                                <br><br>
+                                                Damit Sie Ihr Elektroauto mit der Wallbox laden können, 
+                                                muss diese mit einem <b>Kabel</b> an den Stromkreis angeschlossen werden. 
+                                                Beim Laden des Elektroautos treten hierbei gewisse Energieverluste auf.
+                                                Das bedeutet, dass ein Teil der Energie nicht für das Laden des Autos 
+                                                genutzt werden kann, da diese in anderer Form wie bspw. Wärme, frei wird.
+                                                <br><br>
+                                                <b>Die Verlustleistung ist hierbei die verloren gegangene Energiemenge pro Zeiteinheit.</b>
+                                                Die auftretende Verlustleistung hat dabei gleich zwei Nachteile. Zum einen 
+                                                muss beachtet werden, dass sich das Kabel nicht zu stark erwärmt und zum anderen
+                                                muss der verlorene Strom trotzdem bezahlt werden.
+                                                Das Ziel ist also, das Anschlusskabel der Wallbox so auszuwählen, dass die 
+                                                Verlustleistung nicht zu groß wird.                                                                                               
+                                                <br><br>
+                                                <b>Annahme: Wenn das Dashboard Lastmanagement ergibt, dass eine Netzanschlusserweiterung
+                                                notwendig ist, wird hier angenommen, dass diese stattgefunden hat 
+                                                und Sie mit 11 kW laden können.</b>
+                                            </p>
+                                        </div>
+                                    </div>
+								</div>
+								<div class="tab-pane fade show" id="v-pills-menu" role="tabpanel" aria-labelledby="v-pills-home-tab">
+									<div class= "row">
+                                        <div class="col-3">
+                                            <br>
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
+                                            <br>
+                                        </div>
+                                        <div class="col-8">
+                                            <p>
+                                                <br>
+                                                <b>Berechnung Verlustleistung</b> <br>
+                                                Entscheidend für die Verlustleistung ist hierbei vor allem das <b>Material</b>,
+                                                die <b>Länge</b> und der <b>Querschnitt</b> des Kabels sowie die <b>Stromstärke</b> und die Anzahl 
+                                                der verwendeten <b>Phasen</b>. 
+                                                <br><br>
+                                                Als Material für das Kabel wird üblicherweise <b>Kupfer</b> verwendet und die Länge
+                                                des Kabels haben Sie mit <b>{{request.session.cable_length}} m</b> angegeben.
+                                                Optimiert werden kann hingegen <b>der Querschnitt </b>. 
+                                                Je größer der Kabelquerschnitt dabei ist, desto teurer wird das Kabel und desto
+                                                weniger Verlustleistung tritt auf.
+                                                <br>
+                                            </p>
+                                        </div>
+                                    </div>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+									<p class="mb-0">
+                                        <b>Durch die intelligente Auswahl des richtigen Kabelquerschnitts können folgende Vorteile für Sie entstehen</b> 
+                                        <br><br>
+                                        <b>1. Kosten sparen:</b> Sie betrachten nicht nur die Kosten des Kabels, sonder zusätzlich die
+                                        Kosten für die Verlustleistung. Hierdurch können Sie die Gesamtkosten minimieren.
+                                        <br><br>
+										<b>2. Umwelt schonen:</b> Durch die richtige Dimensionierung des Kabelquerschnitts
+                                        sparen Sie Strom und entlasten damit die Netze.                                        
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
             <div class="row">
@@ -60,7 +105,7 @@
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                       <br> Ergebnis optimaler Kabelquerschnitt {{request.session.opt_querschnitt}} mm
+                                       <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm
                                     </h5>
                                 </div>
                             </div>
@@ -76,16 +121,16 @@
                                         optimale Kabeldimensionierung: 
                                         <br><br>
 
-                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit
-                                        <b> Querschnitt {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
+                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
+                                        <b> Querschnitt von {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
                                         <b> {{request.session.opt_min_costs}} € </b> <br>
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
                                         Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
                                         
                                         <br><br>
-                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit
-                                        <b> Querschnitt 1,5 mm</b>, mit Gesamtkosten von 
+                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
+                                        <b> Querschnitt von 1,5 mm</b>, mit Gesamtkosten von 
                                         <b> {{request.session.costs_1_5mm}} € </b> <br>
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
@@ -100,13 +145,14 @@
             <div class="page-header">
                 <div class="page-block">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <h5>
-                                Herleitung des optimalen Kabelquerschnitts<br>
+                                Erklärung des Ergebnisses<br>
                             </h5>
                             <p>
                                 Die <b>Gesamtkosten</b> errechnen sich aus den <b>Kosten für das Kupferkabel</b> und den <b>zusätzlichen 
-                                Stromkosten durch die Verlustleistung</b> in Abhängigkeit vom Kabelquerschnitt.
+                                Stromkosten durch die Verlustleistung</b> in Abhängigkeit vom Kabelquerschnitt. Genauere Informationen
+                                können Sie den beiden unteren Grafiken entnehmen.
                                 <br><br>
                                 Die Verlustleistung errechnet sich dabei aus der Formel rechts, wobei die Länge die
                                 angegebenen <b>{{request.session.cable_length}} m</b> sind, der Leitwert von Kupfer bei 56 liegt
@@ -114,16 +160,27 @@
                                 Dieser Wert wird dann mit der benötigten täglich benötigte Strommenge multipliziert
                                 und auf ein Jahr hochgerechnet, mit dem Strompreis multipliziert sowie mit der Anzahl Jahre,
                                 die das Kabel verwendet wird. 
+                                <br><br>                                
+                                Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a>
+                                 Der <b>minimal zulässige Querschnitt </b>
+                                 hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab.
+                                 Mehr Informationen finden Sie bei der VDE unter 
+                                 <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a>.
+                                 Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, <b>Drehstrom durch 3 Adern 
+                                 fließt und eine Stromstärke von 16 Ampere </b>anliegt. Ein <b>minimaler Kabelquerschnitt von 1.5 mm2</b> ist damit technisch ausreichend.                         
                                 <br><br>
-                                <b>Annahme</b>:
+                                <b>Annahme 1</b>:
                                 Wie in dem <b>Dashboard Lastmanagement</b> dargelegt, kann mit
                                 <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
+                                <br>
+                                <b>Annahme 2</b>:
                                 Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
                                 dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
                                 Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
                                 dass die Spannung abfällt und die Stromstärke konstant bleibt.
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
+                            <br><br><br>
                             <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
                         </div>
                     </div>
@@ -137,7 +194,8 @@
                             <h5>Verlustleistung Kabel</h5>
                             <p>
                                 <br>
-                                Im Folgenden sehen Sie die Verlustleistung in Abhängigkeit der Länge und des Querschnitts:
+                                In dieser Grafik ist die Verlustleistung in Watt für verschiedene Kabelquerschnitte
+                                bei jeweils unterschiedlichen Kabellängen angegeben.
                             </p>
                             <div id="area-chart-1-verlustleistung"></div>
                         </div>
@@ -148,8 +206,15 @@
                         <div class="card-body">
                             <h5>Optimale Dimensionierung Kabel</h5>
                             <p>
-                                <br>
-                                Hier können Sie für Ihre Eingabe die Auswirkung des Kabelquerschnitts auf die Kosten sehen.
+                                Hier sehen Sie für Ihre individuellen Angaben 
+                                wie sich für jeden Querschnitt die Kabelkosten, 
+                                Verlustleistungskkosten und Gesamtkosten entwickeln.
+                                Hierbei wird ihre Fahrstrecke von 
+                                <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                einee Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                und einer Nutzungsdauer der Kabel von 
+                                <b>{{request.session.usage_years}} Jahren</b> angenommen.
+
                             </p>
                             <div id="area-chart-1-cable-costs"></div>
                         </div>

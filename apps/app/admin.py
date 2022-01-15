@@ -20,10 +20,11 @@ class RealEstateAdmin(admin.ModelAdmin):
 class LokalEnergyAdmin(admin.ModelAdmin):
     model = Lokal_Energy
     fieldsets = [
-        ('PV-Analge', {'fields': ['roof_size', 'solar_radiation', 'roof_orientation', 'roof_tilt', 'pv_kw_peak', 'electricity_generation_year']}),
+        ('PV-Analge', {'fields': ['roof_size', 'solar_radiation', 'roof_orientation', 'roof_tilt']}),
+        ('Speicher', {'fields': ['battery_capacity']}),
         ('General information', {'fields': ['pub_date', 'person']}),
     ] 
-    list_display = ('pk', 'person', 'roof_size', 'solar_radiation', 'pv_kw_peak', 'pub_date')
+    list_display = ('pk', 'person', 'roof_size', 'solar_radiation', 'roof_orientation', 'roof_tilt', 'battery_capacity', 'pub_date')
     list_filter = ['person']
 
 

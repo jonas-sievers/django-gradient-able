@@ -14,39 +14,91 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h5>Eigene Stromerzeugung und Speicherung</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-3">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/Pv_Speicher_haus.png" alt="Card image cap">
-                                </div>
-                                <div class="col-9">
-                                    <p>
-                                        Die Hauptbestandteile von Photovoltaik-Anlagen sind Solarmodule und ein Wechselrichter, 
-                                        der den von den Modulen erzeugten Gleichstrom in Wechselstrom (50 Hz, 220 V) umwandelt, 
-                                        sowie die Verkabelung der Module untereinander und mit dem Wechselrichter. Außerdem sind 
-                                        verschiedene Schaltvorrichtungen (Freischalter für Servicearbeiten, 
-                                        Notabschaltungsvorrichtungen für den Brandfall), Sicherungen und Blitzschutzeinrichtungen 
-                                        erforderlich. Weitere Anlagenkomponenten variieren je nach Systemtyp.
+						<div class="card-body">
+							<h5 class="mb-3">Einführung PV und Speicher</h5>
+							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Was können eigenen Strom erzeugen und speichern?</a></li>
+								<li class="nav-item"><a class="nav-link text-left" id="v-pills-menu-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-menu" aria-selected="false">Graphisch erklärt!</a></li>
+								<li class="nav-item"><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ihre Vorteile</a></li>
+							</ul>
+							<div class="tab-content" id="v-pills-tabContent">
+								<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class= "row">
+                                        <div class="col-3">
+                                            <p>
+                                                <br>
+                                            </p>
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/pv_speicher_home.png" alt="Card image cap">
+                                        </div>
+                                        <div class="col-9">
+                                            <p class="card-text">
+                                                <br>
+                                                <b>Intelligent Strom selber erzeugen und speichern</b>
+                                                <br><br>
+                                                Durch eine eigene PV-Anlage auf dem Dach können Sie Ihren
+                                                eigenen Strom erzeugen und nutzen. Das lohnt sich fürden
+                                                Sie direkt doppelt, denn zum einen können
+                                                Sie den Strom selber nutzen und müssen weniger Strom
+                                                von Ihrem anbieter kaufen und zum anderen können Sie 
+                                                den Strom auch direkt ans Netz verkaufen, wenn Sie 
+                                                diesen gerade nicht nutzen können. 
+                                                <br><br>
+                                                Mit einem <b>Speichersystem</b> für zu Hause können Sie tagsüber einen Teil
+                                                Ihres selbst erzeugten Sonnenstroms zwischenspeichern, um ihn abends 
+                                                und bis zum nächsten Morgen zu verbrauchen. Erzeugt die Photovoltaikanlage
+                                                mehr Strom als zum gleichen Zeitpunkt verbraucht wird, lädt der Speicher, 
+                                                anstatt den Strom ins allgemeine Netz einzuspeisen. Besteht mehr Strombedarf 
+                                                als die PV-Anlage liefern kann – wie nachts oder in der Dämmerung – 
+                                                kann durch das Entladen des Speichers zeitversetzt der eigene Strom genutzt 
+                                                werden.                                                
+                                            </p>
+                                        </div>
+                                    </div>
+								</div>
+								<div class="tab-pane fade show" id="v-pills-menu" role="tabpanel" aria-labelledby="v-pills-home-tab">
+									<div class= "row">
+                                        <div class="col-3">
+                                            <br>
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/Pv_Speicher_haus.png" alt="Card image cap">
+                                            <br>
+                                        </div>
+                                        <div class="col-8">
+                                            <p class="mb-0">
+                                                <br>
+                                                <b>Bestandteile und Aufbau einer PV-Analge und eines Speichers: </b>
+                                                <br><br>
+                                                Die Hauptbestandteile von Photovoltaik-Anlagen sind <b>Solarmodule</b> und ein <b>Wechselrichter</b>, 
+                                                der den von den Modulen erzeugten Gleichstrom in Wechselstrom (50 Hz, 220 V) umwandelt, 
+                                                sowie die <b>Verkabelung</b> der Module untereinander und mit dem Wechselrichter. Außerdem sind 
+                                                verschiedene <b>Schaltvorrichtungen</b> (Freischalter für Servicearbeiten, 
+                                                Notabschaltungsvorrichtungen für den Brandfall), <b>Sicherungen</b> und <b>Blitzschutzeinrichtungen</b> 
+                                                erforderlich. Weitere Anlagenkomponenten variieren je nach Systemtyp.  
+                                                <br><br>
+                                                In Kombination mit einem Speicher, kann der Eigenverbrauch der PV-Anlage dabei deutlich erhöht werden.
+                                                Lithium-Speicher haben sich für Photovoltaikanlagen inzwischen am Markt durchgesetzt. 
+                                                Sie sind effizient, langlebig, nahezu wartungsfrei und werden immer preiswerter.                                 
+                                            </p>                                            
+                                        </div>
+                                    </div>
+								</div>
+								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+									<p class="mb-0">
+                                        <b>1. Umwelt schonen: </b> Durch die eigene erneuerbare Stromverzeugung
+                                        sparen Sie im Vergleich zu anderen fossilen Energieträgern CO2 ein.
                                         <br><br>
-                                        Mit einem <b>Speichersystem</b> für zu Hause können Sie tagsüber einen Teil
-                                        Ihres selbst erzeugten Sonnenstroms zwischenspeichern, um ihn abends 
-                                        und bis zum nächsten Morgen zu verbrauchen. Erzeugt die Photovoltaikanlage
-                                        mehr Strom als zum gleichen Zeitpunkt verbraucht wird, lädt der Speicher, 
-                                        anstatt den Strom ins allgemeine Netz einzuspeisen. Besteht mehr Strombedarf 
-                                        als die PV-Anlage liefern kann – wie nachts oder in der Dämmerung – 
-                                        kann durch das Entladen des Speichers zeitversetzt der eigene Strom genutzt 
-                                        werden.
+                                        <b>2. Kosten sparen: </b> Je nach Dimensionierung können Sie durch eine PV-Anlage
+                                        und einen Stromspeicher Geld sparen.
                                         <br><br>
-                                        <b> TO DO: Bild, dass klickbar ist mit Erklärung der Komponenten </b>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <b>3. Flexibilität steigern: </b> Durch die zusätzliche Stromerzeugung, können Sie
+                                        Ihr Auto jeder Zeit direkt laden.                                  
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
                 </div>
+            </div>
+            <div class="row">
                 <!-- [ variant-chart ] start --> 
                 <div class="col-md-12">
                     <div class="card alert-primary">
@@ -57,7 +109,7 @@
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                        <br> Ergebnis Auswahl PV-Anlage
+                                        <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
                                     </h5>
                                 </div>
                             </div>
@@ -65,17 +117,50 @@
                                 <div class="col-1"></div>
                                 <div class="col-11">
                                     <p>
-                                        Mit einer/ einem <b> {{request.session.property_type}} </b> mit 
-                                        <b> {{request.session.number_persons}} </b> und einer Warmwasser Aufereitung
-                                        <b> {{request.session.water_heating}} </b> Verbrauchen Sie im Jahr 
-                                        <b> {{request.session.electricity_consumption_year}} kWh </b> Strom.
+                                        Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                        Anlage der Größe <b> {{request.session.pv_kWpeak}} kWpeak </b> bauen und 
+                                        der ausgewählte Speicher hat eine Kapazität von
+                                        <b> {{request.session.battery_kWh}} kWh </b>.
                                         <br><br>
-                                        Bei einem Fahrverhalten von durchschnittlich 
-                                        <b>{{request.session.driving_profile}} km am Tag</b>,
-                                        ...
-                                        <b>
-                                        TO DO: ...
-                                        </b>
+                                        Die Investitionskosten für die Pv-Anlage 
+                                        (<b> {{request.session.pv_investment_cost_eur}} €</b>)
+                                        und den Speicher 
+                                        (<b> {{request.session.battery_investment_cost_eur}} €</b>)
+                                        liegen insgesamt bei
+                                        <b> {{request.session.capex_pv_und_battery}} €</b>.
+                                        <br><br>
+                                        Mit der PV-Anlage können täglich
+                                        <b> {{request.session.electricity_pv_generation_day}} kWh</b>
+                                        Strom erzeugt. 
+                                        <br>
+                                        Ihr Elektroauto ist angeschlossen von 
+                                        <b> {{request.session.ev_connected_time}} Uhr</b> bis
+                                        <b> {{request.session.ev_deconnected_time}} Uhr</b> und
+                                        benötigt
+                                        <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
+                                        PV-Anlage können hiervon 
+                                        <b> {{request.session.ev_charged_electricity}} kWh</b>
+                                        geladen werden. Von dem verbleibenden Strom, 
+                                        werden 
+                                        <b> {{request.session.battery_status}} kWh</b> gespeichert, 
+                                        <b> {{request.session.electricity_saved}} kWh</b>
+                                        direkt in Ihrem Haushalt verbraucht und
+                                        <b> {{request.session.electricity_sold_grid}} kWh</b>
+                                        an das Netz verkauft.
+                                        <br><br>
+                                        Hiermit sparen/ verdienen Sie täglich
+                                        <b> {{request.session.einnahmen_tag}} €</b> und
+                                        im Jahr 
+                                        <b> {{request.session.einnahmen_jahr}} €</b>.
+                                        <br><br>
+                                        Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
+                                        liegt Ihr Gewinn nach 10 Jahren somit bei
+                                        <b> {{request.session.gewinn_10_jahre}} €</b>.
+                                       <br><br>
+                                       Hierbei Nutzen Sie 
+                                       <b> {{request.session.quote_pv_nutzung}} %</b> des 
+                                       erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
+                                       <b> {{request.session.quote_eigenversorgung}} %</b>
                                     </p>
                                 </div>
                             </div>
@@ -86,28 +171,23 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5>PV-Anlage</h5>
+                            <h5>Erklärung des Ergebnisses</h5>
                         </div>
                         <div class="card-body">
                             <p>
-                                Beim Eigenverbrauch (auch Eigenstromnutzung genannt) nutzen Sie den erzeugten Strom 
-                                in Teilen oder vollständig für Ihren Bedarf. Damit senken Sie Ihre Kosten gleich zwei Mal: 
-                                Erstens müssen Sie bei Ihrem Versorger weniger Strom einkaufen, zweitens sind Sie unabhängiger 
-                                von künftigen Strompreiserhöhungen.
+                                Bei den Investitionskosten wird für die PV-Anlage Investitionskosten von 
+                                1852,88 €/ kWpeak angenommen und für den Speicher 350 €/ kWh. Für die
+                                jährliche Abschreibung wird bei der PV-Anlage mit einer Lebensdauer von 20 Jahren
+                                und bei dem Speicher von 10 Jahren gerechnet.
                                 <br><br>
-                                In konventionellen Photovoltaikanlagen wird der erzeugte Strom direkt genutzt. Der überschüssige 
-                                Strom aus dem System wir ins öffentliche Netz eingespeist. Liefert die Photovoltaikanlage weniger 
-                                Strom als benötigt, wird dieser aus dem öffentlichen Netz bezogen.
-                                <br><br>
-                                Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
-                                Anlage der Größe <b> {{request.session.pv_kw_peak}} kWpeak </b> bauen. <br>
-                                Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
-                                einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
-                                <b> {{request.session.electricity_generation_year}} kWh </b> Strom im Jahr erzeugt werden, 
-                                bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_year}} kWh </b>
-                                <br><br>
-                                Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab. Grundsätzliche 
-                                
+                                Bei der Kalkulation der Einnahmen wurde zwischen vier Szenerien unterschieden:
+                                <br>
+                                - Wenn die PV-Erzeugung kleiner ist als der Haushaltsstromverbrauch, wird der Strom 
+                                direkt dort verbraucht.<br>
+                                - Wenn mehr PV-Strom vorhanden ist, als durch den Haushalt verbraucht wird, dann wird <br>
+                                - entweder das Elektroauto geladen, wenn es gerade angeschlossen ist, <br>
+                                - der Speicher geladen, wenn dieser noch nicht voll ist, <br>
+                                - der Strom ins Netz verkauft.                                
                             </p>
                         </div>
                     </div>
@@ -116,108 +196,19 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>PV Stromerzeugung</h5>
+                            <p>
+                                Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                Anlage der Größe <b> {{request.session.pv_kw_peak}} kWpeak </b> bauen. <br>
+                                Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
+                                einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
+                                <b> {{request.session.electricity_generation_year}} kWh </b> Strom im Jahr erzeugt werden, 
+                                bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_year}} kWh </b>
+                                <br><br>
+                                Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab. Grundsätzliche
+                            </p>
                         </div>
                         <div class="card-body">
                             <div id="mixed-chart-PV-Erzeugung"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Dimensionierung PV-Anlage und Speicher</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                Mit einer Fläche von <b> 1 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_1KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_1KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_1KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 2 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_2KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_2KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_2KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 3 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_3KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_3KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_3KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 4 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_4KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_4KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_4KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 5 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_5KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_5KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_5KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 6 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_6KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_6KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_6KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 7 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_7KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_7KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_7KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 8 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_8KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_8KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_8KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 9 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_9KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_9KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_9KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                            <p>
-                                Mit einer Fläche von <b> 10 KWpeak </b> kostet die PV-Anlage
-                                <b> {{request.session.pv_10KWpeak_investment_cost}} €</b>. Hiermit können
-                                am Tag <b> {{request.session.pv_10KWpeak_saved_costs_own_electricity}} €</b> 
-                                gespart werden, durch den eigenen Strom und
-                                <b> {{request.session.pv_10KWpeak_earnings_sold_electricity}} €</b> durch 
-                                den Verkauf des Stroms. <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Pv-Anlage und Speicher</h5>
-                        </div>
-                        <div class="card-body">
-                            <div id="mixed-chart-PV-Speicher"></div>
                         </div>
                     </div>
                 </div>
@@ -232,50 +223,9 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 <script>
-    var electricity_generation_year = "{{request.session.electricity_generation_year}}";
-    var electricity_generation_day = Number(electricity_generation_year/365).toFixed(2);
+    var electricity_generation_day = "{{request.session.electricity_pv_generation_day}}";
     var electricity_consumption_year =  "{{request.session.electricity_consumption_year}}"
     var electricity_consumption_day = Number(electricity_consumption_year/365).toFixed(2);
-
-    var pv_1KWpeak_investment_cost = "{{request.session.pv_1KWpeak_investment_cost}}"
-    var pv_1KWpeak_saved_costs_own_electricity = "{{request.session.pv_1KWpeak_saved_costs_own_electricity}}"
-    var pv_1KWpeak_earnings_sold_electricity = "{{request.session.pv_1KWpeak_earnings_sold_electricity}}"
-    
-    var pv_2KWpeak_investment_cost = "{{request.session.pv_2KWpeak_investment_cost}}"
-    var pv_2KWpeak_saved_costs_own_electricity = "{{request.session.pv_2KWpeak_saved_costs_own_electricity}}"
-    var pv_2KWpeak_earnings_sold_electricity = "{{request.session.pv_2KWpeak_earnings_sold_electricity}}"
-    
-    var pv_3KWpeak_investment_cost = "{{request.session.pv_3KWpeak_investment_cost}}"
-    var pv_3KWpeak_saved_costs_own_electricity = "{{request.session.pv_3KWpeak_saved_costs_own_electricity}}"
-    var pv_3KWpeak_earnings_sold_electricity = "{{request.session.pv_3KWpeak_earnings_sold_electricity}}"
-    
-    var pv_4KWpeak_investment_cost = "{{request.session.pv_4KWpeak_investment_cost}}"
-    var pv_4KWpeak_saved_costs_own_electricity = "{{request.session.pv_4KWpeak_saved_costs_own_electricity}}"
-    var pv_4KWpeak_earnings_sold_electricity = "{{request.session.pv_4KWpeak_earnings_sold_electricity}}"
-    
-    var pv_5KWpeak_investment_cost = "{{request.session.pv_5KWpeak_investment_cost}}"
-    var pv_5KWpeak_saved_costs_own_electricity = "{{request.session.pv_5KWpeak_saved_costs_own_electricity}}"
-    var pv_5KWpeak_earnings_sold_electricity = "{{request.session.pv_5KWpeak_earnings_sold_electricity}}"
-
-    var pv_6KWpeak_investment_cost = "{{request.session.pv_6KWpeak_investment_cost}}"
-    var pv_6KWpeak_saved_costs_own_electricity = "{{request.session.pv_6KWpeak_saved_costs_own_electricity}}"
-    var pv_6KWpeak_earnings_sold_electricity = "{{request.session.pv_6KWpeak_earnings_sold_electricity}}"
-
-    var pv_7KWpeak_investment_cost = "{{request.session.pv_7KWpeak_investment_cost}}"
-    var pv_7KWpeak_saved_costs_own_electricity = "{{request.session.pv_7KWpeak_saved_costs_own_electricity}}"
-    var pv_7KWpeak_earnings_sold_electricity = "{{request.session.pv_7KWpeak_earnings_sold_electricity}}"
-
-    var pv_8KWpeak_investment_cost = "{{request.session.pv_8KWpeak_investment_cost}}"
-    var pv_8KWpeak_saved_costs_own_electricity = "{{request.session.pv_8KWpeak_saved_costs_own_electricity}}"
-    var pv_8KWpeak_earnings_sold_electricity = "{{request.session.pv_8KWpeak_earnings_sold_electricity}}"
-
-    var pv_9KWpeak_investment_cost = "{{request.session.pv_9KWpeak_investment_cost}}"
-    var pv_9KWpeak_saved_costs_own_electricity = "{{request.session.pv_9KWpeak_saved_costs_own_electricity}}"
-    var pv_9KWpeak_earnings_sold_electricity = "{{request.session.pv_9KWpeak_earnings_sold_electricity}}"
-
-    var pv_10KWpeak_investment_cost = "{{request.session.pv_10KWpeak_investment_cost}}"
-    var pv_10KWpeak_saved_costs_own_electricity = "{{request.session.pv_10KWpeak_saved_costs_own_electricity}}"
-    var pv_10KWpeak_earnings_sold_electricity = "{{request.session.pv_10KWpeak_earnings_sold_electricity}}"
 </script>
 
     <script src="/static/assets/js/plugins/apexcharts.min.js"></script>

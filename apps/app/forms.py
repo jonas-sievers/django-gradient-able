@@ -24,10 +24,11 @@ class Real_estateForm(ModelForm):
 class Lokal_EnergyForm(ModelForm):
     class Meta:
         model = Lokal_Energy
-        fields = ('roof_size', 'solar_radiation', 'roof_tilt', 'roof_orientation')
+        fields = ('roof_size', 'solar_radiation', 'roof_tilt', 'roof_orientation', 'battery_capacity')
         labels = {
             'roof_size': ('Weleche Dachfläche kann für die PV-Anlage verwendet werden?'),
             'roof_tilt': ('Welche Neigung hat Ihr Hausdach?'),
             'roof_orientation': ('Welche Ausrichtung hat Ihr Hausdach?'),
             'solar_radiation': ('Welche ungefähre Sonneneinstrahlung hat Ihr Standort?'),
+            'battery_capacity': ('Welche Speicherkapazität soll der Stromspeicher haben?'),
         }
