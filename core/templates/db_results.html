@@ -22,6 +22,8 @@
                               An dieser Stelle finden Sie eine Zusammenfassung der Ergebnisse 
                               aus den in den vorherigen Dashboards ausführlich dargestellten 
                               Kalkulationen.
+                              <br><br>
+                              <b>Druch Anklicken der jeweiligen Kachel gelangen Sie zu dem zugehörigen Dashboard.</b>
                             </p>
                         </div>
                     </div>
@@ -29,238 +31,248 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-primary">
-                        <div class="card-body bg-patern-white">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                    <a href="/db_load_management.html">
+                        <div class="card alert-primary">
+                            <div class="card-body bg-patern-white">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                    </div>
+                                    <div class="col-11">
+                                        <h5>
+                                        <br> Ihre beste Wahl - {{request.session.opt_lastmanagement}}
+                                        </h5>
+                                    </div>
                                 </div>
-                                <div class="col-11">
-                                    <h5>
-                                       <br> Ihre beste Wahl - {{request.session.opt_lastmanagement}}
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                        Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
-                                        Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
-                                        einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
-                                        haben sie <b> {{request.session.hours_to_charge}} Stunden
-                                        Zeit zu laden</b>.
-                                        Bei einem Fahrverhalten von durchschnittlich 
-                                        <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
-                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
-                                        Auto wieder voll zu laden (Annahme: 0,2 kWh/km).
-                                       <br><br>
-                                        Bei einem <b>statisches Lastmanagement</b> hat Ihre gesamte Immobilie schätzungswiese eine maximale Leistungsnachfrage von 
-                                        <b> {{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b>. 
-                                        Durch die 
-                                        Hausanschlussleistung von <b> {{request.session.house_connection_power}} kW</b>,
-                                        ergibt sich hieraus eine
-                                        verfügbare Leistung von 
-                                        <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
-                                        und von 
-                                        <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                        {{request.session.charging_points_to_install}} Wallboxen </b>.
-                                        <br><br>   
-                                        Bei einem <b>dynamischen Lastmanagement</b> ergibt sich eine
-                                        verfügbare Leistung von 
-                                        <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
-                                        und von 
-                                        <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                        {{request.session.charging_points_to_install}} Wallboxen </b>.                                        
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <p>
+                                            Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
+                                            Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
+                                            einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
+                                            haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                            Zeit zu laden</b>.
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                            Auto wieder voll zu laden (Annahme: 0,2 kWh/km).
                                         <br><br>
-                                        Hiermit könnte das Auto mit einem <b>statischen Lastmanagement</b> in
-                                        <b> {{request.session.stat_needed_time_to_charge}} Stunden</b> laden und
-                                        mit einem <b>dynamischen Lastmanagement</b> in 
-                                        <b> {{request.session.dyn_needed_time_to_charge}} Stunden</b>. 
-                                        <br><br>
-                                        <b>Annahme: </b> Wenn sowohl ein statisches, als auch ein dynamisches Lastmanagement ausreichen,
-                                        wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, um die zusätzliche Flexibilit zu nutzen.                                                                                                                
-                                    </p>
+                                            Bei einem <b>statisches Lastmanagement</b> hat Ihre gesamte Immobilie schätzungswiese eine maximale Leistungsnachfrage von 
+                                            <b> {{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b>. 
+                                            Durch die 
+                                            Hausanschlussleistung von <b> {{request.session.house_connection_power}} kW</b>,
+                                            ergibt sich hieraus eine
+                                            verfügbare Leistung von 
+                                            <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
+                                            und von 
+                                            <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
+                                            {{request.session.charging_points_to_install}} Wallboxen </b>.
+                                            <br><br>   
+                                            Bei einem <b>dynamischen Lastmanagement</b> ergibt sich eine
+                                            verfügbare Leistung von 
+                                            <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
+                                            und von 
+                                            <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
+                                            {{request.session.charging_points_to_install}} Wallboxen </b>.                                        
+                                            <br><br>
+                                            Hiermit könnte das Auto mit einem <b>statischen Lastmanagement</b> in
+                                            <b> {{request.session.stat_needed_time_to_charge}} Stunden</b> laden und
+                                            mit einem <b>dynamischen Lastmanagement</b> in 
+                                            <b> {{request.session.dyn_needed_time_to_charge}} Stunden</b>. 
+                                            <br><br>
+                                            <b>Annahme: </b> Wenn sowohl ein statisches, als auch ein dynamisches Lastmanagement ausreichen,
+                                            wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, um die zusätzliche Flexibilit zu nutzen.                                                                                                                
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-primary">
-                        <div class="card-body bg-patern-white">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                    <a href="/db_dynamische_strompreise.html">
+                        <div class="card alert-primary">
+                            <div class="card-body bg-patern-white">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                    </div>
+                                    <div class="col-11">
+                                        <h5>
+                                        <br> Ihre beste Wahl - ein {{request.session.opt_tarif}} mit monatlich {{request.session.dyn_strom_electricity_cost_month_ev_house}} €
+                                        </h5>
+                                    </div>
                                 </div>
-                                <div class="col-11">
-                                    <h5>
-                                       <br> Ihre beste Wahl - ein {{request.session.opt_tarif}} mit monatlich {{request.session.dyn_strom_electricity_cost_month_ev_house}} €
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                    Für Ihre Immobilie ergibt sich schätzungsweise
-                                    ein monatlicher Stromverbrauch von
-                                    <b> {{request.session.electricity_consumption_month_house}} kWh für den Haushalt</b> 
-                                    und 
-                                    <b> {{request.session.electricity_consumption_month_ev}} kWh für das Elektroauto</b>.
-                                    <br><br>
-                                    Bei einem Haushaltsstromtarif ergeben sich hieraus Stromkosten 
-                                    für das Haus und das Auto zusammen von 
-                                    <b> {{request.session.hausstrom_electricity_cost_month_ev_house}} €</b>.
-                                    <br><br>
-                                    Durch den Autostromtarif entstehen für das Elektroauto Stromkosten von 
-                                    <b> {{request.session.ladestrom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                    dem Haus von insgesamt 
-                                    <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
-                                    <br><br>
-                                    Durch einen dynamischen Stromtarif lägen die Stromkosten für das Elektroauto
-                                    bei <b> {{request.session.dyn_strom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                    dem Haus bei insgesamt 
-                                    <b> {{request.session.dyn_strom_electricity_cost_month_ev_house}} €</b>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <p>
+                                        Für Ihre Immobilie ergibt sich schätzungsweise
+                                        ein monatlicher Stromverbrauch von
+                                        <b> {{request.session.electricity_consumption_month_house}} kWh für den Haushalt</b> 
+                                        und 
+                                        <b> {{request.session.electricity_consumption_month_ev}} kWh für das Elektroauto</b>.
+                                        <br><br>
+                                        Bei einem Haushaltsstromtarif ergeben sich hieraus Stromkosten 
+                                        für das Haus und das Auto zusammen von 
+                                        <b> {{request.session.hausstrom_electricity_cost_month_ev_house}} €</b>.
+                                        <br><br>
+                                        Durch den Autostromtarif entstehen für das Elektroauto Stromkosten von 
+                                        <b> {{request.session.ladestrom_electricity_cost_month_ev}} €</b> und zusammen mit
+                                        dem Haus von insgesamt 
+                                        <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
+                                        <br><br>
+                                        Durch einen dynamischen Stromtarif lägen die Stromkosten für das Elektroauto
+                                        bei <b> {{request.session.dyn_strom_electricity_cost_month_ev}} €</b> und zusammen mit
+                                        dem Haus bei insgesamt 
+                                        <b> {{request.session.dyn_strom_electricity_cost_month_ev_house}} €</b>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-primary">
-                        <div class="card-body bg-patern-white">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                    <a href="/db_verlustleistung.html">
+                        <div class="card alert-primary">
+                            <div class="card-body bg-patern-white">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                    </div>
+                                    <div class="col-11">
+                                        <h5>
+                                        <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm
+                                        </h5>
+                                    </div>
                                 </div>
-                                <div class="col-11">
-                                    <h5>
-                                       <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                        Bei einem Fahrverhalten von durchschnittlich 
-                                        <b>{{request.session.driving_profile}} km am Tag</b>, 
-                                        einer Kabellänge von <b>{{request.session.cable_length}} m</b>
-                                        und einer Nutzungsdauer von 
-                                        <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
-                                        optimale Kabeldimensionierung: 
-                                        <br><br>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <p>
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                            einer Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                            und einer Nutzungsdauer von 
+                                            <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
+                                            optimale Kabeldimensionierung: 
+                                            <br><br>
 
-                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
-                                        <b> Querschnitt von {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.opt_min_costs}} € </b> <br>
-                                        Die Kosten für das Kabel würden hierbei
-                                        <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
-                                        
-                                        <br><br>
-                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
-                                        <b> Querschnitt von 1,5 mm</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
-                                        Die Kosten für das Kabel würden hierbei
-                                        <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
-                                    </p>
+                                            <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
+                                            <b> Querschnitt von {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
+                                            <b> {{request.session.opt_min_costs}} € </b> <br>
+                                            Die Kosten für das Kabel würden hierbei
+                                            <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
+                                            Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
+                                            
+                                            <br><br>
+                                            <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
+                                            <b> Querschnitt von 1,5 mm</b>, mit Gesamtkosten von 
+                                            <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                            Die Kosten für das Kabel würden hierbei
+                                            <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
+                                            Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Optimale Dimensionierung Kabel</h5>
-                        <p>
-                            Hier sehen Sie für Ihre individuellen Angaben 
-                            wie sich für jeden Querschnitt die Kabelkosten, 
-                            Verlustleistungskkosten und Gesamtkosten entwickeln.
-                            Hierbei wird ihre Fahrstrecke von 
-                            <b>{{request.session.driving_profile}} km am Tag</b>, 
-                            einee Kabellänge von <b>{{request.session.cable_length}} m</b>
-                            und einer Nutzungsdauer der Kabel von 
-                            <b>{{request.session.usage_years}} Jahren</b> angenommen.
+                <a href="/db_verlustleistung.html">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Optimale Dimensionierung Kabel</h5>
+                            <p>
+                                Hier sehen Sie für Ihre individuellen Angaben 
+                                wie sich für jeden Querschnitt die Kabelkosten, 
+                                Verlustleistungskkosten und Gesamtkosten entwickeln.
+                                Hierbei wird ihre Fahrstrecke von 
+                                <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                einee Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                und einer Nutzungsdauer der Kabel von 
+                                <b>{{request.session.usage_years}} Jahren</b> angenommen.
 
-                        </p>
-                        <div id="area-chart-1-cable-costs"></div>
+                            </p>
+                            <div id="area-chart-1-cable-costs"></div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-12">
                 <div class="card alert-primary">
-                    <div class="card-body bg-patern-white">
-                        <div class="row">
-                            <div class="col-1">
-                                <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                    <a href="/db_renewables.html">
+                        <div class="card-body bg-patern-white">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                </div>
+                                <div class="col-11">
+                                    <h5>
+                                        <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
+                                    </h5>
+                                </div>
                             </div>
-                            <div class="col-11">
-                                <h5>
-                                    <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
-                                </h5>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-11">
+                                    <p>
+                                        Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                        Anlage der Größe <b> {{request.session.pv_kWpeak}} kWpeak </b> bauen und 
+                                        der ausgewählte Speicher hat eine Kapazität von
+                                        <b> {{request.session.battery_kWh}} kWh </b>.
+                                        <br><br>
+                                        Die Investitionskosten für die Pv-Anlage 
+                                        (<b> {{request.session.pv_investment_cost_eur}} €</b>)
+                                        und den Speicher 
+                                        (<b> {{request.session.battery_investment_cost_eur}} €</b>)
+                                        liegen insgesamt bei
+                                        <b> {{request.session.capex_pv_und_battery}} €</b>.
+                                        <br><br>
+                                        Mit der PV-Anlage können täglich
+                                        <b> {{request.session.electricity_pv_generation_day}} kWh</b>
+                                        Strom erzeugt. 
+                                        <br>
+                                        Ihr Elektroauto ist angeschlossen von 
+                                        <b> {{request.session.ev_connected_time}} Uhr</b> bis
+                                        <b> {{request.session.ev_deconnected_time}} Uhr</b> und
+                                        benötigt
+                                        <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
+                                        PV-Anlage können hiervon 
+                                        <b> {{request.session.ev_charged_electricity}} kWh</b>
+                                        geladen werden. Von dem verbleibenden Strom, 
+                                        werden 
+                                        <b> {{request.session.battery_status}} kWh</b> gespeichert, 
+                                        <b> {{request.session.electricity_saved}} kWh</b>
+                                        direkt in Ihrem Haushalt verbraucht und
+                                        <b> {{request.session.electricity_sold_grid}} kWh</b>
+                                        an das Netz verkauft.
+                                        <br><br>
+                                        Hiermit sparen/ verdienen Sie täglich
+                                        <b> {{request.session.einnahmen_tag}} €</b> und
+                                        im Jahr 
+                                        <b> {{request.session.einnahmen_jahr}} €</b>.
+                                        <br><br>
+                                        Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
+                                        liegt Ihr Gewinn nach 10 Jahren somit bei
+                                        <b> {{request.session.gewinn_10_jahre}} €</b>.
+                                    <br><br>
+                                    Hierbei Nutzen Sie 
+                                    <b> {{request.session.quote_pv_nutzung}} %</b> des 
+                                    erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
+                                    <b> {{request.session.quote_eigenversorgung}} %</b>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-1"></div>
-                            <div class="col-11">
-                                <p>
-                                    Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
-                                    Anlage der Größe <b> {{request.session.pv_kWpeak}} kWpeak </b> bauen und 
-                                    der ausgewählte Speicher hat eine Kapazität von
-                                    <b> {{request.session.battery_kWh}} kWh </b>.
-                                    <br><br>
-                                    Die Investitionskosten für die Pv-Anlage 
-                                    (<b> {{request.session.pv_investment_cost_eur}} €</b>)
-                                    und den Speicher 
-                                    (<b> {{request.session.battery_investment_cost_eur}} €</b>)
-                                    liegen insgesamt bei
-                                    <b> {{request.session.capex_pv_und_battery}} €</b>.
-                                    <br><br>
-                                    Mit der PV-Anlage können täglich
-                                    <b> {{request.session.electricity_pv_generation_day}} kWh</b>
-                                    Strom erzeugt. 
-                                    <br>
-                                    Ihr Elektroauto ist angeschlossen von 
-                                    <b> {{request.session.ev_connected_time}} Uhr</b> bis
-                                    <b> {{request.session.ev_deconnected_time}} Uhr</b> und
-                                    benötigt
-                                    <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
-                                    PV-Anlage können hiervon 
-                                    <b> {{request.session.ev_charged_electricity}} kWh</b>
-                                    geladen werden. Von dem verbleibenden Strom, 
-                                    werden 
-                                    <b> {{request.session.battery_status}} kWh</b> gespeichert, 
-                                    <b> {{request.session.electricity_saved}} kWh</b>
-                                    direkt in Ihrem Haushalt verbraucht und
-                                    <b> {{request.session.electricity_sold_grid}} kWh</b>
-                                    an das Netz verkauft.
-                                    <br><br>
-                                    Hiermit sparen/ verdienen Sie täglich
-                                    <b> {{request.session.einnahmen_tag}} €</b> und
-                                    im Jahr 
-                                    <b> {{request.session.einnahmen_jahr}} €</b>.
-                                    <br><br>
-                                    Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
-                                    liegt Ihr Gewinn nach 10 Jahren somit bei
-                                    <b> {{request.session.gewinn_10_jahre}} €</b>.
-                                   <br><br>
-                                   Hierbei Nutzen Sie 
-                                   <b> {{request.session.quote_pv_nutzung}} %</b> des 
-                                   erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
-                                   <b> {{request.session.quote_eigenversorgung}} %</b>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             

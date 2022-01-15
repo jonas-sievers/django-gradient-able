@@ -17,15 +17,115 @@ from .forms import Lokal_EnergyForm, Real_estateForm
 
 
 
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
+
+    #Check if Session is new
+    #If Session is new, set standard variables in session variables
+    real_estate = get_object_or_404(Real_estate, pk=1)
+    if 'property_type' not in request.session:
+        request.session['property_type'] = real_estate.property_type
+        request.session['number_properties'] = real_estate.number_properties
+        request.session['water_heating'] = real_estate.water_heating
+        request.session['number_persons'] = real_estate.number_persons
+        request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
+        request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
+        request.session['charging_points_to_install'] = real_estate.charging_points_to_install
+        request.session['house_connection_power'] = real_estate.house_connection_power
+        request.session['image_path'] = real_estate.image_path
+        request.session['driving_profile'] = real_estate.driving_profile
+        request.session['arrival_time'] = real_estate.arrival_time
+        request.session['departure_time'] = real_estate.departure_time
+        request.session['cable_length'] = real_estate.cable_length
+        request.session['usage_years'] = real_estate.usage_years
+
+    #Calculate Stat. and dyn. Loadmanagement
+    if 'hours_to_charge' not in request.session:        
+        stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(3800, 1, 'mit Strom', 43, 4, 40, 17, 8)
+        request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
+        request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
+        request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
+        request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
+        request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
+        request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
+        request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
+        request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
+        request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
+        request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
+        request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
+        request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+                
+
+    if 'opt_querschnitt' not in request.session:
+        #Calculate dynamische Stromtarife
+        dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
+        request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
+        request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
+        request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
+        request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
+        request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
+        request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
+        request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
+        request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+        request.session['opt_tarif'] = dyn_Stromtarife_results[8]
+        request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
+        
+        # Calculate optimal Verlustleistung
+        verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64, request.session['opt_arbeitspreis_eur'])
+        request.session['opt_querschnitt'] = verlustleistung_results[0]
+        request.session['opt_cable_costs'] = verlustleistung_results[1]
+        request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
+        request.session['opt_min_costs'] = verlustleistung_results[3]
+        request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
+        request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
+        request.session['costs_1_5mm'] = verlustleistung_results[6]
+                
+        #Calculate Steuerbare Verbrauchseinrichtung
+        sve_results = get_sve_results(40)
+
+        request.session['jahres_stromverbrauch'] = sve_results[0]
+        request.session['sve_einsparung_monat'] = sve_results[1]
+        request.session['sve_einsparung_jahr'] = sve_results[2]
+
+    lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
+    if 'roof_size' not in request.session:
+        request.session['roof_size'] = lokal_energy.roof_size
+        request.session['roof_tilt'] = lokal_energy.roof_tilt
+        request.session['roof_orientation'] = lokal_energy.roof_orientation
+        request.session['solar_radiation'] = lokal_energy.solar_radiation
+        request.session['battery_capacity'] = lokal_energy.battery_capacity
+        
+        pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+                
+        request.session['pv_kW_peak'] = pv_storage_results[0]
+        request.session['battery_kWh'] = pv_storage_results[1]
+        request.session['pv_investment_cost_eur'] = pv_storage_results[2]
+        request.session['battery_investment_cost_eur'] = pv_storage_results[3]
+        request.session['capex_pv_und_battery'] = pv_storage_results[4]
+        request.session['battery_status'] = pv_storage_results[5]
+        request.session['electricity_pv_generation_day'] = pv_storage_results[6]
+        request.session['electricity_consumption_day'] = pv_storage_results[7]
+        request.session['electricity_sold_grid'] = pv_storage_results[8]
+        request.session['electricity_saved'] = pv_storage_results[9]
+        request.session['quote_pv_nutzung'] = pv_storage_results[10]
+        request.session['quote_eigenversorgung'] = pv_storage_results[11]
+        request.session['einnahmen_tag'] = pv_storage_results[12]
+        request.session['einnahmen_jahr'] = pv_storage_results[13]
+        request.session['gewinn_10_jahre'] = pv_storage_results[14]
+        request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
+        request.session['ev_connected_time'] = pv_storage_results[16]
+        request.session['ev_deconnected_time'] = pv_storage_results[17]
+        request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
+        request.session['ev_charged_electricity'] = pv_storage_results[19]
+
+
 
     html_template = loader.get_template('welcome.html')
     return HttpResponse(html_template.render(context, request))
       
 
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.

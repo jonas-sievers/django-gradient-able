@@ -5,7 +5,7 @@
 			
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-            <a href="#!" class="b-brand">
+            <a href="welcome.html" class="b-brand">
                 <!-- ========   change your logo hear   ============ -->
                 <img src="/static/assets/images/logo-icon.png" alt="" class="logo">
                 <img src="/static/assets/images/logo-icon.png" alt="" class="logo-thumb">
@@ -27,15 +27,6 @@
                             <img src="/static/assets/images/user/avatar.jpg" class="img-radius wid-40" alt="User-Profile-Image">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
-                            <div class="pro-head">
-                                <img src="/static/assets/images/user/avatar.jpg" class="img-radius" alt="User-Profile-Image">
-                                <a href="{% url 'logout' %}" >
-                                    <span>
-                                        Abmelden - 
-                                        {{ request.user.username }}
-                                    </span>
-                                </a>
-                            </div>
                             <div class="pro-head">
                                 <img src="/static/assets/images/user/avatar.jpg" class="img-radius" alt="User-Profile-Image">
                                 <a href="/admin" target="_blank">
