@@ -17,7 +17,7 @@ from .forms import Lokal_EnergyForm, Real_estateForm
 
 
 
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
 
@@ -119,13 +119,11 @@ def index(request):
         request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
         request.session['ev_charged_electricity'] = pv_storage_results[19]
 
-
-
     html_template = loader.get_template('welcome.html')
     return HttpResponse(html_template.render(context, request))
       
 
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.
