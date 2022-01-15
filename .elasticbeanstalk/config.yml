@@ -1,6 +1,6 @@
 branch-defaults:
   backup-master:
-    environment: django-env
+    environment: django-venv
     group_suffix: null
   master:
     environment: django-env
@@ -10,7 +10,7 @@ environment-defaults:
     branch: null
     repository: null
 global:
-  application_name: django-tutorial
+  application_name: django_masterarbeit
   branch: null
   default_ec2_keyname: null
   default_platform: Python 3.7
