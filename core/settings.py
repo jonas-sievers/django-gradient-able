@@ -68,14 +68,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ebdb',
         'USER': 'jonas',
         'PASSWORD': 'Karlsruhe2022',
-        'HOST': 'aa1kjocb3xxjxtu.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
+        'HOST': 'aa1u8y8fcpkjvjt.c83mnndoq5fn.us-west-2.rds.amazonaws.com',
         'PORT': 5432,
     }
 }
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'db.sqlite3',
     }
 }
-
+"""
 
 
 # Password validation
