@@ -138,51 +138,49 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/db_verlustleistung.html">
-                        <div class="card alert-primary">
-                            <div class="card-body bg-patern-white">
-                                <div class="row">
-                                    <div class="col-1">
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
-                                    </div>
-                                    <div class="col-11">
-                                        <h5>
-                                        <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm
-                                        </h5>
-                                    </div>
+                    <div class="card alert-primary">
+                        <div class="card-body bg-patern-white">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
                                 </div>
-                                <div class="row">
-                                    <div class="col-1"></div>
-                                    <div class="col-11">
-                                        <p>
-                                            Bei einem Fahrverhalten von durchschnittlich 
-                                            <b>{{request.session.driving_profile}} km am Tag</b>, 
-                                            einer Kabellänge von <b>{{request.session.cable_length}} m</b>
-                                            und einer Nutzungsdauer von 
-                                            <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
-                                            optimale Kabeldimensionierung: 
-                                            <br><br>
+                                <div class="col-11">
+                                    <h5>
+                                       <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm&#178
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-11">
+                                    <p>
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                        einer Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                        und einer Nutzungsdauer von 
+                                        <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
+                                        optimale Kabeldimensionierung: 
+                                        <br><br>
 
-                                            <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
-                                            <b> Querschnitt von {{request.session.opt_querschnitt}} mm</b>, mit Gesamtkosten von 
-                                            <b> {{request.session.opt_min_costs}} € </b> <br>
-                                            Die Kosten für das Kabel würden hierbei
-                                            <b> {{request.session.opt_cable_costs}} € </b> bertragen und die
-                                            Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
-                                            
-                                            <br><br>
-                                            <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
-                                            <b> Querschnitt von 1,5 mm</b>, mit Gesamtkosten von 
-                                            <b> {{request.session.costs_1_5mm}} € </b> <br>
-                                            Die Kosten für das Kabel würden hierbei
-                                            <b> {{request.session.cable_costs_1_5mm}} € </b> bertragen und die
-                                            Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
-                                        </p>
-                                    </div>
+                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
+                                        <b> Querschnitt von {{request.session.opt_querschnitt}} mm&#178</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.opt_min_costs}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.opt_cable_costs}} € </b> betragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
+                                        
+                                        <br><br>
+                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
+                                        <b> Querschnitt von 1,5 mm&#178</b>, mit Gesamtkosten von 
+                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                        Die Kosten für das Kabel würden hierbei
+                                        <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
+                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12">
