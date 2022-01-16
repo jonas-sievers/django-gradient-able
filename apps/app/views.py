@@ -237,7 +237,7 @@ def pages(request):
                     #Calculated values
                     pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
                     
-                    request.session['pv_kWpeak'] = pv_storage_results[0]
+                    request.session['pv_kW_peak'] = pv_storage_results[0]
                     request.session['battery_kWh'] = pv_storage_results[1]
                     request.session['pv_investment_cost_eur'] = pv_storage_results[2]
                     request.session['battery_investment_cost_eur'] = pv_storage_results[3]
@@ -661,7 +661,7 @@ def get_pv_storage_results(battery_capacity, roof_size, roof_tilt, roof_orientat
     battery_investment_cost_eur = round(350*battery_kWh,2)
     capex_pv_und_battery = round((pv_investment_cost_eur + battery_investment_cost_eur),2)
     #OPEX PV und Batterie nach Lebenserwartung
-    opex_1kW_peak_pv_und_1kWh_battery = round(((pv_investment_cost_eur/20)+(battery_investment_cost_eur/10)),2)
+    opex_1kW_peak_pv_und_1kWh_battery = 0 #round(((pv_investment_cost_eur/20)+(battery_investment_cost_eur/10)),2)
     #Einnahmen aus gesparten Stromkosten und eigenem Stromverkauf
     
     pv_batterie_calculations = get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, roof_orientation, electricity_consumption_year, driving_profile, arrival_time, departure_time)

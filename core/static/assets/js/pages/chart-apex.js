@@ -68,7 +68,7 @@ $(document).ready(function() {
                 xaxis: {
                     categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
                     title: {
-                        text: 'Kabelquerschnitt [mm2]'
+                        text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
                 },               
                 yaxis: {
@@ -897,7 +897,7 @@ $(document).ready(function() {
                 xaxis: {
                     type: 'category',
                     title: {
-                        text: 'Zeit [Monaten]'
+                        text: 'Monate'
                     }
                 },
                 yaxis: {
@@ -1037,7 +1037,7 @@ $(document).ready(function() {
                 xaxis: {
                     categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
                     title: {
-                        text: 'Kabelquerschnitt [mm2]'
+                        text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
                 },               
                 yaxis: {
