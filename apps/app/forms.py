@@ -26,9 +26,9 @@ class Lokal_EnergyForm(ModelForm):
         model = Lokal_Energy
         fields = ('roof_size', 'solar_radiation', 'roof_tilt', 'roof_orientation', 'battery_capacity')
         labels = {
-            'roof_size': ('Weleche Dachfläche kann für die PV-Anlage verwendet werden?'),
+            'roof_size': ('Welche Dachfläche soll für Ihre PV-Anlage verwendet werden?'),
             'roof_tilt': ('Welche Neigung hat Ihr Hausdach?'),
             'roof_orientation': ('Welche Ausrichtung hat Ihr Hausdach?'),
-            'solar_radiation': ('Welche ungefähre Sonneneinstrahlung hat Ihr Standort?'),
-            'battery_capacity': ('Welche Speicherkapazität soll der Stromspeicher haben?'),
+            'solar_radiation': ('Welche jährliche Sonneneinstrahlung hat Ihr Standort?'),
+            'battery_capacity': ('Welche Speicherkapazität soll Ihr Stromspeicher haben?'),
         }

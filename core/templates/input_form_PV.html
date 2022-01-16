@@ -49,10 +49,11 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.solar_radiation.label_tag }}</label>
                                                 <select name="solar_radiation" class="form-control">
-                                                    <option value="{{request.session.solar_radiation}}">{{request.session.solar_radiation}} kWh/kWpeak</option>
                                                     {% for choice in form.solar_radiation.field.choices %}
-                                                        {% if  choice.1 != request.session.solar_radiation %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}} kWh/kWpeak</option>
+                                                        {% if  choice.0 == request.session.solar_radiation %}
+                                                        <option value="{{ choice.0 }}" selected>{{choice.1}} kWh/ kWpeak</option>
+                                                        {% else %}
+                                                        <option value="{{ choice.0 }}">{{choice.1}} kWh/ kWpeak</option>
                                                         {%endif%}
                                                     {% endfor %} 
                                                 </select>
@@ -65,10 +66,11 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.roof_size.label_tag }}</label>
                                                 <select name="roof_size" class="form-control">
-                                                    <option value="{{request.session.roof_size}}">{{request.session.roof_size}} m&#178</option>
-                                                    {% for choice in form.roof_size.field.choices %}
-                                                        {% if  choice.1 != request.session.roof_size %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}} m&#178</option>
+                                                   {% for choice in form.roof_size.field.choices %}
+                                                        {% if  choice.0 == request.session.roof_size %}
+                                                        <option value="{{ choice.0 }}" selected>{{choice.1}} m&#178</option>
+                                                        {% else %}
+                                                        <option value="{{ choice.0 }}">{{choice.1}} m&#178</option>
                                                         {%endif%}
                                                     {% endfor %}
                                                 </select>
@@ -81,10 +83,11 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.roof_tilt.label_tag }}</label>
                                                 <select name="roof_tilt" class="form-control">
-                                                    <option value="{{request.session.roof_tilt}}">{{request.session.roof_tilt}}°</option>
                                                     {% for choice in form.roof_tilt.field.choices %}
-                                                        {% if  choice.0 != request.session.roof_tilt %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                        {% if  choice.0 == request.session.roof_tilt %}
+                                                        <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                        {% else %}
+                                                        <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                         {%endif%}
                                                     {% endfor %}
                                                 </select>
@@ -97,10 +100,11 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.roof_orientation.label_tag }}</label>
                                                 <select name="roof_orientation" class="form-control">
-                                                    <option value="{{request.session.roof_orientation}}">{{request.session.roof_orientation}}</option>
                                                     {% for choice in form.roof_orientation.field.choices %}
-                                                        {% if  choice.1 != request.session.roof_orientation %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                        {% if  choice.0 == request.session.roof_orientation %}
+                                                        <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                        {% else %}
+                                                        <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                         {%endif%}
                                                     {% endfor %} 
                                                 </select>
@@ -113,10 +117,11 @@
                                             <div class="col-md-12 mb-3">
                                                 <label for="validationCustom01">{{ form.battery_capacity.label_tag }}</label>
                                                 <select name="battery_capacity" class="form-control">
-                                                    <option value="{{request.session.battery_capacity}}">{{request.session.battery_capacity}}</option>
                                                     {% for choice in form.battery_capacity.field.choices %}
-                                                        {% if  choice.0 != request.session.battery_capacity %}
-                                                            <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                        {% if  choice.0 == request.session.battery_capacity %}
+                                                        <option value="{{ choice.0 }}" selected>{{choice.1}} kWh</option>
+                                                        {% else %}
+                                                        <option value="{{ choice.0 }}">{{choice.1}} kWh</option>
                                                         {%endif%}
                                                     {% endfor %} 
                                                 </select>
@@ -127,12 +132,13 @@
                                         </div>                                          
                                         <button class="btn  btn-primary" type="submit">Berechnen</button>                              
                                     </form>
-                                </div>  
-                                <div class="col-6">
-                                    <h6>Übersicht Sonneneinstrahlung in kWh/kWpeak</h6>
-                                    <div class="col-md-8 mb-3">
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/Sonneneinstrahlung.png" alt="Card image cap">
-                                    </div>
+                                </div> 
+                                <div class="col-1">
+                                </div>                                
+                                <div class="col-4">
+                                    <h6>Jährliche Sonneneinstrahlung Deutschland in kWh/kWpeak</h6>
+                                    <br>
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/Sonneneinstrahlung.png" alt="Card image cap">
                                 </div>
                             </div>
                             <script>

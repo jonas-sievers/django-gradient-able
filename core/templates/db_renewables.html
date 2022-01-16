@@ -17,7 +17,7 @@
 						<div class="card-body">
 							<h5 class="mb-3">Einführung PV und Speicher</h5>
 							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Was können eigenen Strom erzeugen und speichern?</a></li>
+								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Wie können Sie eigenen Strom erzeugen und speichern?</a></li>
 								<li class="nav-item"><a class="nav-link text-left" id="v-pills-menu-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-menu" aria-selected="false">Graphisch erklärt!</a></li>
 								<li class="nav-item"><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ihre Vorteile</a></li>
 							</ul>
@@ -36,10 +36,10 @@
                                                 <b>Intelligent Strom selber erzeugen und speichern</b>
                                                 <br><br>
                                                 Durch eine eigene PV-Anlage auf dem Dach können Sie Ihren
-                                                eigenen Strom erzeugen und nutzen. Das lohnt sich fürden
+                                                eigenen Strom erzeugen und nutzen. Das lohnt sich für
                                                 Sie direkt doppelt, denn zum einen können
                                                 Sie den Strom selber nutzen und müssen weniger Strom
-                                                von Ihrem anbieter kaufen und zum anderen können Sie 
+                                                von Ihrem Anbieter kaufen und zum anderen können Sie 
                                                 den Strom auch direkt ans Netz verkaufen, wenn Sie 
                                                 diesen gerade nicht nutzen können. 
                                                 <br><br>
@@ -65,7 +65,7 @@
                                         <div class="col-8">
                                             <p class="mb-0">
                                                 <br>
-                                                <b>Bestandteile und Aufbau einer PV-Analge und eines Speichers: </b>
+                                                <b>Bestandteile und Aufbau einer PV-Anlage und eines Speichers: </b>
                                                 <br><br>
                                                 Die Hauptbestandteile von Photovoltaik-Anlagen sind <b>Solarmodule</b> und ein <b>Wechselrichter</b>, 
                                                 der den von den Modulen erzeugten Gleichstrom in Wechselstrom (50 Hz, 220 V) umwandelt, 
@@ -83,7 +83,7 @@
 								</div>
 								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 									<p class="mb-0">
-                                        <b>1. Umwelt schonen: </b> Durch die eigene erneuerbare Stromverzeugung
+                                        <b>1. Umwelt schonen: </b> Durch die eigene erneuerbare Stromerzeugung
                                         sparen Sie im Vergleich zu anderen fossilen Energieträgern CO2 ein.
                                         <br><br>
                                         <b>2. Kosten sparen: </b> Je nach Dimensionierung können Sie durch eine PV-Anlage
@@ -122,7 +122,7 @@
                                         der ausgewählte Speicher hat eine Kapazität von
                                         <b> {{request.session.battery_kWh}} kWh </b>.
                                         <br><br>
-                                        Die Investitionskosten für die Pv-Anlage 
+                                        Die Investitionskosten für die PV-Anlage 
                                         (<b> {{request.session.pv_investment_cost_eur}} €</b>)
                                         und den Speicher 
                                         (<b> {{request.session.battery_investment_cost_eur}} €</b>)
@@ -131,7 +131,7 @@
                                         <br><br>
                                         Mit der PV-Anlage können täglich
                                         <b> {{request.session.electricity_pv_generation_day}} kWh</b>
-                                        Strom erzeugt. 
+                                        Strom erzeugt werden. 
                                         <br>
                                         Ihr Elektroauto ist angeschlossen von 
                                         <b> {{request.session.ev_connected_time}} Uhr</b> bis
@@ -168,7 +168,7 @@
                     </div>
                 </div>
                             
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h5>Erklärung des Ergebnisses</h5>
@@ -192,12 +192,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h5>PV Stromerzeugung</h5>
                             <p>
-                                Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                Mit einer Fläche von <b> {{request.session.roof_size}} </b> m&#178 können Sie eine
                                 Anlage der Größe <b> {{request.session.pv_kw_peak}} kWpeak </b> bauen. <br>
                                 Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
                                 einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können

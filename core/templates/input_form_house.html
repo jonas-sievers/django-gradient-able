@@ -48,10 +48,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.property_type.label_tag }}</label>
                                         <select name="property_type" class="form-control">
-                                            <option value="{{request.session.property_type}}">{{request.session.property_type}}</option>
                                             {% for choice in form.property_type.field.choices %}
-                                                {% if  choice.1 != request.session.property_type %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.property_type %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -64,10 +65,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.number_properties.label_tag }}</label>
                                         <select name="number_properties" class="form-control">
-                                            <option value="{{request.session.number_properties}}">{{request.session.number_properties}}</option>
                                             {% for choice in form.number_properties.field.choices %}
-                                                {% if  choice.1 != request.session.number_properties %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.number_properties %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -83,10 +85,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.water_heating.label_tag }}</label>
                                         <select name="water_heating" class="form-control">
-                                            <option value="{{request.session.water_heating}}">{{request.session.water_heating}}</option>
                                             {% for choice in form.water_heating.field.choices %}
-                                                {% if  choice.1 != request.session.water_heating %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.water_heating %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -99,10 +102,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.number_persons.label_tag }}</label>
                                         <select name="number_persons" class="form-control">
-                                            <option value="{{request.session.number_persons}}">{{request.session.number_persons}}</option>
                                             {% for choice in form.number_persons.field.choices %}
-                                                {% if  choice.1 != request.session.number_persons %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.number_persons %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -141,10 +145,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.driving_profile.label_tag }}</label>
                                         <select name="driving_profile" class="form-control">
-                                            <option value="{{request.session.driving_profile}}">{{request.session.driving_profile}} km/Tag</option>
                                             {% for choice in form.driving_profile.field.choices %}
-                                                {% if  choice.0 != request.session.driving_profile %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.driving_profile %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -160,10 +165,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.arrival_time.label_tag }}</label>
                                         <select name="arrival_time" class="form-control">
-                                            <option value="{{request.session.arrival_time}}">{{request.session.arrival_time}} Uhr</option>
                                             {% for choice in form.arrival_time.field.choices %}
-                                                {% if  choice.0 != request.session.arrival_time %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.arrival_time %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -176,10 +182,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.departure_time.label_tag }}</label>
                                         <select name="departure_time" class="form-control">
-                                            <option value="{{request.session.departure_time}}">{{request.session.departure_time}} Uhr</option>
                                             {% for choice in form.departure_time.field.choices %}
-                                                {% if  choice.0 != request.session.departure_time %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.departure_time %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -192,10 +199,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.cable_length.label_tag }}</label>
                                         <select name="cable_length" class="form-control">
-                                            <option value="{{request.session.cable_length}}">{{request.session.cable_length}} m</option>
                                             {% for choice in form.cable_length.field.choices %}
-                                                {% if  choice.0 != request.session.cable_length %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.cable_length %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
@@ -208,10 +216,11 @@
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom01">{{ form.usage_years.label_tag }}</label>
                                         <select name="usage_years" class="form-control">
-                                            <option value="{{request.session.usage_years}}">{{request.session.usage_years}} Jahre</option>
                                             {% for choice in form.usage_years.field.choices %}
-                                                {% if  choice.0 != request.session.usage_years %}
-                                                    <option value="{{ choice.0 }}">{{choice.1}}</option>
+                                                {% if  choice.0 == request.session.usage_years %}
+                                                <option value="{{ choice.0 }}" selected>{{choice.1}} </option>
+                                                {% else %}
+                                                <option value="{{ choice.0 }}">{{choice.1}} </option>
                                                 {%endif%}
                                             {% endfor %}
                                         </select>
