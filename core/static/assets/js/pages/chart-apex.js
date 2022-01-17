@@ -317,9 +317,6 @@ $(document).ready(function() {
                     type: 'line',
                     stacked: false,
                 },
-                title: {
-                    text: 'Solarstrom-Eigenverbrauch'
-                },
                 stroke: {
                     width: [2, 2, 2],
                     curve: 'straight'
