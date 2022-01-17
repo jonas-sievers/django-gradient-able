@@ -17,70 +17,48 @@
 							<h5 class="mb-3">Einführung Verlustleistung</h5>
 							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Was ist Verlustleistung?</a></li>
-								<li class="nav-item"><a class="nav-link text-left" id="v-pills-menu-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-menu" aria-selected="false">Graphisch erklärt!</a></li>
 								<li class="nav-item"><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ihre Vorteile</a></li>
 							</ul>
 							<div class="tab-content" id="v-pills-tabContent">
 								<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                     <div class= "row">
-                                        <div class="col-3">
-                                            <p>
-                                                <br>
-                                            </p>
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung_home.png" alt="Card image cap">
-                                        </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <p class="card-text">
                                                 <br>
                                                 <b>Ladekabel intelligent auswählen</b>
                                                 <br><br>
                                                 Damit Sie Ihr Elektroauto mit der Wallbox laden können, 
                                                 muss diese mit einem <b>Kabel</b> an den Stromkreis angeschlossen werden. 
-                                                Beim Laden des Elektroautos treten hierbei gewisse Energieverluste im Kabel auf.
+                                                Beim Laden treten hierbei gewisse Energieverluste im Kabel auf.
                                                 Das bedeutet, dass ein Teil der Energie nicht für das Laden des Autos 
                                                 genutzt werden kann, da diese in anderer Form wie bspw. Wärme, frei wird.
+                                                <b>Die Verlustleistung ist hierbei die verloren gegangene Energiemenge pro Zeiteinheit.</b>                                                                                         
                                                 <br><br>
-                                                <b>Die Verlustleistung ist hierbei die verloren gegangene Energiemenge pro Zeiteinheit.</b>
-                                                Die auftretende Verlustleistung hat dabei gleich zwei Nachteile. Zum einen 
-                                                muss beachtet werden, dass sich das Kabel nicht zu stark erwärmt und zum anderen
-                                                muss der verlorene Strom trotzdem bezahlt werden.
-                                                Das Ziel ist also, das Anschlusskabel der Wallbox so auszuwählen, dass die 
-                                                Verlustleistung nicht zu groß wird.                                                                                               
-                                                <br><br>
-                                                <b>Annahme: Wenn das Dashboard Lastmanagement ergibt, dass eine Netzanschlusserweiterung
-                                                notwendig ist, wird hier angenommen, dass diese stattgefunden hat 
-                                                und Sie mit 11 kW laden können.</b>
-                                            </p>
-                                        </div>
-                                    </div>
-								</div>
-								<div class="tab-pane fade show" id="v-pills-menu" role="tabpanel" aria-labelledby="v-pills-home-tab">
-									<div class= "row">
-                                        <div class="col-3">
-                                            <br>
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung.png" alt="Card image cap">
-                                            <br>
-                                        </div>
-                                        <div class="col-8">
-                                            <p>
-                                                <br>
-                                                <b>Berechnung Verlustleistung</b> <br>
+                                                <b>Berechnung Verlustleistung:</b>
                                                 Entscheidend für die Verlustleistung ist hierbei vor allem das <b>Material</b>,
                                                 die <b>Länge</b> und der <b>Querschnitt</b> des Kabels sowie die <b>Stromstärke</b> und die Anzahl 
                                                 der verwendeten <b>Phasen</b>. 
                                                 <br><br>
                                                 Als Material für das Kabel wird üblicherweise <b>Kupfer</b> verwendet und die Länge
                                                 des Kabels haben Sie mit <b>{{request.session.cable_length}} m</b> angegeben.
-                                                Optimiert werden kann hingegen <b>der Querschnitt </b>. 
+                                                <b>Optimiert werden kann der Querschnitt </b>. 
                                                 Je größer der Kabelquerschnitt dabei ist, desto teurer wird das Kabel und desto
                                                 weniger Verlustleistung tritt auf.
-                                                <br>
                                             </p>
+                                        </div>
+                                        <div class="col-4">
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/verlustleistung_home.png" alt="Card image cap">
                                         </div>
                                     </div>
 								</div>
 								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 									<p class="mb-0">
+                                        Die auftretende Verlustleistung hat dabei gleich zwei Nachteile. Zum einen 
+                                        muss beachtet werden, dass sich das Kabel nicht zu stark erwärmt und zum anderen
+                                        muss der verlorene Strom trotzdem bezahlt werden.
+                                        Das Ziel ist also, das Anschlusskabel der Wallbox so auszuwählen, dass die 
+                                        Verlustleistung nicht zu groß wird.   
+                                        <br><br>
                                         <b>Durch die intelligente Auswahl des richtigen Kabelquerschnitts können folgende Vorteile für Sie entstehen</b> 
                                         <br><br>
                                         <b>1. Kosten sparen:</b> Sie betrachten nicht nur die Kosten des Kabels, sonder zusätzlich die
