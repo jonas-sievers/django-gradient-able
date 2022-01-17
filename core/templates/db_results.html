@@ -284,120 +284,125 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <a href="/db_verlustleistung.html">
-                    <div class="card">
-                        <div class="card-body">
-                            <p>
-                                Hier sehen Sie für Ihre individuellen Angaben 
-                                wie sich für jeden Querschnitt die Kabelkosten, 
-                                Verlustleistungskkosten und Gesamtkosten entwickeln.
-                                Hierbei wird ihre Fahrstrecke von 
-                                <b>{{request.session.driving_profile}} km am Tag</b>, 
-                                einee Kabellänge von <b>{{request.session.cable_length}} m</b>
-                                und einer Nutzungsdauer der Kabel von 
-                                <b>{{request.session.usage_years}} Jahren</b> angenommen.
-
-                            </p>
-                            <div id="area-chart-1-cable-costs"></div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-12">
-                <div class="card alert-primary">
-                    <a href="/db_renewables.html">
-                        <div class="card-body bg-patern-white">
-                            <div class="row">
-                                <div class="col-1">
-                                    {% if request.session.pv_speicher_sinnvoll == "sinnvoll" %}
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
-                                    {%else %}
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/failure.png" alt="Card image cap">
-                                    {%endif%}
-                                </div>
-                                <div class="col-11">
-                                    <h5>
-                                        <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                        Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
-                                        Anlage der Größe <b> {{request.session.pv_kWpeak}} kWpeak </b> bauen und 
-                                        der ausgewählte Speicher hat eine Kapazität von
-                                        <b> {{request.session.battery_kWh}} kWh </b>.
-                                        <br><br>
-                                        Die Investitionskosten für die Pv-Anlage 
-                                        (<b> {{request.session.pv_investment_cost_eur}} €</b>)
-                                        und den Speicher 
-                                        (<b> {{request.session.battery_investment_cost_eur}} €</b>)
-                                        liegen insgesamt bei
-                                        <b> {{request.session.capex_pv_und_battery}} €</b>.
-                                        <br><br>
-                                        Mit der PV-Anlage können täglich
-                                        <b> {{request.session.electricity_pv_generation_day}} kWh</b>
-                                        Strom erzeugt. 
-                                        <br>
-                                        Ihr Elektroauto ist angeschlossen von 
-                                        <b> {{request.session.ev_connected_time}} Uhr</b> bis
-                                        <b> {{request.session.ev_deconnected_time}} Uhr</b> und
-                                        benötigt
-                                        <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
-                                        PV-Anlage können hiervon 
-                                        <b> {{request.session.ev_charged_electricity}} kWh</b>
-                                        geladen werden. Von dem verbleibenden Strom, 
-                                        werden 
-                                        <b> {{request.session.battery_status}} kWh</b> gespeichert, 
-                                        <b> {{request.session.electricity_saved}} kWh</b>
-                                        direkt in Ihrem Haushalt verbraucht und
-                                        <b> {{request.session.electricity_sold_grid}} kWh</b>
-                                        an das Netz verkauft.
-                                        <br><br>
-                                        Hiermit sparen/ verdienen Sie täglich
-                                        <b> {{request.session.einnahmen_tag}} €</b> und
-                                        im Jahr 
-                                        <b> {{request.session.einnahmen_jahr}} €</b>.
-                                        <br><br>
-                                        Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
-                                        liegt Ihr Gewinn nach 10 Jahren somit bei
-                                        <b> {{request.session.gewinn_10_jahre}} €</b>.
-                                    <br><br>
-                                    Hierbei Nutzen Sie 
-                                    <b> {{request.session.quote_pv_nutzung}} %</b> des 
-                                    erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
-                                    <b> {{request.session.quote_eigenversorgung}} %</b>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <a href="/db_renewables.html">
-                        <div class="card-body bg-patern-white">
-                            <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/db_verlustleistung.html">
+                        <div class="card">
+                            <div class="card-body">
                                 <p>
-                                    Mit einer Fläche von <b> {{request.session.roof_size}} </b> m&#178 können Sie eine
-                                    Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen. 
-                                    Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
-                                    einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
-                                    <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden, 
-                                    bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_day}} kWh. </b>
-                                    Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab.
+                                    Hier sehen Sie für Ihre individuellen Angaben 
+                                    wie sich für jeden Querschnitt die Kabelkosten, 
+                                    Verlustleistungskkosten und Gesamtkosten entwickeln.
+                                    Hierbei wird ihre Fahrstrecke von 
+                                    <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                    einee Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                    und einer Nutzungsdauer der Kabel von 
+                                    <b>{{request.session.usage_years}} Jahren</b> angenommen.
+
                                 </p>
-                                <div id="mixed-chart-PV-Erzeugung"></div>
+                                <div id="area-chart-1-cable-costs"></div>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
-            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card alert-primary">
+                        <a href="/db_renewables.html">
+                            <div class="card-body bg-patern-white">
+                                <div class="row">
+                                    <div class="col-1">
+                                        {% if request.session.pv_speicher_sinnvoll == "sinnvoll" %}
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                        {%else %}
+                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/failure.png" alt="Card image cap">
+                                        {%endif%}
+                                    </div>
+                                    <div class="col-11">
+                                        <h5>
+                                            <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <p>
+                                            Mit einer Fläche von <b> {{request.session.roof_size}} </b> m2 können Sie eine
+                                            Anlage der Größe <b> {{request.session.pv_kWpeak}} kWpeak </b> bauen und 
+                                            der ausgewählte Speicher hat eine Kapazität von
+                                            <b> {{request.session.battery_kWh}} kWh </b>.
+                                            <br><br>
+                                            Die Investitionskosten für die Pv-Anlage 
+                                            (<b> {{request.session.pv_investment_cost_eur}} €</b>)
+                                            und den Speicher 
+                                            (<b> {{request.session.battery_investment_cost_eur}} €</b>)
+                                            liegen insgesamt bei
+                                            <b> {{request.session.capex_pv_und_battery}} €</b>.
+                                            <br><br>
+                                            Mit der PV-Anlage können täglich
+                                            <b> {{request.session.electricity_pv_generation_day}} kWh</b>
+                                            Strom erzeugt. 
+                                            <br>
+                                            Ihr Elektroauto ist angeschlossen von 
+                                            <b> {{request.session.ev_connected_time}} Uhr</b> bis
+                                            <b> {{request.session.ev_deconnected_time}} Uhr</b> und
+                                            benötigt
+                                            <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
+                                            PV-Anlage können hiervon 
+                                            <b> {{request.session.ev_charged_electricity}} kWh</b>
+                                            geladen werden. Von dem verbleibenden Strom, 
+                                            werden 
+                                            <b> {{request.session.battery_status}} kWh</b> gespeichert, 
+                                            <b> {{request.session.electricity_saved}} kWh</b>
+                                            direkt in Ihrem Haushalt verbraucht und
+                                            <b> {{request.session.electricity_sold_grid}} kWh</b>
+                                            an das Netz verkauft.
+                                            <br><br>
+                                            Hiermit sparen/ verdienen Sie täglich
+                                            <b> {{request.session.einnahmen_tag}} €</b> und
+                                            im Jahr 
+                                            <b> {{request.session.einnahmen_jahr}} €</b>.
+                                            <br><br>
+                                            Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
+                                            liegt Ihr Gewinn nach 10 Jahren somit bei
+                                            <b> {{request.session.gewinn_10_jahre}} €</b>.
+                                        <br><br>
+                                        Hierbei Nutzen Sie 
+                                        <b> {{request.session.quote_pv_nutzung}} %</b> des 
+                                        erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
+                                        <b> {{request.session.quote_eigenversorgung}} %</b>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <a href="/db_renewables.html">
+                            <div class="card-body bg-patern-white">
+                                <div class="col-md-12">
+                                    <p>
+                                        Mit einer Fläche von <b> {{request.session.roof_size}} </b> m&#178 können Sie eine
+                                        Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen. 
+                                        Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
+                                        einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
+                                        <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden, 
+                                        bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_day}} kWh. </b>
+                                        Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab.
+                                    </p>
+                                    <div id="mixed-chart-PV-Erzeugung"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
 
             <!--

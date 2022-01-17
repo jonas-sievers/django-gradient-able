@@ -46,12 +46,12 @@ $(document).ready(function() {
                 {
                     name: 'Kosten Verlustenergie über ' + usage_years + ' Jahre ' + cable_length + ' m',
                     type: 'line',
-                    data: [parseFloat((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*4)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*6)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*10)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*16)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))).toFixed(1)]
+                    data: [parseFloat((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*4)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*6)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*10)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*16)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1)]
                },
                {
                 name: 'Gesamtkosten über ' + usage_years + ' Jahre und ' + cable_length + ' m',
                 type: 'line',
-                data: [parseFloat(((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years))+1*cable_length)).toFixed(1), parseFloat(((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years)+1.6*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*4)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years)+3.5*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*6)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years)+4.7*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*10)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years)+7.4*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*16)) * ((driving_profile*73)/(dyn_verfuegbare_ladeleistung_fuer_wallbox*1000)) * (0.25*usage_years)+12*cable_length))).toFixed(1)]
+                data: [parseFloat(((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))+1*cable_length)).toFixed(1), parseFloat(((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+1.6*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*4)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+3.5*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*6)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+4.7*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*10)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+7.4*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*16)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+12*cable_length))).toFixed(1)]
                 }],
                 fill: {
                     type: 'gradient',
@@ -66,7 +66,7 @@ $(document).ready(function() {
                     },
                 },
                 xaxis: {
-                    categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
+                    categories: ['1,5', '2,5', '4,0', '6,0', '10,0', '16,0'],
                     title: {
                         text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
@@ -75,7 +75,8 @@ $(document).ready(function() {
                     min: 0,
                     title: {
                         text: 'Kosten [€]'
-                    }
+                    },
+                    decimalsInFloat: 0,
                 },
                 tooltip: {
                     shared: true,
@@ -331,12 +332,12 @@ $(document).ready(function() {
                 series: [{
                     name: 'PV-Erzeugung',
                     type: 'area',
-                    data: [0, 0, 0, 0, 0, 0, 0, (0.01*electricity_generation_day).toFixed(3), (0.02*electricity_generation_day).toFixed(3), (0.05*electricity_generation_day).toFixed(3), (0.08*electricity_generation_day).toFixed(3), (0.11*electricity_generation_day).toFixed(3), (0.12*electricity_generation_day).toFixed(3), (0.13*electricity_generation_day).toFixed(3), (0.13*electricity_generation_day).toFixed(3), (0.12*electricity_generation_day).toFixed(3), (0.10*electricity_generation_day).toFixed(3), (0.08*electricity_generation_day).toFixed(3), (0.04*electricity_generation_day).toFixed(3), (0.01*electricity_generation_day).toFixed(3), 0, 0, 0, 0]
+                    data: [0, 0, 0, 0, 0, 0, 0, (1000*0.01*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.02*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.05*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.08*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.11*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.12*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.13*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.13*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.12*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.10*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.08*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.04*parseFloat(electricity_generation_day)).toFixed(3), (1000*0.01*parseFloat(electricity_generation_day)).toFixed(3), 0, 0, 0, 0]
                 },
                 {
                     name: 'Stromverbrauch Haus',
                     type: 'line',
-                    data: [(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
+                    data: [(1000*0.0197*electricity_consumption_day).toFixed(0), (1000*0.0168*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0219*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0518*electricity_consumption_day).toFixed(0), (1000*0.0539*electricity_consumption_day).toFixed(0), (1000*0.0481*electricity_consumption_day).toFixed(0), (1000*0.0466*electricity_consumption_day).toFixed(0), (1000*0.0466*electricity_consumption_day).toFixed(0), (1000*0.0510*electricity_consumption_day).toFixed(0), (1000*0.0474*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0401*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0547*electricity_consumption_day).toFixed(0), (1000*0.062*electricity_consumption_day).toFixed(0), (1000*0.0729*electricity_consumption_day).toFixed(0), (1000*0.062*electricity_consumption_day).toFixed(0), (1000*0.051*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0306*electricity_consumption_day).toFixed(0)]
                 },
                ],
                 fill: {
@@ -356,9 +357,10 @@ $(document).ready(function() {
                 },
                 yaxis: {
                     title: {
-                        text: 'Ladeleistung [kW]',
+                        text: 'Leistung [W]',
                     },
                     min: 0,
+                    decimalsInFloat: 0,
                 },
                 xaxis: { 
                     title: {
@@ -371,7 +373,7 @@ $(document).ready(function() {
                     y: {
                         formatter: function(y) {
                             if (typeof y !== "undefined") {
-                                return y + " kWh";
+                                return y + " W";
                             }
                             return y;
 
@@ -557,13 +559,13 @@ $(document).ready(function() {
                 colors: ["#FFB64D", "#FF5370"],
                 series: [{
                     name: 'Leistung',
-                    data: [(0.0197*electricity_consumption_day).toFixed(3), (0.0168*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0160*electricity_consumption_day).toFixed(3), (0.0219*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0518*electricity_consumption_day).toFixed(3), (0.0539*electricity_consumption_day).toFixed(3), (0.0481*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0466*electricity_consumption_day).toFixed(3), (0.0510*electricity_consumption_day).toFixed(3), (0.0474*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0401*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0547*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.0729*electricity_consumption_day).toFixed(3), (0.062*electricity_consumption_day).toFixed(3), (0.051*electricity_consumption_day).toFixed(3), (0.0437*electricity_consumption_day).toFixed(3), (0.0306*electricity_consumption_day).toFixed(3)]
+                    data: [(0.0197*electricity_consumption_day*1000).toFixed(0), (0.0168*electricity_consumption_day*1000).toFixed(0), (0.0160*electricity_consumption_day*1000).toFixed(0), (0.0160*electricity_consumption_day*1000).toFixed(0), (0.0160*electricity_consumption_day*1000).toFixed(0), (0.0219*electricity_consumption_day*1000).toFixed(0), (0.0437*electricity_consumption_day*1000).toFixed(0), (0.0518*electricity_consumption_day*1000).toFixed(0), (0.0539*electricity_consumption_day*1000).toFixed(0), (0.0481*electricity_consumption_day*1000).toFixed(0), (0.0466*electricity_consumption_day*1000).toFixed(0), (0.0466*electricity_consumption_day*1000).toFixed(0), (0.0510*electricity_consumption_day*1000).toFixed(0), (0.0474*electricity_consumption_day*1000).toFixed(0), (0.0437*electricity_consumption_day*1000).toFixed(0), (0.0401*electricity_consumption_day*1000).toFixed(0), (0.0437*electricity_consumption_day*1000).toFixed(0), (0.0547*electricity_consumption_day*1000).toFixed(0), (0.062*electricity_consumption_day*1000).toFixed(0), (0.0729*electricity_consumption_day*1000).toFixed(0), (0.062*electricity_consumption_day*1000).toFixed(0), (0.051*electricity_consumption_day*1000).toFixed(0), (0.0437*electricity_consumption_day*1000).toFixed(0), (0.0306*electricity_consumption_day*1000).toFixed(0)]
                 },
                ], 
                 yaxis: {
                     display: false,
                     title: {
-                        text: 'Leistung [kW]',
+                        text: 'Leistung [W]',
                     },
                     min: 0,
                 },
@@ -753,7 +755,8 @@ $(document).ready(function() {
                 yaxis: {
                     tooltip: {
                         enabled: true
-                    }
+                    },
+                    decimalsInFloat: 0,
                 }, 
                 tooltip: {
                     custom: function({ seriesIndex, dataPointIndex, w }) {
@@ -865,15 +868,15 @@ $(document).ready(function() {
                 series: [{
                     name: 'Ersparnis kumuliert',
                     type: 'column',
-                    data: [parseFloat(((driving_profile*0.2*0.03*30)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*61)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*92)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*122)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*153)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*183)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*214)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*244)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*275)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*305)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*336)-1.66)).toFixed(1), parseFloat(((driving_profile*0.2*0.03*365)-1.66)).toFixed(1)]
+                    data: [parseFloat(((driving_profile*0.2*0.03*30)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*61)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*92)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*122)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*153)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*183)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*214)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*244)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*275)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*305)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*336)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*365)-1.66)).toFixed(0)]
                 }, {
                     name: 'Kosten ohne SVE',
                     type: 'area',
-                    data: [parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1), parseFloat((driving_profile*30*0.2*0.25)).toFixed(1), parseFloat((driving_profile*31*0.2*0.25)).toFixed(1)]
+                    data: [parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0)]
                 }, {
                     name: 'Kosten mit SVE',
                     type: 'line',
-                    data: [parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(1), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(1)]
+                    data: [parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0)]
                 }],
                 fill: {
                     type: 'gradient',
@@ -1032,7 +1035,7 @@ $(document).ready(function() {
                     },
                 },
                 xaxis: {
-                    categories: ['1.5', '2.5', '4.0', '6.0', '10.0', '16.0'],
+                    categories: ['1,5', '2,5', '4,0', '6,0', '10,0', '16,0'],
                     title: {
                         text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
@@ -1041,7 +1044,8 @@ $(document).ready(function() {
                     min: 0,
                     title: {
                         text: 'Verlustleistung [W]'
-                    }
+                    },
+                    decimalsInFloat: 0,
                 },
                 tooltip: {
                     shared: true,
