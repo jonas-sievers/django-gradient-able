@@ -585,7 +585,7 @@ $(document).ready(function() {
                     y: {
                         formatter: function(y) {
                             if (typeof y !== "undefined") {
-                                return y + " kW";
+                                return y + " Watt";
                             }
                             return y;
 

@@ -6,7 +6,6 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}	
-
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-content">
@@ -14,113 +13,171 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-						<div class="card-body">
-							<h5 class="mb-3">Einführung Lastmanagement</h5>
-							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-								<li class="nav-item"><a class="nav-link text-left active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Was ist ein Lastmanagement?</a></li>
-								<li class="nav-item"><a class="nav-link text-left" id="v-pills-menu-tab" data-toggle="pill" href="#v-pills-menu" role="tab" aria-controls="v-pills-menu" aria-selected="false">Graphisch erklärt!</a></li>
-								<li class="nav-item"><a class="nav-link text-left" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Ihre Vorteile</a></li>
-							</ul>
-							<div class="tab-content" id="v-pills-tabContent">
-								<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                    <div class= "row">
-                                        <div class="col-7">
-                                            <p class="card-text">
-                                                <br>
-                                                <b>Kosten sparen, optimal Laden</b>
-                                                <br><br>
-                                                Eine wesentliche Komponente bei der Umsetzung von Smart Charging 
-                                                Konzepten spielt das <b>Lastmanagement</b>. Ein Lastmanagementsystem begrenzt 
-                                                die an den Ladepunkten verfügbare Gesamtleistung zum Laden der Elektroautos. 
-                                                Ganz allgemein kann es bei Ihrer Immobilie dabei zu drei Anwenudngsfällen kommen.
-                                                <br><br>
-                                                <b>Drei mögliche Szenarien für Ihre Immobilie: </b>
-                                                <br><br>
-                                                1. Es wird <b>kein Lastmanagement</b> benötigt und Sie können Ihr Elektroauto jeder Zeit mit voller
-                                                Leistung laden (max. Ladeleistung 11 kW, da sonst nicht durch
-                                                <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">kfW</a></b>
-                                                gefördert) 
-                                                <br><br>
-                                                2. Es wird <b>ein Lastmanagement</b> benötigt, um die verfügbare Ladeleistung auf die Wallboxen zu verteilen.
-                                                Hierbei kann zwischen einem <b>dynamischen und statischen Lastmanagement unterschieden </b>
-                                                werden (siehe Graphisch erklärt!). 
-                                                <br><br>
-                                                3. Es muss eine <b>Hausanschlusserweiterung</b> durchgeführt werden, da ein Lastmanagement nicht ausreicht.                             
-                                            </p>
-                                        </div>
-                                        <div class="col-5">
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/lastmanagement.png" alt="Card image cap">
-                                        </div>
-                                    </div>
-								</div>
-								<div class="tab-pane fade show" id="v-pills-menu" role="tabpanel" aria-labelledby="v-pills-home-tab">
-									<div class= "row">
-                                        <div class="col-4">
-                                            <p>
-                                                <b>Ohne Lastmanagement</b>
-                                                <br>
-                                                Ihr Elektroauto wird ohne Lastmanagement nach Beginn des Ladevorgangs
-                                                mit voller Leistung geladen. Hierdurch können große Lastspitzen entstehen.
-                                            </p>
-                                        </div>
-                                        <div class="col-4">
-                                            <p>
-                                                <b>Statisches Lastmanagement</b>
-                                                <br>
-                                                Ein statisches Lastmanagement begrenzt den maximalen Leistungsbedarf 
-                                                Ihrer Immobilie. Die verfügbare Ladeleistung ist konstant und passt 
-                                                sich nicht an den Leistungsbedarf des Gebäudes an.
-                                            </p>
-                                        </div>
-                                        <div class="col-4">
-                                            <p>
-                                                <b>Dynamisches Lastmanagement</b>
-                                                <br>
-                                                Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
-                                                Leistungsbedarf Ihres Gebäudes und passt die Ladeleistung dynamisch
-                                                an.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class= "row">
-                                        <div class="col-4">
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/ohne_lastmanagement.png" alt="Card image cap">
-                                        </div>
-                                        <div class="col-4">
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_lastmanagement.png" alt="Card image cap">
-                                        </div>
-                                        <div class="col-4">
-                                            <img class="img-fluid card-img-top" src="/static/assets/images/slider/dyn_lastmanagement.png" alt="Card image cap">
-                                        </div>
-                                    </div>                                    
-								</div>
-								<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-									<p class="mb-0">
-                                        <b>Durch ein Lastmanagement können für Sie die folgenden Vorteile entstehen:</b> 
-                                        <br><br>
-                                        <b>1. Kosten Vorteil:</b> Durch ein Lastmanagement können Sie ggf. den teuren 
-                                        Ausbau Ihres Netzanschlusses umgehen.
-                                        <br><br>
-										<b>2. Effiziente Nutzung:</b> Durch ein Lastmanagement können Sie die verfügbare
-                                        Anschlussleitung Ihres Hausanschlusses optimal nutzen.
-                                        <br><br>                                         
-                                        <b>3. Schneller laden:</b> Durch die intelligente Optimierung von Ladevorgängen, 
-                                        nutzen Sie das volle Potenzial Ihres Netzanschlusses und können
-                                        damit ggf. schneller laden.
-									</p>
-								</div>
-							</div>
+                        <div class="card-body">
+							<h5>Einführung Lastmanagement</h5>
+                            <p class="card-text">
+                                <br>
+                                Die Hausanschlussleistung Ihrer Immobilie 
+                                (<b>{{request.session.house_connection_power}} kW</b>)
+                                legt grundsätzlich fest, 
+                                wie viel Strom Sie zu einem gewissen 
+                                Zeitpunkt maximal zur Verfügung haben. 
+                                Ein Lastmanagementsystem begrenzt 
+                                die an den Ladepunkten verfügbare Gesamtleistung zum Laden der Elektroautos. 
+                                Hierdurch können Sie Kosten sparen, indem Sie eine ggf. teure Netzanschlusserweiterung
+                                vermeiden. Zusätzlich können Sie sich von der 
+                                <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">KfW</a></b>
+                                fördern lassen, wenn Sie ein intelligentes Ladesystem verbauen und 11 kW Ladeleistung
+                                nicht überschreiten.
+                                <br><br>
+                                <b>Dabei gibt es drei mögliche Szenarien für Ihre Immobilie: </b>
+                            </p>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <p>
+                                        <b>Einfach Laden</b>
+                                        <br>
+                                        Es wird <b>kein Lastmanagement</b> benötigt und 
+                                        Sie können Ihr Elektroauto jeder Zeit mit voller
+                                        Leistung laden.
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Intelligent Laden</b>
+                                        <br>
+                                        Es wird <b>ein Lastmanagement</b> benötigt, 
+                                        um die verfügbare Ladeleistung auf die Wallboxen zu verteilen, 
+                                        da sonst der Hausanschluss überlastet wird.                              
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Netzanschlusserweiterung</b>
+                                        <br>
+                                        Es muss eine <b>Netzanschlusserweiterung</b> durchgeführt werden, 
+                                        da ein Lastmanagement nicht ausreicht den Strombedarf 
+                                        intelligent zu verteilen.                              
+                                    </p>
+                                </div>
+                            </div>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/einfach_laden.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/intelligent_laden.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/anschlusserweiterung.png" alt="Card image cap">
+                                </div>
+                            </div>  
+							
 						</div>
-					</div>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card alert-primary">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Unterschiede Lastmanagement</h5>
+                            <p class="card-text">
+                                <br>
+                                Bei einem Lastmanagement kann zwischen einem dynamischen und einem
+                                statischen Lastmanagement unterschieden werden.
+                            </p>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <p>
+                                        <b>Ohne Lastmanagement</b>
+                                        <br>
+                                        Ihr Elektroauto wird ohne Lastmanagement nach Beginn des Ladevorgangs
+                                        mit voller Leistung geladen. Hierdurch können große Lastspitzen entstehen.
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Statisches Lastmanagement</b>
+                                        <br>
+                                        Ein statisches Lastmanagement begrenzt den maximalen Leistungsbedarf 
+                                        Ihrer Immobilie. Die verfügbare Ladeleistung ist konstant und passt 
+                                        sich nicht an den Leistungsbedarf des Gebäudes an.
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Dynamisches Lastmanagement</b>
+                                        <br>
+                                        Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
+                                        Leistungsbedarf Ihres Gebäudes und passt die Ladeleistung dynamisch
+                                        an.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/ohne_lastmanagement.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_lastmanagement.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/dyn_lastmanagement.png" alt="Card image cap">
+                                </div>                                
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- order-card start -->
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Standzeit Elektroauto</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-clock float-left"></i><span>{{request.session.hours_to_charge}} h</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6 >Ladezeit dyn. Lastmanagement</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-battery-charging float-left"></i><span>{{request.session.dyn_needed_time_to_charge}} h</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Ladezeit stat. Lastmanagement</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-battery-charging float-left" ></i><span>{{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW</span></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Max. dyn. Ladeleistung</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-zap float-left" ></i><span>{{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW</span></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" style="background-color:#D9DADD;">
                         <div class="card-body bg-patern-white">
                             <div class="row">
                                 <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success.png" alt="Card image cap">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success_blue.png" alt="Card image cap">
                                 </div>
                                 <div class="col-11">
                                     <h5>
@@ -179,12 +236,7 @@
                     <div class="card">
                         <div class="card-body">
 							<h5>Erklärung der Auswahl</h5>
-							<p class="card-text">
-                                <b>Welche Annahmen werden hierbei getroffen?</b> Grundsätzlich bestimmt die 
-                                die Hausanschlussleistung Ihrer Immobilie 
-                                (<b>{{request.session.house_connection_power}} kW</b>), wie viel Strom Sie zu einem gewissen 
-                                Zeitpunkt zur Verfügung haben. 
-                                
+							<p class="card-text">                                
                                 Bei einer Immobilie vom Typ 
                                 <b> {{request.session.property_type}}</b>, mit insgesamt 
                                 <b> {{request.session.number_properties}}</b>
@@ -197,7 +249,8 @@
                                 )
                                 <br><br>                                
                                 Für ein <b>statisches Lastmanagement</b> ergibt sich dann aus 
-                                der Differenz zur Hausanschlussleistung und der max. Leistungsnachfrage, 
+                                der Differenz zur Hausanschlussleistung  (<b>{{request.session.house_connection_power}} kW</b>) 
+                                und der max. Leistungsnachfrage, 
                                 dass in Ihrer Immobilie 
                                 <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
                                 zur Verfügung stehen. Bei 
@@ -227,6 +280,8 @@
 						</div>
                     </div>
                 </div>
+            </div>
+			<div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
