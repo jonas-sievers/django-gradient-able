@@ -22,21 +22,21 @@
                                         Durch eine eigene <b>PV-Anlage</b> auf dem Dach können Sie Ihren
                                         eigenen Strom erzeugen. Das lohnt sich für
                                         Sie direkt doppelt, denn zum einen können
-                                        Sie den Strom selber nutzen und müssen weniger Strom
-                                        von Ihrem Anbieter kaufen und zum anderen können Sie 
-                                        den Strom auch selber an das Netz verkaufen. 
+                                        Sie den Strom selber nutzen und so 
+                                        <b>Stromkosten sparen</b> und zum anderen können Sie 
+                                        den Strom auch selber <b>an das Netz verkaufen</b>. 
+                                        In Kombination mit einem <b>Speicher</b>, kann der Eigenverbrauch 
+                                        der PV-Anlage dabei deutlich erhöht werden. Dies ist sinnvoll, da
+                                        die Einspeisevergütung für Solarstrom   
+                                        2022 bei nur 6,63 Cent/ kWh liegt.
                                         <br><br>
-                                        In Kombination mit einem Speicher, kann der Eigenverbrauch 
-                                        der PV-Anlage dabei deutlich erhöht werden.
-                                        Lithium-Speicher haben sich für 
-                                        PV-Anlage inzwischen am Markt durchgesetzt. 
-                                        Sie sind effizient, langlebig, nahezu wartungsfrei und werden immer preiswerter.  
-                                        Erzeugt die Photovoltaikanlage
-                                        <br><br>
-                                        Hierbei lohnt es sich möglichst viel des eigenen Solarstroms, 
-                                        auch direkt selber zu verbrauchen, denn die Einspeisevergütung   
-                                        liegt 2022 bei nur 6,63 Cent/ kWh, wärend der gekaufte
-                                        Strom bis zu 47,78 Cent/ kWh kostet.  
+                                        Solange die PV-Erzeugung niedriger ist, als der aktuelle <b>Verbrauch des
+                                        Gebäudes</b>, wird der Strom direkt genutzt. Sobald die PV-Erzeugung den
+                                        Verbrauch überschreitet, wird geprüft ob das Elektroauto angeschlossen 
+                                        ist und einen Ladebedarf hat. Ist dies der Fall wird der überschüssige 
+                                        <b>Solarstrom für das Auto</b> verwendet. Ist dieses nicht angeschlossen oder 
+                                        voll, wird der <b>Speicher geladen</b> und wenn auch dieser gefüllt ist, 
+                                        wird der restliche Strom ans <b>Netz verkauft</b>.   
                                     </p>
                                 </div>
                                 <div class="col-4">
@@ -45,6 +45,47 @@
                             </div>
 						</div>
 					</div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- order-card start -->
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Gewinn nach 10 Jahren</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-credit-card float-left"></i><span>{{request.session.gewinn_10_jahre}} €</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6 >Eigenversorgungsquote</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-sun float-left"></i><span>{{request.session.quote_eigenversorgung}} %</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Eigennutzungsquote PV</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-sun float-left" ></i><span>{{request.session.quote_pv_nutzung}} %</span></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>PV-Erzeugung täglich</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-zap float-left" ></i><span>{{request.session.electricity_pv_generation_day}} kWh</span></h2>
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -61,7 +102,7 @@
                                 </div>
                                 <div class="col-11">
                                     <h5>
-                                        <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
+                                        <br> Die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
                                     </h5>
                                 </div>
                             </div>
@@ -73,18 +114,15 @@
                                         Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen und 
                                         der ausgewählte Speicher hat eine Kapazität von
                                         <b> {{request.session.battery_kWh}} kWh </b>.
-                                        <br><br>
-                                        Die Investitionskosten für die PV-Anlage 
-                                        (<b> {{request.session.pv_investment_cost_eur}} €</b>)
-                                        und den Speicher 
-                                        (<b> {{request.session.battery_investment_cost_eur}} €</b>)
-                                        liegen insgesamt bei
-                                        <b> {{request.session.capex_pv_und_battery}} €</b>.
-                                        <br><br>
-                                        Mit der PV-Anlage können täglich
+                                        Bei einer Dachneigung von 
+                                        <b> {{request.session.roof_tilt}}°</b>, einer 
+                                        <b> {{request.session.roof_orientation}}-Ausrichtung</b> und einer
+                                        Sonneneinstrahlung von 
+                                        <b> {{request.session.solar_radiation}} kWh/ kWpeak</b>,
+                                        können Sie täglich
                                         <b> {{request.session.electricity_pv_generation_day}} kWh</b>
-                                        Strom erzeugt werden. 
-                                        <br>
+                                        Strom erzeugen. 
+                                        <br><br>
                                         Ihr Elektroauto ist angeschlossen von 
                                         <b> {{request.session.ev_connected_time}} Uhr</b> bis
                                         <b> {{request.session.ev_deconnected_time}} Uhr</b> und
@@ -104,12 +142,17 @@
                                         <b> {{request.session.einnahmen_tag}} €</b> und
                                         im Jahr 
                                         <b> {{request.session.einnahmen_jahr}} €</b>.
-                                        <br><br>
-                                        Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
+                                        Die Investitionskosten für Ihre PV-Anlage liegen bei
+                                        <b> {{request.session.pv_investment_cost_eur}} €</b> (1852,88 €/ kWpeak)
+                                        und für Ihren Speicher bei 
+                                        <b> {{request.session.battery_investment_cost_eur}} €</b> (350 €/ kWh).
+                                        Insgesamt kostest die PV-Speicher-Kombination somit schätzungsweise
+                                        <b> {{request.session.capex_pv_und_battery}} €</b>.
+                                        Unter Berücksichtigung der Investitionskosten
                                         liegt Ihr Gewinn nach 10 Jahren somit bei
                                         <b> {{request.session.gewinn_10_jahre}} €</b>.
                                        <br><br>
-                                       Hierbei Nutzen Sie 
+                                       Bei der PV-Speicher-Kombination nutzen Sie 
                                        <b> {{request.session.quote_pv_nutzung}} %</b> des 
                                        erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
                                        <b> {{request.session.quote_eigenversorgung}} %</b>
@@ -124,40 +167,28 @@
                 <div class="col-md-12">
                     <div class="card">
 						<div class="card-body">
-							<h5 class="mb-3">Erklärung des Ergebnisses</h5>
-                            <p class="card-text">
-                                Bei den Investitionskosten wird für die PV-Anlage Investitionskosten von 
-                                1852,88 €/ kWpeak angenommen und für den Speicher 350 €/ kWh. Für die
-                                jährliche Abschreibung wird bei der PV-Anlage mit einer Lebensdauer von 20 Jahren
-                                und bei dem Speicher von 10 Jahren gerechnet.
-                                <br><br>
-                                Bei der Kalkulation der Einnahmen wurde zwischen vier Szenerien unterschieden:
-                                <br>
-                                - Wenn die PV-Erzeugung kleiner ist als der Haushaltsstromverbrauch, wird der Strom 
-                                direkt dort verbraucht.<br>
-                                - Wenn mehr PV-Strom vorhanden ist, als durch den Haushalt verbraucht wird, dann wird <br>
-                                - entweder das Elektroauto geladen, wenn es gerade angeschlossen ist, <br>
-                                - der Speicher geladen, wenn dieser noch nicht voll ist, <br>
-                                - der Strom ins Netz verkauft.                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-						<div class="card-body">
-							<h5 class="mb-3">PV Stromerzeugung</h5>
+							<h5 class="mb-3">Übersicht Ihrer PV-Erzeugung und Ihres Stromverbrauchs</h5>
                             <p class="card-text">
                                 Mit einer Fläche von <b> {{request.session.roof_size}} </b> m&#178 können Sie eine
-                                Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen. <br>
+                                Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen. 
                                 Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
                                 einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
-                                <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden, 
-                                bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_day}} kWh </b>
+                                <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden.
                                 <br><br>
-                                Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab.
+                                Bei einer Immobilie vom Typ
+                                <b> {{request.session.property_type}}</b>, mit insgesamt 
+                                <b> {{request.session.number_properties}}</b>
+                                Wohneinheit(en) mit durchschnittlich
+                                <b> {{request.session.number_persons}}</b>
+                                sowie einer Warmwasseraufbereitung
+                                <b> {{request.session.water_heating}}</b>,
+                                liegt der Jahresenergieverbrauch bei 
+                                <b> {{request.session.electricity_consumption_year}} kWh</b>
+                                und der Tagesenergieverbauch bei
+                                <b> {{request.session.electricity_consumption_day}} kWh</b>.
+                                <br><br>
+                                Hieruas ergibt sich für einen Beispielhaften Tag der folgende 
+                                Graf für Ihre Immobilie. 
                             </p>
                         </div>
                         <div class="card-body">

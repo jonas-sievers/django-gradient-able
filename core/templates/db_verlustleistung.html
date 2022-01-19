@@ -51,6 +51,47 @@
                 </div>
             </div>
             <div class="row">
+                <!-- order-card start -->
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Gesamtkosten Kabel 1,5 mm&#178</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-credit-card float-left"></i><span>{{request.session.costs_1_5mm}} €</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6 >Gesamtkosten Kabel {{request.session.opt_querschnitt}} mm&#178</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-credit-card float-left"></i><span>{{request.session.opt_min_costs}} €</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Kabellänge</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-maximize-2 float-left" ></i><span>{{request.session.cable_length}} m</span></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
+                        <div class="card-body">
+                            <h6>Nutzungsdauer</h6>
+                            <br>
+                            <h2 class="text-right"><i class="feather icon-clock float-left" ></i><span>{{request.session.usage_years}} Jahre</span></h2>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card" style="background-color:#D9DADD;">
                         <div class="card-body bg-patern-white">
@@ -106,16 +147,16 @@
                             </h5>
                             <p>
                                 Die <b>Gesamtkosten</b> errechnen sich aus den <b>Kosten für das Kupferkabel</b> und den <b>zusätzlichen 
-                                Stromkosten durch die Verlustleistung</b> in Abhängigkeit vom Kabelquerschnitt. Genauere Informationen
-                                können Sie den beiden unteren Grafiken entnehmen.
+                                Stromkosten durch die Verlustleistung</b> in Abhängigkeit vom Kabelquerschnitt. 
+                                Die Verlustleistung errechnet sich dabei wie folgt:
                                 <br><br>
-                                Die Verlustleistung errechnet sich dabei aus der Formel rechts, wobei die Länge die
-                                angegebenen <b>{{request.session.cable_length}} m</b> sind, der Leitwert von Kupfer bei 56 liegt
-                                und eine Stromstärke von 16 A angenommen wird. Der Querschnitt variiert von 1,5 bis 16 mm&#178.
-                                Dieser Wert wird dann mit der benötigten täglich benötigte Strommenge multipliziert
-                                und auf ein Jahr hochgerechnet, mit dem Strompreis multipliziert sowie mit der Anzahl Jahre,
-                                die das Kabel verwendet wird. 
-                                <br><br>                                
+                                <b>Verlustleistung = <sup>3*Kabellänge*I&#178</sup>&frasl;<sub>56*Kabelquerschnitt</sub></b>, 
+                                <br><br>
+                                wobei 3 für die Anzahl der Phasen im Kabel steht, I die Stromstärke (16A) angibt 
+                                und 56 der Leitwert von Kupfer ist. Der Querschnitt variiert von 1,5 bis 16 mm&#178.
+                                <br><br>
+                                Der Wert für die Verlustleistung wir dann mit der Ladeleistung, der benötigten Strommenge und dem zugehörigen
+                                Strompreis sowie dem betrachteten Zeitraum verrechnet.                                 
                                 Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a>.
                                  Der <b>minimal zulässige Querschnitt </b>
                                  hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab.

@@ -319,7 +319,7 @@ $(document).ready(function() {
                     stacked: false,
                 },
                 stroke: {
-                    width: [2, 2, 2],
+                    width: [2, 2],
                     curve: 'straight'
                 },
                 plotOptions: {
@@ -328,7 +328,7 @@ $(document).ready(function() {
                         columnWidth: '100%'
                     },
                 },
-                colors: ['#FFB64D',"#0e9e4a", '#4099ff'],
+                colors: ['#FFB64D',"#3A548A"],
                 series: [{
                     name: 'PV-Erzeugung',
                     type: 'area',
@@ -336,7 +336,7 @@ $(document).ready(function() {
                 },
                 {
                     name: 'Stromverbrauch Haus',
-                    type: 'line',
+                    type: 'area',
                     data: [(1000*0.0197*electricity_consumption_day).toFixed(0), (1000*0.0168*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0160*electricity_consumption_day).toFixed(0), (1000*0.0219*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0518*electricity_consumption_day).toFixed(0), (1000*0.0539*electricity_consumption_day).toFixed(0), (1000*0.0481*electricity_consumption_day).toFixed(0), (1000*0.0466*electricity_consumption_day).toFixed(0), (1000*0.0466*electricity_consumption_day).toFixed(0), (1000*0.0510*electricity_consumption_day).toFixed(0), (1000*0.0474*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0401*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0547*electricity_consumption_day).toFixed(0), (1000*0.062*electricity_consumption_day).toFixed(0), (1000*0.0729*electricity_consumption_day).toFixed(0), (1000*0.062*electricity_consumption_day).toFixed(0), (1000*0.051*electricity_consumption_day).toFixed(0), (1000*0.0437*electricity_consumption_day).toFixed(0), (1000*0.0306*electricity_consumption_day).toFixed(0)]
                 },
                ],
@@ -347,8 +347,8 @@ $(document).ready(function() {
                         type: "vertical",
                         shadeIntensity: 0,
                         inverseColors: true,
-                        opacityFrom: 1,
-                        opacityTo: 1,
+                        opacityFrom: 0.9,
+                        opacityTo: 0.6,
                         stops: [50, 100]
                     },
                 },
@@ -856,7 +856,7 @@ $(document).ready(function() {
                     stacked: false,
                 },
                 stroke: {
-                    width: [0, 2, 5],
+                    width: [1, 4, 2],
                     curve: 'smooth'
                 },
                 plotOptions: {
@@ -864,20 +864,21 @@ $(document).ready(function() {
                         columnWidth: '50%'
                     }
                 },
-                colors: ['#FF5370', '#4099ff', '#FFB64D'],
+                colors: ['#3A548A', '#FFB64D', '#FF5370'],
                 series: [{
                     name: 'Ersparnis kumuliert',
                     type: 'column',
                     data: [parseFloat(((driving_profile*0.2*0.03*30)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*61)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*92)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*122)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*153)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*183)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*214)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*244)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*275)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*305)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*336)-1.66)).toFixed(0), parseFloat(((driving_profile*0.2*0.03*365)-1.66)).toFixed(0)]
-                }, {
+                }, 
+                {
+                    name: 'Kosten mit SVE',
+                    type: 'area',
+                    data: [parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0)]
+                },{
                     name: 'Kosten ohne SVE',
                     type: 'area',
                     data: [parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0), parseFloat((driving_profile*30*0.2*0.25)).toFixed(0), parseFloat((driving_profile*31*0.2*0.25)).toFixed(0)]
-                }, {
-                    name: 'Kosten mit SVE',
-                    type: 'line',
-                    data: [parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*30*0.2*0.22)-1.66)).toFixed(0), parseFloat(((driving_profile*31*0.2*0.22)-1.66)).toFixed(0)]
-                }],
+                }, ],
                 fill: {
                     type: 'gradient',
                     gradient: {
@@ -886,7 +887,7 @@ $(document).ready(function() {
                         shadeIntensity: 0.25,
                         inverseColors: true,
                         opacityFrom: 1,
-                        opacityTo: 0.7,
+                        opacityTo: 0.6,
                         stops: [50, 100]
                     },
                 },
