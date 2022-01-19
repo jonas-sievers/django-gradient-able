@@ -643,7 +643,7 @@ def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year, d
         opt_tarif = "Ladestrom"
         opt_arbeitspreis_eur = 0.4409
     elif opt_tarif_index ==2:
-        opt_tarif = "Dynamischer Stromtarif"
+        opt_tarif = "dynamischer Stromtarif"
         opt_arbeitspreis_eur = round((dyn_electricity_price__kWh_cent/100),2)
 
 

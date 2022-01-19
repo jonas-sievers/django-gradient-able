@@ -78,60 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Unterschiede Lastmanagement</h5>
-                            <p class="card-text">
-                                <br>
-                                Bei einem Lastmanagement kann zwischen einem <b>dynamischen und einem
-                                statischen Lastmanagement</b> unterschieden werden.
-                            </p>
-                            <div class= "row">
-                                <div class="col-4">
-                                    <p>
-                                        <b>Ohne Lastmanagement</b>
-                                        <br>
-                                        Ihr Elektroauto wird ohne Lastmanagement nach Beginn des Ladevorgangs
-                                        mit voller Leistung geladen. Hierdurch können große Lastspitzen entstehen.
-                                    </p>
-                                </div>
-                                <div class="col-4">
-                                    <p>
-                                        <b>Statisches Lastmanagement</b>
-                                        <br>
-                                        Ein statisches Lastmanagement begrenzt die Ladeleistung 
-                                        auf einen konstanten Wert. Dieser ermittelt sich aus dem
-                                        max. Leistungsbedarf Ihres Gebäudes.
-                                    </p>
-                                </div>
-                                <div class="col-4">
-                                    <p>
-                                        <b>Dynamisches Lastmanagement</b>
-                                        <br>
-                                        Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
-                                        Leistungsbedarf Ihres Gebäudes und 
-                                        gibt die verbleibende Leistung zum Laden frei.
-                                        an.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class= "row">
-                                <div class="col-4">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/ohne_lastmanagement.png" alt="Card image cap">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_lastmanagement.png" alt="Card image cap">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/dyn_lastmanagement.png" alt="Card image cap">
-                                </div>                                
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             {% if request.session.opt_lastmanagement != "eine Netzanschlusserweiterung" %}
             <div class="row">
                 <!-- order-card start -->
@@ -287,6 +234,60 @@
                                     {% endif %}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Unterschiede Lastmanagement</h5>
+                            <p class="card-text">
+                                <br>
+                                Bei einem Lastmanagement kann zwischen einem <b>dynamischen und einem
+                                statischen Lastmanagement</b> unterschieden werden.
+                            </p>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <p>
+                                        <b>Ohne Lastmanagement</b>
+                                        <br>
+                                        Ihr Elektroauto wird ohne Lastmanagement nach Beginn des Ladevorgangs
+                                        mit voller Leistung geladen. Hierdurch können große Lastspitzen entstehen.
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Statisches Lastmanagement</b>
+                                        <br>
+                                        Ein statisches Lastmanagement begrenzt die Ladeleistung 
+                                        auf einen konstanten Wert. Dieser ermittelt sich aus dem
+                                        max. Leistungsbedarf Ihres Gebäudes.
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <p>
+                                        <b>Dynamisches Lastmanagement</b>
+                                        <br>
+                                        Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
+                                        Leistungsbedarf Ihres Gebäudes und 
+                                        gibt die verbleibende Leistung zum Laden frei.
+                                        an.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class= "row">
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/ohne_lastmanagement.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_lastmanagement.png" alt="Card image cap">
+                                </div>
+                                <div class="col-4">
+                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/dyn_lastmanagement.png" alt="Card image cap">
+                                </div>                                
+                            </div> 
                         </div>
                     </div>
                 </div>
