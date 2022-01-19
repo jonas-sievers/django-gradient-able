@@ -22,7 +22,7 @@
                                 legt grundsätzlich fest, 
                                 wie viel Strom Sie zu einem gewissen 
                                 Zeitpunkt maximal zur Verfügung haben. 
-                                Ein Lastmanagementsystem begrenzt 
+                                Ein Lastmanagement begrenzt 
                                 die an den Ladepunkten verfügbare Gesamtleistung zum Laden der Elektroautos. 
                                 Hierdurch können Sie Kosten sparen, indem Sie eine ggf. teure Netzanschlusserweiterung
                                 vermeiden. Zusätzlich können Sie sich von der 
@@ -30,25 +30,26 @@
                                 fördern lassen, wenn Sie ein intelligentes Ladesystem verbauen und 11 kW Ladeleistung
                                 nicht überschreiten.
                                 <br><br>
-                                <b>Dabei gibt es drei mögliche Szenarien für Ihre Immobilie: </b>
+                                <b>Für Ihre Immobilie gibt es dabei drei Möglichkeiten: </b>
                             </p>
                             <div class= "row">
                                 <div class="col-4">
                                     <p>
                                         <b>Einfach Laden</b>
                                         <br>
-                                        Es wird <b>kein Lastmanagement</b> benötigt und 
-                                        Sie können Ihr Elektroauto jeder Zeit mit voller
-                                        Leistung laden.
+                                        Es wird <b>kein Lastmanagement</b> installiert und 
+                                        Sie laden Ihr Elektroauto jeder Zeit unkontrolliert
+                                        mit voller Leistung.
                                     </p>
                                 </div>
                                 <div class="col-4">
                                     <p>
                                         <b>Intelligent Laden</b>
                                         <br>
-                                        Es wird <b>ein Lastmanagement</b> benötigt, 
-                                        um die verfügbare Ladeleistung auf die Wallboxen zu verteilen, 
-                                        da sonst der Hausanschluss überlastet wird.                              
+                                        Es wird <b>ein Lastmanagement</b> verbaut,
+                                        welches die verfügbare Ladeleistung auf 
+                                        die Wallboxen verteilt und den Netzanschluss 
+                                        vor Überlastung schützt.                              
                                     </p>
                                 </div>
                                 <div class="col-4">
@@ -84,8 +85,8 @@
                             <h5>Unterschiede Lastmanagement</h5>
                             <p class="card-text">
                                 <br>
-                                Bei einem Lastmanagement kann zwischen einem dynamischen und einem
-                                statischen Lastmanagement unterschieden werden.
+                                Bei einem Lastmanagement kann zwischen einem <b>dynamischen und einem
+                                statischen Lastmanagement</b> unterschieden werden.
                             </p>
                             <div class= "row">
                                 <div class="col-4">
@@ -100,9 +101,9 @@
                                     <p>
                                         <b>Statisches Lastmanagement</b>
                                         <br>
-                                        Ein statisches Lastmanagement begrenzt den maximalen Leistungsbedarf 
-                                        Ihrer Immobilie. Die verfügbare Ladeleistung ist konstant und passt 
-                                        sich nicht an den Leistungsbedarf des Gebäudes an.
+                                        Ein statisches Lastmanagement begrenzt die Ladeleistung 
+                                        auf einen konstanten Wert. Dieser ermittelt sich aus dem
+                                        max. Leistungsbedarf Ihres Gebäudes.
                                     </p>
                                 </div>
                                 <div class="col-4">
@@ -110,7 +111,8 @@
                                         <b>Dynamisches Lastmanagement</b>
                                         <br>
                                         Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
-                                        Leistungsbedarf Ihres Gebäudes und passt die Ladeleistung dynamisch
+                                        Leistungsbedarf Ihres Gebäudes und 
+                                        gibt die verbleibende Leistung zum Laden frei.
                                         an.
                                     </p>
                                 </div>
@@ -130,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            {% if request.session.opt_lastmanagement != "eine Netzanschlusserweiterung" %}
             <div class="row">
                 <!-- order-card start -->
                 <div class="col-3">
@@ -153,7 +156,7 @@
                 <div class="col-md-3">
                     <div class="card order-card bg-patern-white" style="background-color:#D9DADD;">
                         <div class="card-body">
-                            <h6>Ladezeit stat. Lastmanagement</h6>
+                            <h6>Max. stat. Ladeleistung</h6>
                             <br>
                             <h2 class="text-right"><i class="feather icon-battery-charging float-left" ></i><span>{{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW</span></h2>
                             
@@ -171,6 +174,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="row">
                 <div class="col-md-12">
                     <div class="card" style="background-color:#D9DADD;">
@@ -181,13 +185,65 @@
                                 </div>
                                 <div class="col-11">
                                     <h5>
+                                        {% if request.session.opt_lastmanagement != "kein Lastmanagement" %}
                                        <br> Ihre beste Wahl - {{request.session.opt_lastmanagement}}
+                                       {% else %}
+                                       <br> Ein Lastmanagement ist optional
+                                       {% endif %}
                                     </h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col-11">
+                                    {% if request.session.opt_lastmanagement == "eine Netzanschlusserweiterung" %}
+                                    <p>
+                                        Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
+
+                                        Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
+                                        einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
+                                        haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                        Zeit zu laden</b>.
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                        Auto wieder voll zu laden (Annahme: 0,2 kWh/km).
+                                       <br><br>
+                                       Bei einer Hausanschlussleistung von  <b> {{request.session.house_connection_power}} kW</b>
+                                       reicht diese nicht aus, um zusätzlich ausreichend Ladeleistung für die 
+                                       <b> {{request.session.charging_points_to_install}} Wallbox(en) </b> zu haben.
+                                       <br><br>
+                                       Mehr zu den Kosten einer Netzanschlusserweiterung können Sie bei den
+                                       <b><a href="https://www.swm.de/dam/doc/kundenservice/netzanschluss/preise-netzanschluesse" target="_blank">Stadtwerken München</a></b>
+                                        erfahren.  
+                                        <br><br>
+                                        <b>Annahme: </b> Für die weiteren Kalkulationen wird angenommen, dass Sie eine Netzanschlusserweiterung
+                                        durchgeführt haben und Ihr Elektroauto mit einer Ladeleistung von 11 kW laden können.                                                                                                               
+                                    </p>
+
+                                    {% elif request.session.opt_lastmanagement == "kein Lastmanagement" %}
+                                    <p>
+                                        Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> technisch notwendig.
+                                        Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
+                                        einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
+                                        haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                        Zeit zu laden</b>.
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                        Auto wieder voll zu laden (Annahme: 0,2 kWh/km).
+                                       <br><br>
+                                       Auch ohne Lastmanagement können Sie Ihre 
+                                       <b> {{request.session.charging_points_to_install}} Wallbox(en) </b>
+                                       mit 11 kW laden.
+                                       <br><br>
+                                       Dennoch sollten Sie beachten, dass Sie die Förderung der 
+                                       <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">KfW</a></b>
+                                        nur nutzen können, wenn Sie ein Lastmanagement installieren.                                                                                                             
+                                    </p>
+
+                                    {% else %}
+
                                     <p>
                                         Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
                                         Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
@@ -208,14 +264,16 @@
                                         <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
                                         und von 
                                         <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                        {{request.session.charging_points_to_install}} Wallboxen </b>.
-                                        <br><br>   
-                                        Bei einem <b>dynamischen Lastmanagement</b> ergibt sich eine
-                                        verfügbare Leistung von 
-                                        <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
-                                        und von 
+                                        {{request.session.charging_points_to_install}} Wallbox(en) </b>.
+                                        <br><br>
+                                        Da Ihre durschnittliche Leistungsnachfrage nur sehr selten das Maximum von
+                                        <b> {{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b> erreicht, stehen
+                                        Ihnen mit einem <b>dynamischen Lastmanagement</b> durchschnittlich
+                                        <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> 
+                                        Ladeleistung für alle Wallboxen
+                                        und  
                                         <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                        {{request.session.charging_points_to_install}} Wallboxen </b>.                                        
+                                        {{request.session.charging_points_to_install}} Wallbox(en) </b> zur Verfügung.                                        
                                         <br><br>
                                         Hiermit könnte das Auto mit einem <b>statischen Lastmanagement</b> in
                                         <b> {{request.session.stat_needed_time_to_charge}} Stunden</b> laden und
@@ -223,8 +281,10 @@
                                         <b> {{request.session.dyn_needed_time_to_charge}} Stunden</b>. 
                                         <br><br>
                                         <b>Annahme: </b> Wenn sowohl ein statisches, als auch ein dynamisches Lastmanagement ausreichen,
-                                        wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, um die zusätzliche Flexibilit zu nutzen.                                                                                                                
+                                        wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, damit Sie die
+                                        zusätzliche Flexibilität nutzen können.                                                                                                                
                                     </p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -235,7 +295,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-							<h5>Erklärung der Auswahl</h5>
+							<h5>Erklärung Ladeleistung Lastmanagement</h5>
 							<p class="card-text">                                
                                 Bei einer Immobilie vom Typ 
                                 <b> {{request.session.property_type}}</b>, mit insgesamt 
@@ -254,7 +314,7 @@
                                 dass in Ihrer Immobilie 
                                 <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
                                 zur Verfügung stehen. Bei 
-                                <b> {{request.session.charging_points_to_install}} zu installierden Wallboxen</b> 
+                                <b> {{request.session.charging_points_to_install}} zu installierden Wallbox(en)</b> 
                                 bleiben für jede Wallbox somit 
                                 <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW</b>.
 								<br><br>

@@ -36,33 +36,28 @@
                                     <p>
                                         <b>Haushaltsstrom</b>
                                         <br>
-                                        Der von Ihrem Elektroauto geladene Strom wird zusammen mit den anderen Haushaltsgeräten verrechnet.
-                                        Bei <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
-                                        sinkt der Arbeitspreis für den gesamten Haushalt von 44,78 Cent/ kWh auf 47,54 Cent/ kWh leicht ab.
-                                        Zusätzlich fällt eine monatliche Grundgebühr von 10,20 € an.
+                                        Der von Ihrem Elektroauto geladene Strom wird 
+                                        zusammen mit den anderen Haushaltsgeräten verrechnet.
+                                        
                                     </p>
                                 </div>
                                 <div class="col-4">
                                     <p>
                                         <b>Autostrom</b>
                                         <br>
-                                        Wenn Sie viel Auto fahren, kann es sich lohnen den Autostrom über einen
-                                        zusätzlichen Stromzähler abzurechnen. Bei dem Stromtarif von 
-                                        <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
-                                        lohnt sich dies ab <b>14 km am Tag</b>. Der Autostromtarif kostet
-                                        im Monat 12,89 € zzgl. 1,66 € Zählerkosten 
-                                        und der Arbeitspreis sinkt auf 44,09 Cent/ kWh.
+                                        Wenn Sie viel Auto fahren, kann es sich lohnen
+                                        einen eigenen Stromtarif für
+                                        das Auto abschließen. Hierfür muss ein weiterer
+                                        Stromzähler installiert werden.
                                     </p>
                                 </div>
                                 <div class="col-4">
                                     <p>
                                         <b>Dynamische Stromtarife</b>
                                         <br>
-                                        Bei diesem Stromtarif können Sie von den Preisschwankungen an 
-                                        der Strombörse profitieren. Bspw. können Sie Ihr Auto
+                                        Hier können Sie von den Preisschwankungen an 
+                                        der Strombörse profitieren und Ihr Auto
                                         dann laden, wenn der Strom besonders günstig ist.
-                                        Die monatliche Grundgebühr liegt hier bei 13,99 € und der
-                                        Arbeitspreis ist variabel.
                                     </p>
                                 </div>
                             </div>
@@ -140,21 +135,47 @@
                                 <div class="col-1"></div>
                                 <div class="col-11">
                                     <p>
-                                        Für Ihre Immobilie ergibt sich schätzungsweise
-                                        ein monatlicher Stromverbrauch von
-                                        <b> {{request.session.electricity_consumption_month_house}} kWh für den Haushalt</b> 
-                                        und 
-                                        <b> {{request.session.electricity_consumption_month_ev}} kWh für das Elektroauto</b>.
+                                        Bei einer Immobilie vom Typ
+                                        <b> {{request.session.property_type}}</b>, mit insgesamt 
+                                        <b> {{request.session.number_properties}}</b>
+                                        Wohneinheit(en) mit durchschnittlich
+                                        <b> {{request.session.number_persons}}</b>
+                                        sowie einer Warmwasseraufbereitung
+                                        <b> {{request.session.water_heating}}</b>,
+                                        liegt der Jahresenergieverbrauch bei 
+                                        <b> {{request.session.electricity_consumption_year}} kWh</b>
+                                        und der Monatsenergieverbauch bei
+                                        <b> {{request.session.electricity_consumption_month_house}} kWh</b>.
                                         <br><br>
-                                        Bei einem Haushaltsstromtarif ergeben sich hieraus Stromkosten 
-                                        für das Haus und das Auto zusammen von 
+                                        Bei einem Fahrverhalten von durchschnittlich 
+                                        <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                        <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom am
+                                        Tag und <b> {{request.session.electricity_consumption_month_ev}} kWh</b> im Monat
+                                        (30,5 Tage).
+                                        <br><br>
+                                        Bei dem Anbieter 
+                                        <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
+                                        berechnen sich die Stromkosten wie folgt: Monatlichen 
+                                        Grundpreis (10,20 €) + Arbeitspreis (47,54 Cent/ kWh).
+                                        Hieraus ergeben sich für Ihre Immobilie Stromkosten 
+                                        von 
                                         <b> {{request.session.hausstrom_electricity_cost_month_ev_house}} €</b>.
                                         <br><br>
-                                        Durch den Autostromtarif entstehen für das Elektroauto Stromkosten von 
+                                        Bei dem Autostromtarif muss ein weiterer Stromzähler
+                                        installiert werden (1,66 €/ Monat), wodurch sich die Stromkosten wie folgt berechnen:
+                                        <b>Stromkosten Haushalt</b> (10,20 €/ Monat + 47,78 Cent/ kWh)
+                                        <b> + Stromkosten Auto</b> (12,89 €/ Monat + 1,66 € + 44,09 Cent/ kWh).
+                                        Für Ihre Immobilie entstehen somit Stromkosten für das Elektroauto von 
                                         <b> {{request.session.ladestrom_electricity_cost_month_ev}} €</b> und zusammen mit
                                         dem Haus von insgesamt 
                                         <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
                                         <br><br>
+                                        Bei einem dynamischen Stromtarif ergeben sich die Kosten ebenfalls aus den 
+                                        Kosten für den Haushalt + dynamische Stromkosten Auto. Auch hier muss ein
+                                        weiterer Stromzähler (1,66 €/ Monat) installiert werden. 
+                                        Der dynamische Strompreis berechnet sich dabei wie folgt: 
+                                        <b>Grundpreis im Monat + Arbeitspreis je kWh </b>
+                                        = (13,99 € + 1,66 € im Monat) + (18,12 Cent + EPEX SPOT + 0,25 Cent)* kWh
                                         Durch einen dynamischen Stromtarif lägen die Stromkosten für das Elektroauto
                                         bei <b> {{request.session.dyn_strom_electricity_cost_month_ev}} €</b> und zusammen mit
                                         dem Haus bei insgesamt 

@@ -62,7 +62,7 @@ def index(request):
         dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
         request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
         request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-        request.session['electricity_consumption_month_ev_house'] = request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev']
+        request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
         request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
         request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
         request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
@@ -184,7 +184,7 @@ def pages(request):
                     dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year'], request.session['dyn_needed_time_to_charge'],  request.session['arrival_time'], request.session['departure_time']) 
                     request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
                     request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-                    request.session['electricity_consumption_month_ev_house'] = request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev']
+                    request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
                     request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
                     request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
                     request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
@@ -306,7 +306,7 @@ def pages(request):
             dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
             request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
             request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-            request.session['electricity_consumption_month_ev_house'] = request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev']
+            request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
             request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
             request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
             request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
