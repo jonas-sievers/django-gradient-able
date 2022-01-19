@@ -711,6 +711,10 @@ mark,
 .img-fluid {
     max-width: 100%;
     height: auto;
+    image-rendering: -moz-crisp-edges;
+    image-rendering:   -o-crisp-edges;   
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;   
 }
 
 .img-thumbnail {

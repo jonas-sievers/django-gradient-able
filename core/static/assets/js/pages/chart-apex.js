@@ -510,10 +510,22 @@ $(document).ready(function() {
                 },
                 labels: ['Beschaffung und Vertrieb', 'Netz- und Messstellenentgelte', 'Steuern', 'Umlagen', 'Konzessionsabgaben'],
                 series: [7.06, 7.91, 7.07, 7.76, 1.66],
-                colors: ["#4099ff", "#0e9e4a", "#00bcd4", "#FFB64D", "#FF5370"],
+                colors: ["#4099ff", "#9CF6C0", "#9FF4FF", "#FFD89F", "#FFA7B6"],
                 legend: {
                     show: true,
                     position: 'bottom',
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    y: {
+                        formatter: function(y) {
+                            if (typeof y !== "undefined") {
+                                return y + " Cent";
+                            }
+                            return y;
+                        },
+                    },
                 },
                 fill: {
                     type: 'gradient',
@@ -526,7 +538,7 @@ $(document).ready(function() {
                     enabled: true,
                     dropShadow: {
                         enabled: false,
-                    }
+                    },
                 },
                 responsive: [{
                     breakpoint: 480,
