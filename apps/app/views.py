@@ -15,7 +15,11 @@ from django.utils import timezone
 from .models import Lokal_Energy, Real_estate
 from .forms import Lokal_EnergyForm, Real_estateForm
 
-
+#Standard Python Formattierung existiert nur für englisches Format (Punkt das Dezimaltrennzeichen)
+#drop trailing zeros from decimal
+def number_format(number):
+    formatted_number = ("%g" % number).replace('.',',')
+    return formatted_number
 
 #@login_required(login_url="/login/")
 def index(request):
@@ -29,8 +33,9 @@ def index(request):
         request.session['number_properties'] = real_estate.number_properties
         request.session['water_heating'] = real_estate.water_heating
         request.session['number_persons'] = real_estate.number_persons
-        request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
-        request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
+        request.session['electricity_consumption_year'] = number_format(real_estate.electricity_consumption_year)
+        request.session['electricity_consumption_year_number'] = real_estate.electricity_consumption_year
+        request.session['electricity_consumption_day'] = number_format((int(real_estate.electricity_consumption_year)/ 365))
         request.session['charging_points_to_install'] = real_estate.charging_points_to_install
         request.session['house_connection_power'] = real_estate.house_connection_power
         request.session['image_path'] = real_estate.image_path
@@ -43,51 +48,51 @@ def index(request):
     #Calculate Stat. and dyn. Loadmanagement
     if 'hours_to_charge' not in request.session:        
         stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(3800, 1, 'mit Strom', 43, 4, 40, 17, 8)
-        request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
-        request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
-        request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
-        request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
-        request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
-        request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
-        request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
+        request.session['hours_to_charge'] = number_format(stat_dyn_loadmanagement_results[0])
+        request.session['needed_electricity_ev_day'] = number_format(stat_dyn_loadmanagement_results[1])
+        request.session['stat_Leistungs_peak_ohne_ev_kW'] = number_format(stat_dyn_loadmanagement_results[2])
+        request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = number_format(stat_dyn_loadmanagement_results[3])
+        request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = number_format(stat_dyn_loadmanagement_results[4])
+        request.session['stat_needed_time_to_charge'] = number_format(stat_dyn_loadmanagement_results[5])
+        request.session['stat_loadmanagement_max_evs_to_charge'] = number_format(stat_dyn_loadmanagement_results[6])
         request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
-        request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
-        request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
-        request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
-        request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+        request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = number_format(stat_dyn_loadmanagement_results[8])
+        request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = number_format(stat_dyn_loadmanagement_results[9])
+        request.session['dyn_needed_time_to_charge'] = number_format(stat_dyn_loadmanagement_results[10])
+        request.session['dyn_loadmanagement_max_evs_to_charge'] = number_format(stat_dyn_loadmanagement_results[11])
                 
 
     if 'opt_querschnitt' not in request.session:
         #Calculate dynamische Stromtarife
         dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
-        request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
-        request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-        request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
-        request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
-        request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
-        request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
-        request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
-        request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
-        request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+        request.session['electricity_consumption_month_house'] = number_format(dyn_Stromtarife_results[0])
+        request.session['electricity_consumption_month_ev'] = number_format(dyn_Stromtarife_results[1])    
+        request.session['electricity_consumption_month_ev_house'] = number_format(round((dyn_Stromtarife_results[0] + dyn_Stromtarife_results[1]),2))
+        request.session['hausstrom_electricity_cost_month_house'] = number_format(dyn_Stromtarife_results[2])
+        request.session['hausstrom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[3])
+        request.session['ladestrom_electricity_cost_month_ev'] = number_format(dyn_Stromtarife_results[4])
+        request.session['ladestrom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[5])
+        request.session['dyn_strom_electricity_cost_month_ev'] = number_format(dyn_Stromtarife_results[6])
+        request.session['dyn_strom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[7])
         request.session['opt_tarif'] = dyn_Stromtarife_results[8]
-        request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
+        request.session['opt_arbeitspreis_eur'] = number_format(dyn_Stromtarife_results[9])
         
         # Calculate optimal Verlustleistung
-        verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64, request.session['opt_arbeitspreis_eur'])
-        request.session['opt_querschnitt'] = verlustleistung_results[0]
-        request.session['opt_cable_costs'] = verlustleistung_results[1]
-        request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
-        request.session['opt_min_costs'] = verlustleistung_results[3]
-        request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
-        request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
-        request.session['costs_1_5mm'] = verlustleistung_results[6]
+        verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64, dyn_Stromtarife_results[9])
+        request.session['opt_querschnitt'] = number_format(verlustleistung_results[0])
+        request.session['opt_cable_costs'] = number_format(verlustleistung_results[1])
+        request.session['opt_verlustleistungscosts'] = number_format(verlustleistung_results[2])
+        request.session['opt_min_costs'] = number_format(verlustleistung_results[3])
+        request.session['cable_costs_1_5mm'] = number_format(verlustleistung_results[4])
+        request.session['verlustleistung_costs_1_5mm'] = number_format(verlustleistung_results[5])
+        request.session['costs_1_5mm'] = number_format(verlustleistung_results[6])
                 
         #Calculate Steuerbare Verbrauchseinrichtung
         sve_results = get_sve_results(40)
 
-        request.session['jahres_stromverbrauch'] = sve_results[0]
-        request.session['sve_einsparung_monat'] = sve_results[1]
-        request.session['sve_einsparung_jahr'] = sve_results[2]
+        request.session['jahres_stromverbrauch'] = number_format(sve_results[0])
+        request.session['sve_einsparung_monat'] = number_format(sve_results[1])
+        request.session['sve_einsparung_jahr'] = number_format(sve_results[2])
 
     lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
     if 'roof_size' not in request.session:
@@ -97,28 +102,29 @@ def index(request):
         request.session['solar_radiation'] = lokal_energy.solar_radiation
         request.session['battery_capacity'] = lokal_energy.battery_capacity
         
-        pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+        real_estate = get_object_or_404(Real_estate, pk=1)
+        pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, real_estate.electricity_consumption_year, real_estate.driving_profile, real_estate.arrival_time, real_estate.departure_time)
                 
-        request.session['pv_kW_peak'] = pv_storage_results[0]
-        request.session['battery_kWh'] = pv_storage_results[1]
-        request.session['pv_investment_cost_eur'] = pv_storage_results[2]
-        request.session['battery_investment_cost_eur'] = pv_storage_results[3]
-        request.session['capex_pv_und_battery'] = pv_storage_results[4]
+        request.session['pv_kW_peak'] = number_format(pv_storage_results[0])
+        request.session['battery_kWh'] = number_format(pv_storage_results[1])
+        request.session['pv_investment_cost_eur'] = number_format(pv_storage_results[2])
+        request.session['battery_investment_cost_eur'] = number_format(pv_storage_results[3])
+        request.session['capex_pv_und_battery'] = number_format(pv_storage_results[4])
         request.session['battery_status'] = pv_storage_results[5]
-        request.session['electricity_pv_generation_day'] = pv_storage_results[6]
-        request.session['electricity_consumption_day'] = pv_storage_results[7]
-        request.session['electricity_sold_grid'] = pv_storage_results[8]
-        request.session['electricity_saved'] = pv_storage_results[9]
-        request.session['quote_pv_nutzung'] = pv_storage_results[10]
-        request.session['quote_eigenversorgung'] = pv_storage_results[11]
-        request.session['einnahmen_tag'] = pv_storage_results[12]
-        request.session['einnahmen_jahr'] = pv_storage_results[13]
-        request.session['gewinn_10_jahre'] = pv_storage_results[14]
+        request.session['electricity_pv_generation_day'] = number_format(pv_storage_results[6])
+        request.session['electricity_consumption_day'] = number_format(pv_storage_results[7])
+        request.session['electricity_sold_grid'] = number_format(pv_storage_results[8])
+        request.session['electricity_saved'] = number_format(pv_storage_results[9])
+        request.session['quote_pv_nutzung'] = number_format(pv_storage_results[10])
+        request.session['quote_eigenversorgung'] = number_format(pv_storage_results[11])
+        request.session['einnahmen_tag'] = number_format(pv_storage_results[12])
+        request.session['einnahmen_jahr'] = number_format(pv_storage_results[13])
+        request.session['gewinn_10_jahre'] = number_format(pv_storage_results[14])
         request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
         request.session['ev_connected_time'] = pv_storage_results[16]
         request.session['ev_deconnected_time'] = pv_storage_results[17]
-        request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
-        request.session['ev_charged_electricity'] = pv_storage_results[19]
+        request.session['ev_needed_electricity_kWh'] = number_format(pv_storage_results[18])
+        request.session['ev_charged_electricity'] = number_format(pv_storage_results[19])
 
     html_template = loader.get_template('welcome.html')
     return HttpResponse(html_template.render(context, request))
@@ -151,9 +157,11 @@ def pages(request):
                     request.session['property_type'] = real_estate.property_type
                     request.session['number_properties'] = real_estate.number_properties
                     request.session['water_heating'] = real_estate.water_heating
-                    request.session['number_persons'] = real_estate.number_persons
-                    request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
-                    request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
+                    request.session['number_persons'] = real_estate.number_persons                  
+                    request.session['electricity_consumption_year'] = number_format(real_estate.electricity_consumption_year)
+                    request.session['electricity_consumption_year_number'] = real_estate.electricity_consumption_year
+                    request.session['electricity_consumption_day'] = number_format((int(real_estate.electricity_consumption_year)/ 365))
+        
                     #Laden
                     request.session['charging_points_to_install'] = real_estate.charging_points_to_install
                     request.session['house_connection_power'] = real_estate.house_connection_power
@@ -167,49 +175,49 @@ def pages(request):
 
                     #Calculate Stat. and dyn. Loadmanagement
                     stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(real_estate.electricity_consumption_year, real_estate.number_properties, real_estate.water_heating, real_estate.house_connection_power, real_estate.charging_points_to_install, real_estate.driving_profile, real_estate.arrival_time, real_estate.departure_time)
-                    request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
-                    request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
-                    request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
-                    request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
-                    request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
-                    request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
-                    request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
+                    request.session['hours_to_charge'] = number_format(stat_dyn_loadmanagement_results[0])
+                    request.session['needed_electricity_ev_day'] = number_format(stat_dyn_loadmanagement_results[1])
+                    request.session['stat_Leistungs_peak_ohne_ev_kW'] = number_format(stat_dyn_loadmanagement_results[2])
+                    request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = number_format(stat_dyn_loadmanagement_results[3])
+                    request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = number_format(stat_dyn_loadmanagement_results[4])
+                    request.session['stat_needed_time_to_charge'] = number_format(stat_dyn_loadmanagement_results[5])
+                    request.session['stat_loadmanagement_max_evs_to_charge'] = number_format(stat_dyn_loadmanagement_results[6])
                     request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
-                    request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
-                    request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
-                    request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
-                    request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
+                    request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = number_format(stat_dyn_loadmanagement_results[8])
+                    request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = number_format(stat_dyn_loadmanagement_results[9])
+                    request.session['dyn_needed_time_to_charge'] = number_format(stat_dyn_loadmanagement_results[10])
+                    request.session['dyn_loadmanagement_max_evs_to_charge'] = number_format(stat_dyn_loadmanagement_results[11])
+        
 
                     #Calculate dynamische Stromtarife
-                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year'], request.session['dyn_needed_time_to_charge'],  request.session['arrival_time'], request.session['departure_time']) 
-                    request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
-                    request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-                    request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
-                    request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
-                    request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
-                    request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
-                    request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
-                    request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
-                    request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
+                    dyn_Stromtarife_results = get_dyn_stromtarife_results(real_estate.driving_profile, request.session['electricity_consumption_year_number'], stat_dyn_loadmanagement_results[10],  request.session['arrival_time'], request.session['departure_time']) 
+                    request.session['electricity_consumption_month_house'] = number_format(dyn_Stromtarife_results[0])
+                    request.session['electricity_consumption_month_ev'] = number_format(dyn_Stromtarife_results[1])    
+                    request.session['electricity_consumption_month_ev_house'] = number_format(round((dyn_Stromtarife_results[0] + dyn_Stromtarife_results[1]),2))
+                    request.session['hausstrom_electricity_cost_month_house'] = number_format(dyn_Stromtarife_results[2])
+                    request.session['hausstrom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[3])
+                    request.session['ladestrom_electricity_cost_month_ev'] = number_format(dyn_Stromtarife_results[4])
+                    request.session['ladestrom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[5])
+                    request.session['dyn_strom_electricity_cost_month_ev'] = number_format(dyn_Stromtarife_results[6])
+                    request.session['dyn_strom_electricity_cost_month_ev_house'] = number_format(dyn_Stromtarife_results[7])
                     request.session['opt_tarif'] = dyn_Stromtarife_results[8]
-                    request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
+                    request.session['opt_arbeitspreis_eur'] = number_format(dyn_Stromtarife_results[9])
                         
                     # Calculate optimal Verlustleistung
-                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years, request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'], request.session['opt_arbeitspreis_eur'])
-                    request.session['opt_querschnitt'] = verlustleistung_results[0]
-                    request.session['opt_cable_costs'] = verlustleistung_results[1]
-                    request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
-                    request.session['opt_min_costs'] = verlustleistung_results[3]
-                    request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
-                    request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
-                    request.session['costs_1_5mm'] = verlustleistung_results[6]
+                    verlustleistung_results = get_optimal_verlustleistung(real_estate.cable_length, real_estate.driving_profile, real_estate.usage_years, stat_dyn_loadmanagement_results[9], dyn_Stromtarife_results[9])
+                    request.session['opt_querschnitt'] = number_format(verlustleistung_results[0])
+                    request.session['opt_cable_costs'] = number_format(verlustleistung_results[1])
+                    request.session['opt_verlustleistungscosts'] = number_format(verlustleistung_results[2])
+                    request.session['opt_min_costs'] = number_format(verlustleistung_results[3])
+                    request.session['cable_costs_1_5mm'] = number_format(verlustleistung_results[4])
+                    request.session['verlustleistung_costs_1_5mm'] = number_format(verlustleistung_results[5])
+                    request.session['costs_1_5mm'] = number_format(verlustleistung_results[6])
                     
                     #Calculate Steuerbare Verbrauchseinrichtung
                     sve_results = get_sve_results(real_estate.driving_profile)
-           
-                    request.session['jahres_stromverbrauch'] = sve_results[0]
-                    request.session['sve_einsparung_monat'] = sve_results[1]
-                    request.session['sve_einsparung_jahr'] = sve_results[2]
+                    request.session['jahres_stromverbrauch'] = number_format(sve_results[0])
+                    request.session['sve_einsparung_monat'] = number_format(sve_results[1])
+                    request.session['sve_einsparung_jahr'] = number_format(sve_results[2])
                                         
                     return redirect('db_load_management.html')
             else: 
@@ -237,34 +245,35 @@ def pages(request):
                     request.session['battery_capacity'] = lokal_energy.battery_capacity
                     
                     #Calculated values
-                    pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
-                    
-                    request.session['pv_kW_peak'] = pv_storage_results[0]
-                    request.session['battery_kWh'] = pv_storage_results[1]
-                    request.session['pv_investment_cost_eur'] = pv_storage_results[2]
-                    request.session['battery_investment_cost_eur'] = pv_storage_results[3]
-                    request.session['capex_pv_und_battery'] = pv_storage_results[4]
+                    pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year_number'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+
+                    request.session['pv_kW_peak'] = number_format(pv_storage_results[0])
+                    request.session['battery_kWh'] = number_format(pv_storage_results[1])
+                    request.session['pv_investment_cost_eur'] = number_format(pv_storage_results[2])
+                    request.session['battery_investment_cost_eur'] = number_format(pv_storage_results[3])
+                    request.session['capex_pv_und_battery'] = number_format(pv_storage_results[4])
                     request.session['battery_status'] = pv_storage_results[5]
-                    request.session['electricity_pv_generation_day'] = pv_storage_results[6]
-                    request.session['electricity_consumption_day'] = pv_storage_results[7]
-                    request.session['electricity_sold_grid'] = pv_storage_results[8]
-                    request.session['electricity_saved'] = pv_storage_results[9]
-                    request.session['quote_pv_nutzung'] = pv_storage_results[10]
-                    request.session['quote_eigenversorgung'] = pv_storage_results[11]
-                    request.session['einnahmen_tag'] = pv_storage_results[12]
-                    request.session['einnahmen_jahr'] = pv_storage_results[13]
-                    request.session['gewinn_10_jahre'] = pv_storage_results[14]
+                    request.session['electricity_pv_generation_day'] = number_format(pv_storage_results[6])
+                    request.session['electricity_consumption_day'] = number_format(pv_storage_results[7])
+                    request.session['electricity_sold_grid'] = number_format(pv_storage_results[8])
+                    request.session['electricity_saved'] = number_format(pv_storage_results[9])
+                    request.session['quote_pv_nutzung'] = number_format(pv_storage_results[10])
+                    request.session['quote_eigenversorgung'] = number_format(pv_storage_results[11])
+                    request.session['einnahmen_tag'] = number_format(pv_storage_results[12])
+                    request.session['einnahmen_jahr'] = number_format(pv_storage_results[13])
+                    request.session['gewinn_10_jahre'] = number_format(pv_storage_results[14])
                     request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
                     request.session['ev_connected_time'] = pv_storage_results[16]
                     request.session['ev_deconnected_time'] = pv_storage_results[17]
-                    request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
-                    request.session['ev_charged_electricity'] = pv_storage_results[19]
+                    request.session['ev_needed_electricity_kWh'] = number_format(pv_storage_results[18])
+                    request.session['ev_charged_electricity'] = number_format(pv_storage_results[19])
                     
                     return redirect('db_renewables.html')
             else: 
                 form = Lokal_EnergyForm()
             return render(request, 'input_form_PV.html', {'form': form})  
-
+        """
+        
         #Check if Session is new
         #If Session is new, set standard variables in session variables
         real_estate = get_object_or_404(Real_estate, pk=1)
@@ -341,30 +350,30 @@ def pages(request):
             request.session['solar_radiation'] = lokal_energy.solar_radiation
             request.session['battery_capacity'] = lokal_energy.battery_capacity
             
-            pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
-                    
-            request.session['pv_kW_peak'] = pv_storage_results[0]
-            request.session['battery_kWh'] = pv_storage_results[1]
+            pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year_number'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+
+            request.session['pv_kW_peak'] = number_format(pv_storage_results[0])
+            request.session['battery_kWh'] = number_format(pv_storage_results[1])
             request.session['pv_investment_cost_eur'] = pv_storage_results[2]
             request.session['battery_investment_cost_eur'] = pv_storage_results[3]
             request.session['capex_pv_und_battery'] = pv_storage_results[4]
             request.session['battery_status'] = pv_storage_results[5]
-            request.session['electricity_pv_generation_day'] = pv_storage_results[6]
-            request.session['electricity_consumption_day'] = pv_storage_results[7]
-            request.session['electricity_sold_grid'] = pv_storage_results[8]
-            request.session['electricity_saved'] = pv_storage_results[9]
-            request.session['quote_pv_nutzung'] = pv_storage_results[10]
-            request.session['quote_eigenversorgung'] = pv_storage_results[11]
+            request.session['electricity_pv_generation_day'] = number_format(pv_storage_results[6])
+            request.session['electricity_consumption_day'] = number_format(pv_storage_results[7])
+            request.session['electricity_sold_grid'] = number_format(pv_storage_results[8])
+            request.session['electricity_saved'] = number_format(pv_storage_results[9])
+            request.session['quote_pv_nutzung'] = number_format(pv_storage_results[10])
+            request.session['quote_eigenversorgung'] = number_format(pv_storage_results[11])
             request.session['einnahmen_tag'] = pv_storage_results[12]
-            request.session['einnahmen_jahr'] = pv_storage_results[13]
+            request.session['einnahmen_jahr'] = format(pv_storage_results[13], '.2f').replace('.',',')
             request.session['gewinn_10_jahre'] = pv_storage_results[14]
             request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
             request.session['ev_connected_time'] = pv_storage_results[16]
             request.session['ev_deconnected_time'] = pv_storage_results[17]
-            request.session['ev_needed_electricity_kWh'] = pv_storage_results[18]
-            request.session['ev_charged_electricity'] = pv_storage_results[19]
-
-
+            request.session['ev_needed_electricity_kWh'] = number_format(pv_storage_results[18])
+            request.session['ev_charged_electricity'] = number_format(pv_storage_results[19])
+        """
+            
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 
