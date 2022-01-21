@@ -18,7 +18,16 @@ from .forms import Lokal_EnergyForm, Real_estateForm
 #Standard Python Formattierung existiert nur für englisches Format (Punkt das Dezimaltrennzeichen)
 #drop trailing zeros from decimal
 def number_format(number):
-    formatted_number = ("%g" % number).replace('.',',')
+    try: 
+        number = round((float(number)), 2)
+        #Wenn keine Nachkommastelle, dann Dezimalstellen abschneiden
+        if number.is_integer():
+            formatted_number = ("%g" % number).replace('.',',')
+        #Sonst immer zwei Nachkommastellen anzeigen
+        else: 
+             formatted_number = '{0:.2f}'.format(number).replace('.', ',')
+    except:
+        formatted_number = number
     return formatted_number
 
 #@login_required(login_url="/login/")
@@ -218,6 +227,29 @@ def pages(request):
                     request.session['jahres_stromverbrauch'] = number_format(sve_results[0])
                     request.session['sve_einsparung_monat'] = number_format(sve_results[1])
                     request.session['sve_einsparung_jahr'] = number_format(sve_results[2])
+
+                    #Update PV
+                    pv_storage_results = get_pv_storage_results(request.session['battery_capacity'], request.session['roof_size'], request.session['roof_tilt'], request.session['roof_orientation'], request.session['solar_radiation'], request.session['electricity_consumption_year_number'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
+                    request.session['pv_kW_peak'] = number_format(pv_storage_results[0])
+                    request.session['battery_kWh'] = number_format(pv_storage_results[1])
+                    request.session['pv_investment_cost_eur'] = number_format(pv_storage_results[2])
+                    request.session['battery_investment_cost_eur'] = number_format(pv_storage_results[3])
+                    request.session['capex_pv_und_battery'] = number_format(pv_storage_results[4])
+                    request.session['battery_status'] = pv_storage_results[5]
+                    request.session['electricity_pv_generation_day'] = number_format(pv_storage_results[6])
+                    request.session['electricity_consumption_day'] = number_format(pv_storage_results[7])
+                    request.session['electricity_sold_grid'] = number_format(pv_storage_results[8])
+                    request.session['electricity_saved'] = number_format(pv_storage_results[9])
+                    request.session['quote_pv_nutzung'] = number_format(pv_storage_results[10])
+                    request.session['quote_eigenversorgung'] = number_format(pv_storage_results[11])
+                    request.session['einnahmen_tag'] = number_format(pv_storage_results[12])
+                    request.session['einnahmen_jahr'] = number_format(pv_storage_results[13])
+                    request.session['gewinn_10_jahre'] = number_format(pv_storage_results[14])
+                    request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
+                    request.session['ev_connected_time'] = pv_storage_results[16]
+                    request.session['ev_deconnected_time'] = pv_storage_results[17]
+                    request.session['ev_needed_electricity_kWh'] = number_format(pv_storage_results[18])
+                    request.session['ev_charged_electricity'] = number_format(pv_storage_results[19])
                                         
                     return redirect('db_load_management.html')
             else: 
@@ -272,108 +304,7 @@ def pages(request):
             else: 
                 form = Lokal_EnergyForm()
             return render(request, 'input_form_PV.html', {'form': form})  
-        """
-        
-        #Check if Session is new
-        #If Session is new, set standard variables in session variables
-        real_estate = get_object_or_404(Real_estate, pk=1)
-        if 'property_type' not in request.session:
-            request.session['property_type'] = real_estate.property_type
-            request.session['number_properties'] = real_estate.number_properties
-            request.session['water_heating'] = real_estate.water_heating
-            request.session['number_persons'] = real_estate.number_persons
-            request.session['electricity_consumption_year'] = real_estate.electricity_consumption_year
-            request.session['electricity_consumption_day'] = round((int(real_estate.electricity_consumption_year)/ 365),2)
-            request.session['charging_points_to_install'] = real_estate.charging_points_to_install
-            request.session['house_connection_power'] = real_estate.house_connection_power
-            request.session['image_path'] = real_estate.image_path
-            request.session['driving_profile'] = real_estate.driving_profile
-            request.session['arrival_time'] = real_estate.arrival_time
-            request.session['departure_time'] = real_estate.departure_time
-            request.session['cable_length'] = real_estate.cable_length
-            request.session['usage_years'] = real_estate.usage_years
-
-        #Calculate Stat. and dyn. Loadmanagement
-        if 'hours_to_charge' not in request.session:        
-            stat_dyn_loadmanagement_results = get_stat_dyn_loadmanagement(3800, 1, 'mit Strom', 43, 4, 40, 17, 8)
-            request.session['hours_to_charge'] = stat_dyn_loadmanagement_results[0]
-            request.session['needed_electricity_ev_day'] = stat_dyn_loadmanagement_results[1]
-            request.session['stat_Leistungs_peak_ohne_ev_kW'] = stat_dyn_loadmanagement_results[2]
-            request.session['stat_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[3]
-            request.session['stat_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[4]
-            request.session['stat_needed_time_to_charge'] = stat_dyn_loadmanagement_results[5]
-            request.session['stat_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[6]
-            request.session['opt_lastmanagement'] = stat_dyn_loadmanagement_results[7]
-            request.session['dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen'] = stat_dyn_loadmanagement_results[8]
-            request.session['dyn_verfuegbare_ladeleistung_fuer_wallbox'] = stat_dyn_loadmanagement_results[9]
-            request.session['dyn_needed_time_to_charge'] = stat_dyn_loadmanagement_results[10]
-            request.session['dyn_loadmanagement_max_evs_to_charge'] = stat_dyn_loadmanagement_results[11]
                     
-
-        if 'opt_querschnitt' not in request.session:
-            #Calculate dynamische Stromtarife
-            dyn_Stromtarife_results = get_dyn_stromtarife_results(40, 3800, 0.75, 17, 8)
-            request.session['electricity_consumption_month_house'] = dyn_Stromtarife_results[0]
-            request.session['electricity_consumption_month_ev'] = dyn_Stromtarife_results[1]
-            request.session['electricity_consumption_month_ev_house'] = round(request.session['electricity_consumption_month_house']+request.session['electricity_consumption_month_ev'],2)
-            request.session['hausstrom_electricity_cost_month_house'] = dyn_Stromtarife_results[2]
-            request.session['hausstrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[3]
-            request.session['ladestrom_electricity_cost_month_ev'] = dyn_Stromtarife_results[4]
-            request.session['ladestrom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[5]
-            request.session['dyn_strom_electricity_cost_month_ev'] = dyn_Stromtarife_results[6]
-            request.session['dyn_strom_electricity_cost_month_ev_house'] = dyn_Stromtarife_results[7]
-            request.session['opt_tarif'] = dyn_Stromtarife_results[8]
-            request.session['opt_arbeitspreis_eur'] = dyn_Stromtarife_results[9]
-            
-            # Calculate optimal Verlustleistung
-            verlustleistung_results = get_optimal_verlustleistung(10, 40, 20, 10.64, request.session['opt_arbeitspreis_eur'])
-            request.session['opt_querschnitt'] = verlustleistung_results[0]
-            request.session['opt_cable_costs'] = verlustleistung_results[1]
-            request.session['opt_verlustleistungscosts'] = verlustleistung_results[2]
-            request.session['opt_min_costs'] = verlustleistung_results[3]
-            request.session['cable_costs_1_5mm'] = verlustleistung_results[4]
-            request.session['verlustleistung_costs_1_5mm'] = verlustleistung_results[5]
-            request.session['costs_1_5mm'] = verlustleistung_results[6]
-                    
-            #Calculate Steuerbare Verbrauchseinrichtung
-            sve_results = get_sve_results(40)
-    
-            request.session['jahres_stromverbrauch'] = sve_results[0]
-            request.session['sve_einsparung_monat'] = sve_results[1]
-            request.session['sve_einsparung_jahr'] = sve_results[2]
-
-        lokal_energy = get_object_or_404(Lokal_Energy, pk=1)
-        if 'roof_size' not in request.session:
-            request.session['roof_size'] = lokal_energy.roof_size
-            request.session['roof_tilt'] = lokal_energy.roof_tilt
-            request.session['roof_orientation'] = lokal_energy.roof_orientation
-            request.session['solar_radiation'] = lokal_energy.solar_radiation
-            request.session['battery_capacity'] = lokal_energy.battery_capacity
-            
-            pv_storage_results = get_pv_storage_results(lokal_energy.battery_capacity, lokal_energy.roof_size, lokal_energy.roof_tilt, lokal_energy.roof_orientation, lokal_energy.solar_radiation, request.session['electricity_consumption_year_number'], request.session['driving_profile'], request.session['arrival_time'], request.session['departure_time'])
-
-            request.session['pv_kW_peak'] = number_format(pv_storage_results[0])
-            request.session['battery_kWh'] = number_format(pv_storage_results[1])
-            request.session['pv_investment_cost_eur'] = pv_storage_results[2]
-            request.session['battery_investment_cost_eur'] = pv_storage_results[3]
-            request.session['capex_pv_und_battery'] = pv_storage_results[4]
-            request.session['battery_status'] = pv_storage_results[5]
-            request.session['electricity_pv_generation_day'] = number_format(pv_storage_results[6])
-            request.session['electricity_consumption_day'] = number_format(pv_storage_results[7])
-            request.session['electricity_sold_grid'] = number_format(pv_storage_results[8])
-            request.session['electricity_saved'] = number_format(pv_storage_results[9])
-            request.session['quote_pv_nutzung'] = number_format(pv_storage_results[10])
-            request.session['quote_eigenversorgung'] = number_format(pv_storage_results[11])
-            request.session['einnahmen_tag'] = pv_storage_results[12]
-            request.session['einnahmen_jahr'] = format(pv_storage_results[13], '.2f').replace('.',',')
-            request.session['gewinn_10_jahre'] = pv_storage_results[14]
-            request.session['pv_speicher_sinnvoll'] = pv_storage_results[15]
-            request.session['ev_connected_time'] = pv_storage_results[16]
-            request.session['ev_deconnected_time'] = pv_storage_results[17]
-            request.session['ev_needed_electricity_kWh'] = number_format(pv_storage_results[18])
-            request.session['ev_charged_electricity'] = number_format(pv_storage_results[19])
-        """
-            
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 
@@ -510,7 +441,6 @@ def get_stat_dyn_loadmanagement(electricity_consumption_year, number_properties,
         opt_lastmanagement = 'eine Netzanschlusserweiterung'
      
     loadmanagement_results = [hours_to_charge, needed_electricity_ev_day, stat_Leistungs_peak_ohne_ev_kW, stat_verfuegbare_ladeleistung_fuer_alle_wallboxen, stat_verfuegbare_ladeleistung_fuer_wallbox, stat_needed_time_to_charge, stat_loadmanagement_max_evs_to_charge, opt_lastmanagement, dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen, dyn_verfuegbare_ladeleistung_fuer_wallbox, dyn_needed_time_to_charge, dyn_loadmanagement_max_evs_to_charge]
-    
     return loadmanagement_results
 
 
@@ -589,7 +519,7 @@ def get_dyn_stromtarife_results(driving_profile, electricity_consumption_year, d
     electricity_consumption_month_house = round((electricity_consumption_year/12),2)
     hausstrom_electricity_cost_month_house = round(((electricity_consumption_month_house*0.4778)+10.20),2)
     #Strom Haus und EV
-    electricity_consumption_month_ev = round((int(driving_profile)*30.5*0.2),2)
+    electricity_consumption_month_ev = (int(driving_profile)*30.5*0.2)
     #Grundgebuhr + Arbeitspreis Stromverbrauch EV und Haus
     hausstrom_electricity_cost_month_ev_house = round((((electricity_consumption_month_ev + (electricity_consumption_year/12)) *0.4754)+10.20),2)
     #Strom Ladestrom: 
@@ -747,7 +677,7 @@ def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, r
    
     ev_needed_electricity_kWh = round(int(driving_profile)*0.2,2)
     ev_charged_electricity = 0
-      
+    print("----------------------------PV------------------------------")
     #Für jede Stunde am Tag
     for i in range(len(list_electricity_consumption_day)):
         #Wenn die PV Erzeugung den Hausverbrauch übersteigt -> speichern oder verkaufen // oder EV laden
@@ -760,13 +690,10 @@ def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, r
             #Auto laden wenn es angeschlossen ist
             #Wenn Home Office, kann immer geladen werden
             if departure_time == "Home Office" or arrival_time == "Home Office":
-                print("Home Office")
-                
                 #Wenn EV noch nicht voll, dann laden
                 if ev_charged_electricity < ev_needed_electricity_kWh:
                     #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
                     if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (ev_needed_electricity_kWh-ev_charged_electricity):
-                        print("EV lädt")
                         ev_charged_electricity = ev_charged_electricity + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
                     else:
                         #ueberschuss energie, die nicht mehr in EV gespeichert werden kann.
@@ -774,23 +701,22 @@ def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, r
                         ueberschuss_energie_ev = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(ev_needed_electricity_kWh-ev_charged_electricity)
                         ev_charged_electricity = ev_needed_electricity_kWh
                         #ueberschuss_energie_ev
-                        print("EV voll")
+                        print("EV Überschuss")
+                        print(ueberschuss_energie_ev)
                 #Wenn Batterie noch nicht voll, dann laden
                 elif battery_status < battery_kWh:
                     #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
                     if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
-                        print("Batterie lädt")
                         battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
                     else:
                         #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
                         #Verfuegbarer Strom der Stunde - Restkapazität Batterie
                         ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
                         battery_status = battery_kWh
-                        print("Batterie voll")
+                        print("Batterie Überschuss")
                         print(ueberschuss_energie)
                 #Sonst ins Netz verkaufen
                 else:
-                    print("verkaufe Strom ins Netz")
                     electricity_sold_grid = electricity_sold_grid + ueberschuss_energie_ev+ ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
                     #Überschuss verrechnet
                     ueberschuss_energie_ev = 0
@@ -800,32 +726,29 @@ def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, r
             #Wenn EV um 8 Uhr losfährt, kann es bis i < 7 laden
             #Wenn EV um 17 Uhr wiederkommt, kann es ab i >= 16 laden
             elif i < (int(departure_time)-1) or i >= (int(arrival_time)-1):
-                print("Auto da")
                 #Wenn EV noch nicht voll, dann laden
                 if ev_charged_electricity < ev_needed_electricity_kWh:
                     #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
                     if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (ev_needed_electricity_kWh-ev_charged_electricity):
-                        print("EV lädt")
                         ev_charged_electricity = ev_charged_electricity + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
                     else:
                         #ueberschuss energie, die nicht mehr in EV gespeichert werden kann.
                         #Verfuegbarer Strom der Stunde - Restkapazität Batterie
                         ueberschuss_energie_ev = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(ev_needed_electricity_kWh-ev_charged_electricity)
                         ev_charged_electricity = ev_needed_electricity_kWh
-                        #ueberschuss_energie_ev
-                        print("EV voll")
+                        print("EV Überschuss")
+                        print(ueberschuss_energie_ev)
                 #Wenn Batterie noch nicht voll, dann laden
                 elif battery_status < battery_kWh:
                     #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
                     if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
-                        print("Batterie lädt")
                         battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
                     else:
                         #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
                         #Verfuegbarer Strom der Stunde - Restkapazität Batterie
                         ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
                         battery_status = battery_kWh
-                        print("Batterie voll")
+                        print("EV Überschuss")
                         print(ueberschuss_energie)
                 #Sonst ins Netz verkaufen
                 else:
@@ -837,30 +760,25 @@ def get_pv_storage_values(pv_kW_peak, battery_kWh, solar_radiation, roof_tilt, r
 
             #Auto gerade nicht angeschlossen
             else:
-                print(i)
-                print("Auto weg")
-            #Wenn Batterie noch nicht voll, dann laden
-            if battery_status < battery_kWh:
-                #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
-                if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
-                    print("Batterie lädt")
-                    battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                #Wenn Batterie noch nicht voll, dann laden
+                if battery_status < battery_kWh:
+                    #Die Batterie nur soweit laden, bis Sie voll ist, sonst Strom verkaufen
+                    if (list_electricity_generation_day[i]-list_electricity_consumption_day[i]) < (battery_kWh-battery_status):
+                        battery_status = battery_status + (list_electricity_generation_day[i]-list_electricity_consumption_day[i])
+                    else:
+                        #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
+                        #Verfuegbarer Strom der Stunde - Restkapazität Batterie
+                        ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
+                        battery_status = battery_kWh
+                        print("Batterie voll")
+                        print(ueberschuss_energie)
+                #Sonst ins Netz verkaufen
                 else:
-                    #ueberschuss energie, die nicht mehr in Batterie gespeichert werden kann.
-                    #Verfuegbarer Strom der Stunde - Restkapazität Batterie
-                    ueberschuss_energie = (list_electricity_generation_day[i]-list_electricity_consumption_day[i])-(battery_kWh-battery_status)
-                    battery_status = battery_kWh
-                    print("Batterie voll")
-                    print(ueberschuss_energie)
-            #Sonst ins Netz verkaufen
-            else:
-                print("verkaufe Strom ins Netz")
-                electricity_sold_grid = electricity_sold_grid + ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
-                #Überschuss verrechnet
-                ueberschuss_energie = 0
+                    electricity_sold_grid = electricity_sold_grid + ueberschuss_energie + (list_electricity_generation_day[i]- list_electricity_consumption_day[i])
+                    #Überschuss verrechnet
+                    ueberschuss_energie = 0
         #Wenn Verbrauch Immobilie, PV Erzeugung nicht übersteigt, dann selber verbrauchen
         else:
-            print("------Verbrauch dominant-------------------")
             electricity_saved = electricity_saved + list_electricity_generation_day[i]
     
     

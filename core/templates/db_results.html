@@ -20,17 +20,18 @@
                             </div>
                             <p class="card-text">
                               An dieser Stelle finden Sie eine Ergebnisübersicht 
-                              aus den in den vorherigen Dashboards ausführlich dargestellten 
+                              aus den in den zuvor ausführlich dargestellten 
                               Kalkulationen.
-                              <b>Druch Anklicken der jeweiligen Kachel gelangen Sie zu dem zugehörigen Dashboard.</b>
+                              <b>Druch Anklicken der jeweiligen Kachel gelangen Sie zu der zugehörigen detaillierten
+                                  Erklärung.</b>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="/db_load_management.html">
+            <a href="/db_load_management.html" style="color:#000000">
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="card" style="background-color:#D9DADD;">
                             <div class="card-body bg-patern-white">
                                 <div class="row">
@@ -39,26 +40,83 @@
                                     </div>
                                     <div class="col-11">
                                         <h5>
-                                           <br> Ihre beste Wahl - {{request.session.opt_lastmanagement}}
+                                        {% if request.session.opt_lastmanagement != "kein Lastmanagement" %}
+                                        <br> Ihre beste Wahl - {{request.session.opt_lastmanagement}}
+                                        {% else %}
+                                        <br> Ein Lastmanagement ist optional
+                                        {% endif %}
                                         </h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-1"></div>
                                     <div class="col-11">
+                                        {% if request.session.opt_lastmanagement == "eine Netzanschlusserweiterung" %}
                                         <p>
                                             Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
-                                            Mit der angegebenen Ankunftszeit um <b>{{request.session.arrival_time}} Uhr</b> und
-                                            einer Abfahrtszeit um <b>{{request.session.departure_time}} Uhr</b>, 
+                                            
+                                            Mit der angegebenen Ankunfts- und
+                                            Abfahrtszeit
                                             haben sie <b> {{request.session.hours_to_charge}} Stunden
                                             Zeit zu laden</b>.
+
                                             Bei einem Fahrverhalten von durchschnittlich 
                                             <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
                                             <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
-                                            Auto wieder voll zu laden (Annahme: 0,2 kWh/km).
-                                           <br><br>
-                                            Bei einem <b>statisches Lastmanagement</b> hat Ihre gesamte Immobilie schätzungswiese eine maximale Leistungsnachfrage von 
-                                            <b> {{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b>. 
+                                            Auto wieder voll zu laden (Annahme Verbrauch: 0,2 kWh/km).
+                                        <br><br>
+                                        Bei einer Hausanschlussleistung von  <b> {{request.session.house_connection_power}} kW</b>
+                                        reicht diese nicht aus, um zusätzlich ausreichend Ladeleistung für die 
+                                        <b> {{request.session.charging_points_to_install}} Wallbox(en) </b> zu haben.
+                                        <br><br>
+                                        Mehr zu den Kosten einer Netzanschlusserweiterung können Sie bei den
+                                        <b><a href="https://www.swm.de/dam/doc/kundenservice/netzanschluss/preise-netzanschluesse" target="_blank">Stadtwerken München</a></b>
+                                            erfahren.  
+                                            <br><br>
+                                            <b>Annahme: </b> Für die weiteren Kalkulationen wird angenommen, dass Sie eine Netzanschlusserweiterung
+                                            durchgeführt haben und Ihr Elektroauto mit einer Ladeleistung von 11 kW laden können.                                                                                                               
+                                        </p>
+
+                                        {% elif request.session.opt_lastmanagement == "kein Lastmanagement" %}
+                                        <p>
+                                            Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> technisch notwendig.
+                                            
+                                            Mit der angegebenen Ankunfts- und
+                                            Abfahrtszeit
+                                            haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                            Zeit zu laden</b>.
+
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                            Auto wieder voll zu laden (Annahme Verbrauch: 0,2 kWh/km).
+                                        <br><br>
+                                        Auch ohne Lastmanagement können Sie Ihre 
+                                        <b> {{request.session.charging_points_to_install}} Wallbox(en) </b>
+                                        mit 11 kW laden.
+                                        <br><br>
+                                        Dennoch sollten Sie beachten, dass Sie die Förderung der 
+                                        <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">KfW</a></b>
+                                            nur nutzen können, wenn Sie ein Lastmanagement installieren.                                                                                                             
+                                        </p>
+
+                                        {% else %}
+
+                                        <p>
+                                            Für Ihren Anwendungsfall wäre <b>{{request.session.opt_lastmanagement}}</b> die beste Lösung.
+                                            
+                                            Mit der angegebenen Ankunfts- und
+                                            Abfahrtszeit
+                                            haben sie <b> {{request.session.hours_to_charge}} Stunden
+                                            Zeit zu laden</b>.
+
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom um Ihr
+                                            Auto wieder voll zu laden (Annahme Verbrauch: 0,2 kWh/km).
+                                        <br><br>
+                                            Bei einem <b>statisches Lastmanagement</b> wird für Ihre gesamte Immobilie eine maximale Leistungsnachfrage von 
+                                            <b> {{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b> angenommen. 
                                             Durch die 
                                             Hausanschlussleistung von <b> {{request.session.house_connection_power}} kW</b>,
                                             ergibt sich hieraus eine
@@ -66,14 +124,20 @@
                                             <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
                                             und von 
                                             <b> {{request.session.stat_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                            {{request.session.charging_points_to_install}} Wallboxen </b>.
-                                            <br><br>   
-                                            Bei einem <b>dynamischen Lastmanagement</b> ergibt sich eine
-                                            verfügbare Leistung von 
-                                            <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> für alle Wallboxen
-                                            und von 
+                                            {{request.session.charging_points_to_install}} Wallbox(en) </b>.
+                                            <br><br>
+                                            Beim <b>dynamischen Lastmanagement</b> wird hingegen die aktuell nachgefragte Leistung 
+                                            gemessen und die restliche verfügbare Leistung zum Laden freigegeben. 
+                                            Hierbei steht Ihnen deutlich mehr
+                                            Leistung zur Verfügung, denn die max. Leistungsnachfrage 
+                                            (<b>{{request.session.stat_Leistungs_peak_ohne_ev_kW}} kW</b>)
+                                            tritt nur sehr selten auf.
+                                            Für Ihre Immobilie hätten Sie
+                                            <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_alle_wallboxen}} kW</b> 
+                                            Ladeleistung für alle Wallboxen
+                                            und  
                                             <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW für jede der
-                                            {{request.session.charging_points_to_install}} Wallboxen </b>.                                        
+                                            {{request.session.charging_points_to_install}} Wallbox(en) </b> zur Verfügung.                                        
                                             <br><br>
                                             Hiermit könnte das Auto mit einem <b>statischen Lastmanagement</b> in
                                             <b> {{request.session.stat_needed_time_to_charge}} Stunden</b> laden und
@@ -81,67 +145,76 @@
                                             <b> {{request.session.dyn_needed_time_to_charge}} Stunden</b>. 
                                             <br><br>
                                             <b>Annahme: </b> Wenn sowohl ein statisches, als auch ein dynamisches Lastmanagement ausreichen,
-                                            wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, um die zusätzliche Flexibilit zu nutzen.                                                                                                                
+                                            wird für die folgenden Kalkulationen ein dynamisches Lastmanagement angenommen, damit Sie die
+                                            zusätzliche Flexibilität nutzen können.                                                                                                                
                                         </p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
+            </a>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/db_load_management.html">
+                    <a href="/db_load_management.html" style="color:#000000">
                         <div class="card">
-                            <div class="card-body bg-patern-white">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <b>Für Ihre Immobilie gibt es dabei drei Möglichkeiten: </b>
+                                </p>
                                 <div class= "row">
                                     <div class="col-4">
                                         <p>
-                                            <b>Ohne Lastmanagement</b>
+                                            <b>Einfach Laden</b>
                                             <br>
-                                            Ihr Elektroauto wird ohne Lastmanagement nach Beginn des Ladevorgangs
-                                            mit voller Leistung geladen. Hierdurch können große Lastspitzen entstehen.
+                                            Es wird <b>kein Lastmanagement</b> installiert und 
+                                            Sie laden Ihr Elektroauto jeder Zeit unkontrolliert
+                                            mit voller Leistung.
                                         </p>
                                     </div>
                                     <div class="col-4">
                                         <p>
-                                            <b>Statisches Lastmanagement</b>
+                                            <b>Intelligent Laden</b>
                                             <br>
-                                            Ein statisches Lastmanagement begrenzt den maximalen Leistungsbedarf 
-                                            Ihrer Immobilie. Die verfügbare Ladeleistung ist konstant und passt 
-                                            sich nicht an den Leistungsbedarf des Gebäudes an.
+                                            Es wird <b>ein Lastmanagement</b> verbaut,
+                                            welches die verfügbare Ladeleistung auf 
+                                            die Wallboxen verteilt und den Netzanschluss 
+                                            vor Überlastung schützt.                              
                                         </p>
                                     </div>
                                     <div class="col-4">
                                         <p>
-                                            <b>Dynamisches Lastmanagement</b>
+                                            <b>Netzanschlusserweiterung</b>
                                             <br>
-                                            Ein dynamisches Lastmanagement ermittelt kontinuierlich den 
-                                            Leistungsbedarf Ihres Gebäudes und passt die Ladeleistung dynamisch
-                                            an.
+                                            Es muss eine <b>Netzanschlusserweiterung</b> durchgeführt werden, 
+                                            da ein Lastmanagement nicht ausreicht den Strombedarf 
+                                            intelligent zu verteilen.                              
                                         </p>
                                     </div>
                                 </div>
                                 <div class= "row">
                                     <div class="col-4">
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/ohne_lastmanagement.svg" alt="Card image cap">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/einfach_laden.svg" alt="Card image cap">
                                     </div>
                                     <div class="col-4">
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/stat_lastmanagement.svg" alt="Card image cap">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/intelligent_laden.svg" alt="Card image cap">
                                     </div>
                                     <div class="col-4">
-                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/dyn_lastmanagement.svg" alt="Card image cap">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/anschlusserweiterung.svg" alt="Card image cap">
                                     </div>
-                                </div>                                                       
+                                </div>  
+                                
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
+            
             <div class="row">
-                <div class="col-md-12">
-                    <a href="/db_dynamische_strompreise.html">
+                <div class="col-12">
+                    <a href="/db_dynamische_strompreise.html" style="color:#000000">
                         <div class="card" style="background-color:#D9DADD;">
                             <div class="card-body bg-patern-white">
                                 <div class="row">
@@ -158,25 +231,50 @@
                                     <div class="col-1"></div>
                                     <div class="col-11">
                                         <p>
-                                            Für Ihre Immobilie ergibt sich schätzungsweise
-                                            ein monatlicher Stromverbrauch von
-                                            <b> {{request.session.electricity_consumption_month_house}} kWh für den Haushalt</b> 
-                                            und 
-                                            <b> {{request.session.electricity_consumption_month_ev}} kWh für das Elektroauto</b>.
-                                            <br><br>
-                                            Bei einem Haushaltsstromtarif ergeben sich hieraus Stromkosten 
-                                            für das Haus und das Auto zusammen von 
+                                            Bei einer Immobilie vom Typ
+                                            <b> {{request.session.property_type}}</b>, mit insgesamt 
+                                            <b> {{request.session.number_properties}}</b>
+                                            Wohneinheit(en) mit durchschnittlich
+                                            <b> {{request.session.number_persons}}</b>
+                                            sowie einer Warmwasseraufbereitung
+                                            <b> {{request.session.water_heating}}</b>,
+                                            liegt der Jahresenergieverbrauch bei 
+                                            <b> {{request.session.electricity_consumption_year}} kWh</b>
+                                            und der Monatsenergieverbauch bei
+                                            <b> {{request.session.electricity_consumption_month_house}} kWh</b>.
+                                            
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom am
+                                            Tag und <b> {{request.session.electricity_consumption_month_ev}} kWh</b> im Monat
+                                            (30,5 Tage).
+                                            Bei dem Anbieter 
+                                            <b>Polarstern</b>
+                                            berechnen sich die Stromkosten wie folgt:
+                                            <br><br> 
+                                            <b>Haushaltsstrom:</b> Monatlicher 
+                                            Grundpreis (<b>10,20 €</b>) + Arbeitspreis (<b>47,54 Cent</b> * 
+                                            <b> {{request.session.electricity_consumption_month_ev_house}} kWh</b>) =
                                             <b> {{request.session.hausstrom_electricity_cost_month_ev_house}} €</b>.
                                             <br><br>
-                                            Durch den Autostromtarif entstehen für das Elektroauto Stromkosten von 
-                                            <b> {{request.session.ladestrom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                            dem Haus von insgesamt 
-                                            <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
+                                            <b>Autostrom: </b>
+                                            Stromkosten Haushalt (<b>10,20 €</b> + <b>47,78 Cent</b> *  <b> {{request.session.electricity_consumption_month_house}} kWh</b>)
+                                            + Stromkosten Auto (<b>12,89 €</b> + <b>1,66 €</b> + <b>44,09 Cent</b> * <b> {{request.session.electricity_consumption_month_ev}} kWh</b>)
+                                            = <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
+                                            <br>
+                                            Erklärung: Es werden zwei seperate Verträge abgeschlossen, die Kosten für den 2. Stromzähler liegen bei 1,66 € im Monat, es fallen zwei Grundgebühren an, die Arbeitspreise
+                                            unterscheiden sich leicht, vgl.
+                                            <b>Polarstern</b>.
                                             <br><br>
-                                            Durch einen dynamischen Stromtarif lägen die Stromkosten für das Elektroauto
-                                            bei <b> {{request.session.dyn_strom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                            dem Haus bei insgesamt 
+                                            <b>Dynamischer Stromtarif: </b>
+                                            Stromkosten Haushalt (<b>10,20 €</b> + <b>47,78 Cent</b> *  <b> {{request.session.electricity_consumption_month_house}} kWh</b>)
+                                            + dyn. Stromkosten Auto (
+                                            <b>13,99 €</b> + <b>1,66 € </b> + <b>dyn. Strompreis</b> * <b> {{request.session.electricity_consumption_month_ev}} kWh</b>
+                                            ) =                                          
                                             <b> {{request.session.dyn_strom_electricity_cost_month_ev_house}} €</b>
+                                            <br>
+                                            Erklärung: Es werden zwei seperate Verträge abgeschlossen und die Kosten für den 2. Stromzähler liegen bei 1,66 € im Monat.
+                                            Wie sich der dyn. Strompreis im Deatil zusammensetzt, erfahren Sie in der nächsten Kachel.                                      
                                         </p>
                                     </div>
                                 </div>
@@ -186,37 +284,43 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <a href="/db_dynamische_strompreise.html">
+                <div class="col-12">
+                    <a href="/db_dynamische_strompreise.html" style="color:#000000">
                         <div class="card">
-                            <div class="card-body bg-patern-white">
+                            <div class="card-body">
+                                
+                                <p class="card-text">
+                                    <br>
+                                    Für das Laden von Elektroautos zuhause kann zwischen unterschiedlichen
+                                    Stromtarifen gewählt werden:      
+                                </p>
                                 <div class= "row">
                                     <div class="col-4">
                                         <p>
                                             <b>Haushaltsstrom</b>
                                             <br>
-                                            Der von Ihrem Elektroauto geladene Strom wird zusammen mit den anderen Haushaltsgeräten verrechnet.
-                                            Bei Polarstern sinkt der Arbeitspreis für den gesamten Haushalt von 44,78 Cent/ kWh auf 47,54 Cent/ kWh leicht ab.
+                                            Der von Ihrem Elektroauto geladene Strom wird 
+                                            zusammen mit den anderen Haushaltsgeräten 
+                                            über einen Stromzähler verrechnet.
+                                            
                                         </p>
                                     </div>
                                     <div class="col-4">
                                         <p>
                                             <b>Autostrom</b>
                                             <br>
-                                            Wenn Sie viel Auto fahren, kann es sich lohnen den Autostrom über einen
-                                            zusätzlichen Stromzähler abzurechnen. Bei dem Stromtarif von 
-                                            Polarstern lohnt sich dies ab <b>14 km am Tag</b>. Der Autostromtarif kostet
-                                            im Monat 12,89 € zzgl. 1,66 € Zählerkosten 
-                                            und der Arbeitspreis sinkt auf 44,09 Cent/ kWh.
+                                            Der Strom für das Elektroauto wird über einen
+                                            zweiten Zähler seperat vom Haushalt abgerechnet.
                                         </p>
                                     </div>
                                     <div class="col-4">
                                         <p>
                                             <b>Dynamische Stromtarife</b>
                                             <br>
-                                            Bei diesem Stromtarif können Sie von den Preisschwankungen an 
-                                            der Strombörse profitieren. Bspw. können Sie Ihr Auto
-                                            dann laden, wenn der Strom besonders günstig ist.
+                                            Hier können Sie Ihr 
+                                            Auto laden, wenn der Strom
+                                            besonders günstig ist und so von den Preisschwankungen
+                                            profitieren.
                                         </p>
                                     </div>
                                 </div>
@@ -229,6 +333,65 @@
                                     </div>
                                     <div class="col-4">
                                         <img class="img-fluid card-img-top" src="/static/assets/images/slider/iMsys_stromzaehler.svg" alt="Card image cap">
+                                    </div>                                
+                                </div> 
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/db_verlustleistung.html" style="color:#000000">
+                        <div class="card" style="background-color:#D9DADD;">
+                            <div class="card-body bg-patern-white">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img class="img-fluid card-img-top" src="/static/assets/images/slider/success_blue.png" alt="Card image cap">
+                                    </div>
+                                    <div class="col-11">
+                                        <h5>
+                                            <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm&#178
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <p>
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, 
+                                            einer Kabellänge von <b>{{request.session.cable_length}} m</b>
+                                            und einer Nutzungsdauer von 
+                                            <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
+                                            optimale Kabeldimensionierung: 
+                                            <br><br>
+
+                                            <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
+                                            <b> Querschnitt von {{request.session.opt_querschnitt}} mm&#178</b>, mit Gesamtkosten von 
+                                            <b> {{request.session.opt_min_costs}} € </b> <br>
+                                            Die Kosten für das Kabel würden hierbei
+                                            <b> {{request.session.opt_cable_costs}} € </b> betragen und die
+                                            Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>.
+                                            
+                                            <br><br>
+                                            <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
+                                            <b> Querschnitt von 1,5 mm&#178</b>, mit Gesamtkosten von 
+                                            <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                            Die Kosten für das Kabel würden hierbei
+                                            <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
+                                            Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>.
+                                            <br><br>
+                                            <b>Annahme 1</b>:
+                                            Wie unter <b>Ergebnis Lastmanagement</b> dargelegt, kann mit
+                                            <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
+                                            <br>
+                                            <b>Annahme 2</b>:
+                                            Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
+                                            dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
+                                            Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
+                                            dass die Spannung abfällt und die Stromstärke konstant bleibt.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -238,60 +401,13 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card" style="background-color:#D9DADD;">
-                        <div class="card-body bg-patern-white">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img class="img-fluid card-img-top" src="/static/assets/images/slider/success_blue.png" alt="Card image cap">
-                                </div>
-                                <div class="col-11">
-                                    <h5>
-                                        <br> Ihre beste Wahl - ein Kabel mit Querschnitt {{request.session.opt_querschnitt}} mm&#178
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p>
-                                        Bei einem Fahrverhalten von durchschnittlich 
-                                        <b>{{request.session.driving_profile}} km am Tag</b>, 
-                                        einer Kabellänge von <b>{{request.session.cable_length}} m</b>
-                                        und einer Nutzungsdauer von 
-                                        <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
-                                        optimale Kabeldimensionierung: 
-                                        <br><br>
-
-                                        <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
-                                        <b> Querschnitt von {{request.session.opt_querschnitt}} mm&#178</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.opt_min_costs}} € </b> <br>
-                                        Die Kosten für das Kabel würden hierbei
-                                        <b> {{request.session.opt_cable_costs}} € </b> betragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
-                                        
-                                        <br><br>
-                                        <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
-                                        <b> Querschnitt von 1,5 mm&#178</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
-                                        Die Kosten für das Kabel würden hierbei
-                                        <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="/db_verlustleistung.html">
+                    <a href="/db_verlustleistung.html" style="color:#000000">
                         <div class="card">
                             <div class="card-body">
                                 <p>
                                     Hier sehen Sie für Ihre individuellen Angaben 
                                     wie sich für jeden Querschnitt die Kabelkosten, 
-                                    Verlustleistungskkosten und Gesamtkosten entwickeln.
+                                    Verlustleistungskosten und Gesamtkosten entwickeln.
                                     Hierbei wird ihre Fahrstrecke von 
                                     <b>{{request.session.driving_profile}} km am Tag</b>, 
                                     einee Kabellänge von <b>{{request.session.cable_length}} m</b>
@@ -307,7 +423,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <a href="/db_renewables.html">
+                    <a href="/db_renewables.html" style="color:#000000">
                         <div class="card" style="background-color:#D9DADD;">
                             <div class="card-body bg-patern-white">
                                 <div class="row">
@@ -320,7 +436,7 @@
                                     </div>
                                     <div class="col-11">
                                         <h5>
-                                            <br> Ihre beste Wahl - die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
+                                            <br> Die ausgewählte PV-Speicher-Kombination ist {{request.session.pv_speicher_sinnvoll}}
                                         </h5>
                                     </div>
                                 </div>
@@ -330,26 +446,24 @@
                                         <p>
                                             Mit einer Fläche von <b> {{request.session.roof_size}} </b> m&#178 können Sie eine
                                             Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen und 
-                                            der ausgewählte Speicher hat eine Kapazität von
+                                            Ihr Speicher hat eine Kapazität von
                                             <b> {{request.session.battery_kWh}} kWh </b>.
-                                            <br><br>
-                                            Die Investitionskosten für die PV-Anlage 
-                                            (<b> {{request.session.pv_investment_cost_eur}} €</b>)
-                                            und den Speicher 
-                                            (<b> {{request.session.battery_investment_cost_eur}} €</b>)
-                                            liegen insgesamt bei
-                                            <b> {{request.session.capex_pv_und_battery}} €</b>.
-                                            <br><br>
-                                            Mit der PV-Anlage können täglich
+                                            Bei einer Dachneigung von 
+                                            <b> {{request.session.roof_tilt}}°</b>, einer 
+                                            <b> {{request.session.roof_orientation}}-Ausrichtung</b> und einer
+                                            Sonneneinstrahlung von 
+                                            <b> {{request.session.solar_radiation}} kWh/ kWpeak</b>,
+                                            können Sie täglich
                                             <b> {{request.session.electricity_pv_generation_day}} kWh</b>
-                                            Strom erzeugt werden. 
-                                            <br>
-                                            Ihr Elektroauto ist angeschlossen von 
-                                            <b> {{request.session.ev_connected_time}} Uhr</b> bis
-                                            <b> {{request.session.ev_deconnected_time}} Uhr</b> und
-                                            benötigt
-                                            <b> {{request.session.ev_needed_electricity_kWh}} kWh</b>. Durch die
-                                            PV-Anlage können hiervon 
+                                            Strom erzeugen. 
+                                            <br><br>
+                                            
+                                            Bei einem Fahrverhalten von durchschnittlich 
+                                            <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom am
+                                            Tag.
+                                            Unter Berücksichtigung Ihrer Ankunfts- und Abfahrtszeiten können durch die
+                                            PV-Anlage hiervon 
                                             <b> {{request.session.ev_charged_electricity}} kWh</b>
                                             geladen werden. Von dem verbleibenden Strom, 
                                             werden 
@@ -363,15 +477,20 @@
                                             <b> {{request.session.einnahmen_tag}} €</b> und
                                             im Jahr 
                                             <b> {{request.session.einnahmen_jahr}} €</b>.
-                                            <br><br>
-                                            Unter Berücksichtigung der Investitionskosten und der jährlichen Abschreibungen
+                                            Die Investitionskosten für Ihre PV-Anlage liegen bei
+                                            <b> {{request.session.pv_investment_cost_eur}} €</b> (1852,88 €/ kWpeak)
+                                            und für Ihren Speicher bei 
+                                            <b> {{request.session.battery_investment_cost_eur}} €</b> (350 €/ kWh).
+                                            Insgesamt kostest die PV-Speicher-Kombination somit schätzungsweise
+                                            <b> {{request.session.capex_pv_und_battery}} €</b>.
+                                            Unter Berücksichtigung der Investitionskosten
                                             liegt Ihr Gewinn nach 10 Jahren somit bei
                                             <b> {{request.session.gewinn_10_jahre}} €</b>.
-                                            <br><br>
-                                            Hierbei Nutzen Sie 
-                                            <b> {{request.session.quote_pv_nutzung}} %</b> des 
-                                            erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
-                                            <b> {{request.session.quote_eigenversorgung}} %</b>
+                                           <br><br>
+                                           Bei der PV-Speicher-Kombination nutzen Sie 
+                                           <b> {{request.session.quote_pv_nutzung}} %</b> des 
+                                           erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
+                                           <b> {{request.session.quote_eigenversorgung}} %</b>
                                         </p>
                                     </div>
                                 </div>
@@ -383,7 +502,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <a href="/db_renewables.html">
+                        <a href="/db_renewables.html" style="color:#000000">
                             <div class="card-body bg-patern-white">
                                 <div class="col-md-12">
                                     <p>
@@ -391,9 +510,22 @@
                                         Anlage der Größe <b> {{request.session.pv_kW_peak}} kWpeak </b> bauen. 
                                         Bei einer Dachneigung von <b> {{request.session.roof_tilt}}° </b> und
                                         einer Ausrichtung nach <b> {{request.session.roof_orientation}} </b> können
-                                        <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden, 
-                                        bei einem Stromverbrauch von <b> {{request.session.electricity_consumption_day}} kWh. </b>
-                                        Die Stromerzeugung hängt dabei stark von den Jahres- und Tageszeiten ab.
+                                        <b> {{request.session.electricity_pv_generation_day}} kWh </b> Strom am Tag erzeugt werden.
+                                        
+                                        Bei einer Immobilie vom Typ
+                                        <b> {{request.session.property_type}}</b>, mit insgesamt 
+                                        <b> {{request.session.number_properties}}</b>
+                                        Wohneinheit(en) mit durchschnittlich
+                                        <b> {{request.session.number_persons}}</b>
+                                        sowie einer Warmwasseraufbereitung
+                                        <b> {{request.session.water_heating}}</b>,
+                                        liegt der Jahresenergieverbrauch bei 
+                                        <b> {{request.session.electricity_consumption_year}} kWh</b>
+                                        und der Tagesenergieverbauch bei
+                                        <b> {{request.session.electricity_consumption_day}} kWh</b>.
+                                        <br><br>
+                                        Hieraus ergibt sich für einen Beispielhaften Tag der folgende 
+                                        Graf für Ihre Immobilie.
                                     </p>
                                     <div id="mixed-chart-PV-Erzeugung"></div>
                                 </div>

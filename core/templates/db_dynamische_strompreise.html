@@ -19,17 +19,17 @@
                             <p class="card-text">
                                 <br>
                                 Für das Laden von Elektroautos zuhause kann zwischen unterschiedlichen
-                                Stromtarifen gewählt werden. 
-                                Eine Übersicht finden Sie bei 
-                                <b><a href="https://efahrer.chip.de/e-wissen/autostrom-im-vergleich-so-sparen-e-auto-fahrer-trotz-hoher-strompreise_103338" target="_blank">efahrer</a></b>.
-                                Der Planungsassistent schlägt Ihnen basierend auf Ihrem Stromverbrauch
-                                und historischen Strompreisen den günstigsten Ökostromtarif vor.
-                                Damit sparen Sie Kosten, unterstützen die Umwelt und können zudem die 
-                                <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">KfW</a></b>
-                                Förderung in Anspruch nehmen. 
+                                Stromtarifen gewählt werden <b>(Übersicht: 
+                                <a href="https://efahrer.chip.de/e-wissen/autostrom-im-vergleich-so-sparen-e-auto-fahrer-trotz-hoher-strompreise_103338" target="_blank">efahrer</a>
+                                )</b>. Alle von der Software vorgeschlagenen Stromtarife umfassen Ökostrom. 
+                                So können Sie 
+                                die 
+                                <b><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Ladestationen-f%C3%BCr-Elektroautos-Wohngeb%C3%A4ude-(440)/" target="_blank">KfW Förderung</a></b>
+                                 in Anspruch nehmen, 
+                                <b>Kosten sparen</b> und die <b>Umwelt unterstützen</b>. 
                                 Grundsätzlich wird hierbei zwischen
                                 <b>Haushaltsstrom</b>, <b>Autostrom</b> und <b>dynamischen Stromtarifen </b> unterschieden. 
-                                Für alle Tarife berechnen sich die Kosten durch: Monatliche Grundgebühr + Arbeispreis je kWh.      
+                                Für alle Tarife berechnen sich die Kosten durch eine monatliche Grundgebühr + Arbeispreis je kWh.      
                             </p>
                             <div class= "row">
                                 <div class="col-4">
@@ -37,7 +37,8 @@
                                         <b>Haushaltsstrom</b>
                                         <br>
                                         Der von Ihrem Elektroauto geladene Strom wird 
-                                        zusammen mit den anderen Haushaltsgeräten verrechnet.
+                                        zusammen mit den anderen Haushaltsgeräten 
+                                        über einen Stromzähler verrechnet.
                                         
                                     </p>
                                 </div>
@@ -45,19 +46,18 @@
                                     <p>
                                         <b>Autostrom</b>
                                         <br>
-                                        Wenn Sie viel Auto fahren, kann es sich lohnen
-                                        einen eigenen Stromtarif für
-                                        das Auto abschließen. Hierfür muss ein weiterer
-                                        Stromzähler installiert werden.
+                                        Der Strom für das Elektroauto wird über einen
+                                        zweiten Zähler seperat vom Haushalt abgerechnet.
                                     </p>
                                 </div>
                                 <div class="col-4">
                                     <p>
                                         <b>Dynamische Stromtarife</b>
                                         <br>
-                                        Hier können Sie von den Preisschwankungen an 
-                                        der Strombörse profitieren und Ihr Auto
-                                        dann laden, wenn der Strom besonders günstig ist.
+                                        Hier können Sie Ihr 
+                                        Auto laden, wenn der Strom
+                                        besonders günstig ist und so von den Preisschwankungen
+                                        profitieren.
                                     </p>
                                 </div>
                             </div>
@@ -146,40 +146,39 @@
                                         <b> {{request.session.electricity_consumption_year}} kWh</b>
                                         und der Monatsenergieverbauch bei
                                         <b> {{request.session.electricity_consumption_month_house}} kWh</b>.
-                                        <br><br>
+                                        
                                         Bei einem Fahrverhalten von durchschnittlich 
                                         <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
                                         <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom am
                                         Tag und <b> {{request.session.electricity_consumption_month_ev}} kWh</b> im Monat
                                         (30,5 Tage).
-                                        <br><br>
                                         Bei dem Anbieter 
                                         <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
-                                        berechnen sich die Stromkosten wie folgt: Monatlichen 
-                                        Grundpreis (10,20 €) + Arbeitspreis (47,54 Cent/ kWh).
-                                        Hieraus ergeben sich für Ihre Immobilie Stromkosten 
-                                        von 
+                                        berechnen sich die Stromkosten wie folgt:
+                                        <br><br> 
+                                        <b>Haushaltsstrom:</b> Monatlicher 
+                                        Grundpreis (<b>10,20 €</b>) + Arbeitspreis (<b>47,54 Cent</b> * 
+                                        <b> {{request.session.electricity_consumption_month_ev_house}} kWh</b>) =
                                         <b> {{request.session.hausstrom_electricity_cost_month_ev_house}} €</b>.
                                         <br><br>
-                                        Bei dem Autostromtarif muss ein weiterer Stromzähler
-                                        installiert werden (1,66 €/ Monat), wodurch sich die Stromkosten wie folgt berechnen:
-                                        <b>Stromkosten Haushalt</b> (10,20 €/ Monat + 47,78 Cent/ kWh)
-                                        <b> + Stromkosten Auto</b> (12,89 €/ Monat + 1,66 € + 44,09 Cent/ kWh).
-                                        Für Ihre Immobilie entstehen somit Stromkosten für das Elektroauto von 
-                                        <b> {{request.session.ladestrom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                        dem Haus von insgesamt 
-                                        <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
+                                        <b>Autostrom: </b>
+                                        Stromkosten Haushalt (<b>10,20 €</b> + <b>47,78 Cent</b> *  <b> {{request.session.electricity_consumption_month_house}} kWh</b>)
+                                        + Stromkosten Auto (<b>12,89 €</b> + <b>1,66 €</b> + <b>44,09 Cent</b> * <b> {{request.session.electricity_consumption_month_ev}} kWh</b>)
+                                        = <b> {{request.session.ladestrom_electricity_cost_month_ev_house}} €</b>.
+                                        <br>
+                                        Erklärung: Es werden zwei seperate Verträge abgeschlossen, die Kosten für den 2. Stromzähler liegen bei 1,66 € im Monat, es fallen zwei Grundgebühren an, die Arbeitspreise
+                                        unterscheiden sich leicht, vgl.
+                                        <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>.
                                         <br><br>
-                                        Bei einem dynamischen Stromtarif ergeben sich die Kosten ebenfalls aus den 
-                                        Kosten für den Haushalt + dynamische Stromkosten Auto. Auch hier muss ein
-                                        weiterer Stromzähler (1,66 €/ Monat) installiert werden. 
-                                        Der dynamische Strompreis berechnet sich dabei wie folgt: 
-                                        <b>Grundpreis im Monat + Arbeitspreis je kWh </b>
-                                        = (13,99 € + 1,66 € im Monat) + (18,12 Cent + EPEX SPOT + 0,25 Cent)* kWh
-                                        Durch einen dynamischen Stromtarif lägen die Stromkosten für das Elektroauto
-                                        bei <b> {{request.session.dyn_strom_electricity_cost_month_ev}} €</b> und zusammen mit
-                                        dem Haus bei insgesamt 
+                                        <b>Dynamischer Stromtarif: </b>
+                                        Stromkosten Haushalt (<b>10,20 €</b> + <b>47,78 Cent</b> *  <b> {{request.session.electricity_consumption_month_house}} kWh</b>)
+                                        + dyn. Stromkosten Auto (
+                                        <b>13,99 €</b> + <b>1,66 € </b> + <b>dyn. Strompreis</b> * <b> {{request.session.electricity_consumption_month_ev}} kWh</b>
+                                        ) =                                          
                                         <b> {{request.session.dyn_strom_electricity_cost_month_ev_house}} €</b>
+                                        <br>
+                                        Erklärung: Es werden zwei seperate Verträge abgeschlossen und die Kosten für den 2. Stromzähler liegen bei 1,66 € im Monat.
+                                        Wie sich der dyn. Strompreis im Deatil zusammensetzt, erfahren Sie in der nächsten Kachel.                                      
                                     </p>
                                 </div>
                             </div>
@@ -187,57 +186,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!-- [ variant-chart ] end -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Stromsparen durch eine steuerbare Verbrauchseinrichtung?</h5>
-                            <p>
-                                Der Stromtarif von 
-                                <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
-                                reduziert Ihren Strompreis je kWh, über das   
-                                Prinzip der <b>steuerbaren Verbrauchseinrichtung</b> (SVE).        
-                                Durch eine SVE können Sie zuhause dabei helfen 
-                                die Netzstabilität zu verbessern und damit Geld sparen.
-                                Durch die teils hohe Ladeleistung eines Elektroautos, kann es im Verteilnetz zu
-                                Lastspitzen kommen. 
-                                Eine steuerbare Verbrauchseinrichtung ermöglicht es hierbei, dass Ihr Ladevorgang 
-                                für 2 Stunden um 50% reduziert werden kann.
-                                Als Gegenleistung können Sie Ihren Ladestrom für ein reduziertes Netzentgeld beziehen.
-                                Hierdurch sparen Sie rund 3 Cent die kWh.
-                                <br><br>
-                                Bei einem Fahrverhalten von durchschnittlich 
-                                <b>{{request.session.driving_profile}} km am Tag</b> müssen
-                                bei einem Verbrauch von 0,2kWh/km im Jahr 
-                                <b>{{request.session.jahres_stromverbrauch}} kWh</b> geladen werden.
-                                Durch eine SVE und den 3 Cent niedrigeren Strompreis, sparen Sie im Monat 
-                                <b>{{request.session.sve_einsparung_monat}} €</b> und im Jahr
-                                <b>{{request.session.sve_einsparung_jahr}} €</b>.    
-                                Von der steuerbaren Verbrauchseinrichtung profitieren Sie dabei nur beim Autostrom.                            
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Auswirkung einer Steuerbaren Verbrauchseinrichtung</h5>
-                            <p>
-                                Hier können Sie die Ersparnis einer steuerbaren 
-                                Verbrauchseinrichtung für Ihre Immobilie betrachten.
-                            </p>
-                            <div id="mixed-chart-2-SVE"></div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
             <div class="card">
                 <div class="card-body">
                     <div class="row">   
                         <div class="col-8">
                             <h5>
-                            Erklärung dynamische Stromtarife 
+                            Dynamischer Stromtarif: Preisbildung erklärt 
                             </h5>
                             <br>
                             <p>
@@ -245,26 +199,25 @@
                                 <b><a href="https://www.awattar.de/tariffs/hourly" target="_blank">aWATTar</a></b> bietet
                                 mit HOURLY einen dynamischen Stromtarif mit 24 Preisen pro Tag an, 
                                 die auf einer detaillierten Wetterprognose 
-                                aufbauen und am Vortag an der Börse EPEX Spot bekanntgegeben werden. 
+                                aufbauen und am Vortag an der Strombörse EPEX Spot bekanntgegeben werden. 
                                 Hierbei ist <b>nicht der gesamte Strompreis dynamisch</b> sondern lediglich 
                                 der an der Börse gehandelte Anteil.                                    
                                 Während die <b>Steuern, Umlagen, Konzessionsabgaben sowie Netz- und
                                 Messstellenentgelte nicht dynamisch</b> angepasst werden, so 
-                                variiert der Preis für die Beschaffung und den Vertrieb.
+                                variiert der Preis für die Beschaffung und den Vertrieb (siehe Grafik rechts).
                                 Der zu zahlende Strompreis 
                                 berechnet sich hierbei durch: 
                                 <br><br>
-                                <b>Grundpreis im Monat + Arbeitspreis je kWh </b>
-                                = 13,99 € im Monat + (18,12 Cent + EPEX SPOT + 0,25 Cent)* kWh
+                                <b>Grundpreis im Monat</b> (13,99 €) + <b>Arbeitspreis </b>
+                                (18,12 Cent + EPEX SPOT + 0,25 Cent) je kWh
                                 <br><br>
                                 Die 18,12 Cent ergeben sich hierbei als Festbetrag aus den nicht
-                                variablen Kosten und die 0,25 Cent entstehen für die CO2 Abgabe.
-                                Der EPEX SPOT Preis berechnet sich hierbei dynamisch über die Strombörse.
-                                <br><br>
-                                Die EPEX Spot ist dabei eine Strombörse, an welcher kurzfristig Strom 
+                                variablen Kosten und die 0,25 Cent entstehen für die CO<sub>2</sub> Abgabe.
+                                Der EPEX SPOT Preis berechnet sich hierbei dynamisch über die gleichnamige
+                                Strombörse, an welcher kurzfristig Strom 
                                 beschafft werden kann. 
                                 Für ein besseres Verständnis realistischer Preisschwankungen ist in der 
-                                unteren Grafik der Strompreis Verlauf an der Strombörse für den Januar 2021
+                                unteren Grafik die Strompreisentwicklung an der Strombörse für den Januar 2021
                                 dargestellt. Hier lag der Höchstpreis bei 11 Cent/ kWH und der niedrigste 
                                 Preis bei genau 0 Cent/ kWh.
                             </p>
@@ -289,6 +242,32 @@
                                Die Werte Min und Max zeigen hingegen was der höchste und niedrigste Preis an dem Tag war.
                             </p>
                             <div id="dynamische_strompreise_übersicht"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="row">
+                <!-- [ variant-chart ] end -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Autostrom: Kosten sparen durch eine steuerbare Verbrauchseinrichtung?</h5>
+                            <p>
+                                Der Stromtarif von 
+                                <b><a href="https://www.polarstern-energie.de/wirklich-autostrom/?utm_medium=affiliate&utm_source=awin&utm_campaign=893927_efahrer.chip.de&utm_term=0&awc=14186_1642006770_2300d8ef544db188b07d84548b6659e9" target="_blank">Polarstern</a></b>
+                                reduziert Ihren Strompreis je kWh, über das   
+                                Prinzip der <b>steuerbaren Verbrauchseinrichtung</b> (SVE).        
+                                Durch eine SVE können Sie zuhause dabei helfen 
+                                die Netzstabilität zu verbessern und damit Geld sparen.
+                                Durch die teils hohe Ladeleistung eines Elektroautos, kann es im Verteilnetz zu
+                                Lastspitzen kommen. 
+                                Eine steuerbare Verbrauchseinrichtung ermöglicht es hierbei, dass Ihr Ladevorgang 
+                                kurzzeitig reduziert werden kann.
+                                Als Gegenleistung können Sie Ihren Ladestrom für ein reduziertes Netzentgeld beziehen.
+                                Hierdurch sparen Sie rund 3 Cent die kWh.
+                                <br><br>
+                                Von der steuerbaren Verbrauchseinrichtung profitieren Sie dabei nur beim Autostrom.                            
+                            </p>
                         </div>
                     </div>
                 </div>

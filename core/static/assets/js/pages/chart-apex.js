@@ -39,17 +39,17 @@ $(document).ready(function() {
                 colors: ['#343a40', '#FFB64D', '#FF5370'],
                 series: [
                 {
-                    name: 'Kosten Kabel '  + cable_length + ' m',
+                    name: 'Kosten Kabel ('  + cable_length + ' m)',
                     type: 'line',
                     data: [1*cable_length, 1.6*cable_length, 3.5*cable_length, 4.7*cable_length, 7.4*cable_length, 12*cable_length]
                 },
                 {
-                    name: 'Kosten Verlustenergie über ' + usage_years + ' Jahre ' + cable_length + ' m',
+                    name: 'Kosten Verlustenergie (' + usage_years + ' Jahre, ' + cable_length + ' m)',
                     type: 'line',
                     data: [parseFloat((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*4)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*6)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*10)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1), parseFloat((((768*cable_length)/(56*16)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))).toFixed(1)]
                },
                {
-                name: 'Gesamtkosten über ' + usage_years + ' Jahre und ' + cable_length + ' m',
+                name: 'Gesamtkosten (' + usage_years + ' Jahre, ' + cable_length + ' m)',
                 type: 'line',
                 data: [parseFloat(((((768*cable_length)/(56*1.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years))+1*cable_length)).toFixed(1), parseFloat(((((768*cable_length)/(56*2.5)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+1.6*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*4)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+3.5*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*6)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+4.7*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*10)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+7.4*cable_length))).toFixed(1), parseFloat(((((768*cable_length)/(56*16)) * ((driving_profile*73)/(parseFloat(dyn_verfuegbare_ladeleistung_fuer_wallbox)*1000)) * (0.25*usage_years)+12*cable_length))).toFixed(1)]
                 }],

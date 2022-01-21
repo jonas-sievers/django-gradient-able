@@ -40,7 +40,7 @@ class Real_estate(models.Model):
 
 class Lokal_Energy(models.Model):
     CHOICES_roof_size = (('7', '7'),('14', '14'),('20', '20'), ('30', '30'), ('40', '40'), ('50', '50'), ('60', '60'))
-    CHOICES_solar_radiation = (('1000', '1000'), ('1100', '1100'), ('1200', '1200'), ('1300', '1300'))
+    CHOICES_solar_radiation = (('950', '950'), ('1000', '1000'), ('1050', '1050'), ('1100', '1100'), ('1150', '1150'))
     CHOICES_roof_tilt = (('0', '0°'), ('15', '15°'), ('30', '30°'), ('45', '45°'))
     CHOICES_roof_orientation = (('Süd', 'Süd'), ('Süd-West/ Süd-Ost', 'Süd-West/ Süd-Ost'), ('West/ Ost', 'West/ Ost'), ('Nord-West/ Nord-Ost', 'Nord-West/ Nord-Ost'), ('Nord', 'Nord'))
     CHOICES_battery_capacity = (('0', '0'), ('1', '1'), ('3', '3'), ('5', '5'), ('7', '7'), ('10', '10'), ('14', '14'))

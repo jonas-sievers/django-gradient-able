@@ -15,10 +15,10 @@ class Real_estateForm(ModelForm):
             'charging_points_to_install': ('Wie viele Ladestationen sollen insgesamt installiert werden?'),
             'house_connection_power': ('Welche Hausanschlussleistung [kW] hat Ihre gesamtes Gebäude?'),
             'driving_profile': ('Wie viele km fährt ein/e Bewohner*in im Durchschnitt mit dem Elektroauto am Tag?'),
-            'arrival_time': ('Um wie viel Uhr können die Fahrzeuge an das Ladesystem angeschlossen werden?'),
+            'arrival_time': ('Ab wie viel Uhr können die Fahrzeuge abends an das Ladesystem angeschlossen werden?'),
             'departure_time': ('Um wie viel Uhr müssen die Elektroautos vollgeladen sein?'),
             'cable_length': ('Wie weit sind die Wallboxen durchschnittlich von dem Anschlusskasten entfernt?'),
-            'usage_years': ('Wie lange planen Sie die Kabel für das Ladesystem zu nutzen bevor Sie neue Kabel verlegen?'),
+            'usage_years': ('Wie lange planen Sie die Kabel für das Ladesystem zu nutzen, bevor Sie neue Kabel verlegen?'),
         }
 
 class Lokal_EnergyForm(ModelForm):

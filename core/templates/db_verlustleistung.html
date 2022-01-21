@@ -40,6 +40,7 @@
                                         <b>Optimiert werden kann der Querschnitt </b>. 
                                         Je größer der Kabelquerschnitt dabei ist, desto teurer wird das Kabel und desto
                                         weniger Verlustleistung tritt auf.
+                                        
                                     </p>
                                 </div>
                                 <div class="col-4">
@@ -122,7 +123,7 @@
                                         <b> {{request.session.opt_min_costs}} € </b> <br>
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.opt_cable_costs}} € </b> betragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>
+                                        Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>.
                                         
                                         <br><br>
                                         <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
@@ -130,7 +131,17 @@
                                         <b> {{request.session.costs_1_5mm}} € </b> <br>
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
-                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>
+                                        Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>.
+                                        <br><br>
+                                        <b>Annahme 1</b>:
+                                        Wie unter <b>Ergebnis Lastmanagement</b> dargelegt, kann mit
+                                        <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
+                                        <br>
+                                        <b>Annahme 2</b>:
+                                        Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
+                                        dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
+                                        Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
+                                        dass die Spannung abfällt und die Stromstärke konstant bleibt.
                                     </p>
                                 </div>
                             </div>
@@ -158,22 +169,13 @@
                                 Der Wert für die Verlustleistung wir dann mit der Ladeleistung, der benötigten Strommenge und dem zugehörigen
                                 Strompreis sowie dem betrachteten Zeitraum verrechnet.                                 
                                 Mögliche Preise finden Sie <a href="https://www.hornbach.de/shop/Kabel-Kabelschutz/Kabel-Leitungen/S4080/artikelliste.html" target="_blank">hier</a>.
+                                <br><br>
                                  Der <b>minimal zulässige Querschnitt </b>
-                                 hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der Stromstärke ab.
+                                 hängt von der <b>Verlegeart</b> (auf der Wand oder in der Wand) und der <b>Stromstärke</b> ab.
                                  Mehr Informationen finden Sie bei der 
                                  <a href="https://www.vde-verlag.de/buecher/leseprobe/9783800746910_PROBE_01.pdf" target="_blank">VDE</a>.
                                  Für Ihren Fall kann aber angenommen werden, dass das Kabel auf der Wand verlegt wird, <b>Drehstrom durch 3 Adern 
                                  fließt und eine Stromstärke von 16 Ampere </b>anliegt. Ein <b>minimaler Kabelquerschnitt von 1.5 mm&#178</b> ist damit technisch ausreichend.                         
-                                <br><br>
-                                <b>Annahme 1</b>:
-                                Wie in dem <b>Dashboard Lastmanagement</b> dargelegt, kann mit
-                                <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
-                                <br>
-                                <b>Annahme 2</b>:
-                                Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
-                                dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
-                                Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
-                                dass die Spannung abfällt und die Stromstärke konstant bleibt.
                         </div>
                         <div class="col-md-5">
                             <h5>Verlustleistung Kabel</h5>
@@ -195,7 +197,7 @@
                             <p>
                                 Hier sehen Sie für Ihre individuellen Angaben 
                                 wie sich für jeden Querschnitt die Kabelkosten, 
-                                Verlustleistungskkosten und Gesamtkosten entwickeln.
+                                Verlustleistungskosten und Gesamtkosten entwickeln.
                                 Hierbei wird Ihre Fahrstrecke von 
                                 <b>{{request.session.driving_profile}} km am Tag</b>, 
                                 eine Kabellänge von <b>{{request.session.cable_length}} m</b>
