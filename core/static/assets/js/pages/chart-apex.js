@@ -744,10 +744,6 @@ $(document).ready(function() {
                         }
                     ]
                 }],
-                title: {
-                    text: 'Preis [Cent/kWh]',
-                    align: 'left'
-                },
                 colors: ["#0e9e4a", "#FF5370"],
                 fill: {
                     type: 'gradient',
@@ -763,32 +759,34 @@ $(document).ready(function() {
                 },
                 xaxis: {
                     type: 'datetime',
+                    title: {text: 'Datum'},
                 },
                 yaxis: {
                     tooltip: {
                         enabled: true
                     },
                     decimalsInFloat: 0,
+                    title: {text: 'Preis [Cent/ kWh]'},
                 }, 
                 tooltip: {
                     custom: function({ seriesIndex, dataPointIndex, w }) {
-                        const o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
-                        const h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
-                        const l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
-                        const c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
+                        var o = w.globals.seriesCandleO[seriesIndex][dataPointIndex]
+                        var h = w.globals.seriesCandleH[seriesIndex][dataPointIndex]
+                        var l = w.globals.seriesCandleL[seriesIndex][dataPointIndex]
+                        var c = w.globals.seriesCandleC[seriesIndex][dataPointIndex]
                         return (
                           '<div class="apexcharts-tooltip-candlestick">' +
                           '<div>Start: <span class="value">' +
-                          o +
+                          o.toFixed(2).toString().replace('.', ',') +
                           '</span></div>' +
                           '<div>Max: <span class="value">' +
-                          h +
+                          h.toFixed(2).toString().replace('.', ',') +
                           '</span></div>' +
                           '<div>Min: <span class="value">' +
-                          l +
+                          l.toFixed(2).toString().replace('.', ',') +
                           '</span></div>' +
                           '<div>Ende: <span class="value">' +
-                          c +
+                          c.toFixed(2).toString().replace('.', ',') +
                           '</span></div>' +
                           '</div>'
                         )
