@@ -364,12 +364,12 @@
                                             einer Kabellänge von <b>{{request.session.cable_length}} m</b>
                                             und einer Nutzungsdauer von 
                                             <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
-                                            optimale Kabeldimensionierung: 
+                                            optimale Kabeldimensionierung.
                                             <br><br>
 
                                             <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
                                             <b> Querschnitt von {{request.session.opt_querschnitt}} mm&#178</b>, mit Gesamtkosten von 
-                                            <b> {{request.session.opt_min_costs}} € </b> <br>
+                                            <b> {{request.session.opt_min_costs}} € </b>.
                                             Die Kosten für das Kabel würden hierbei
                                             <b> {{request.session.opt_cable_costs}} € </b> betragen und die
                                             Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>.
@@ -377,16 +377,14 @@
                                             <br><br>
                                             <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
                                             <b> Querschnitt von 1,5 mm&#178</b>, mit Gesamtkosten von 
-                                            <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                            <b> {{request.session.costs_1_5mm}} € </b>.
                                             Die Kosten für das Kabel würden hierbei
                                             <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
                                             Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>.
                                             <br><br>
-                                            <b>Annahme 1</b>:
+                                            <b>Annahme</b>:
                                             Wie unter <b>Ergebnis Lastmanagement</b> dargelegt, kann mit
                                             <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
-                                            <br>
-                                            <b>Annahme 2</b>:
                                             Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
                                             dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
                                             Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
@@ -460,8 +458,8 @@
                                             
                                             Bei einem Fahrverhalten von durchschnittlich 
                                             <b>{{request.session.driving_profile}} km am Tag</b>, benötigen Sie 
-                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom am
-                                            Tag.
+                                            täglich
+                                            <b>{{request.session.needed_electricity_ev_day}} kWh </b> Strom.
                                             Unter Berücksichtigung Ihrer Ankunfts- und Abfahrtszeiten können durch die
                                             PV-Anlage hiervon 
                                             <b> {{request.session.ev_charged_electricity}} kWh</b>
@@ -489,8 +487,8 @@
                                            <br><br>
                                            Bei der PV-Speicher-Kombination nutzen Sie 
                                            <b> {{request.session.quote_pv_nutzung}} %</b> des 
-                                           erzeugten Stroms selber und haben somit eine Eigenversorgungsquote von
-                                           <b> {{request.session.quote_eigenversorgung}} %</b>
+                                           erzeugten Stroms selber und haben eine Eigenversorgungsquote von
+                                           <b> {{request.session.quote_eigenversorgung}} %</b>.
                                         </p>
                                     </div>
                                 </div>
@@ -524,7 +522,7 @@
                                         und der Tagesenergieverbauch bei
                                         <b> {{request.session.electricity_consumption_day}} kWh</b>.
                                         <br><br>
-                                        Hieraus ergibt sich für einen Beispielhaften Tag der folgende 
+                                        Hieraus ergibt sich für einen beispielhaften Tag der folgende 
                                         Graf für Ihre Immobilie.
                                     </p>
                                     <div id="mixed-chart-PV-Erzeugung"></div>

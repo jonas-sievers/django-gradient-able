@@ -24,7 +24,7 @@
                                         muss diese mit einem <b>Kabel</b> an den Stromkreis angeschlossen werden. 
                                         Beim Laden treten hierbei gewisse Energieverluste im Kabel auf.
                                         Das bedeutet, dass ein Teil der Energie nicht für das Laden des Autos 
-                                        genutzt werden kann, da diese in anderer Form wie bspw. Wärme, frei wird.
+                                        genutzt werden kann, da diese in anderer Form (bspw. Wärme) frei wird.
                                         <b>Die Verlustleistung ist hierbei die verloren gegangene Energiemenge pro Zeiteinheit.</b>                                                                                         
                                         <br><br>
                                         Das hat gleich zwei Nachteile. Zum einen 
@@ -38,9 +38,8 @@
                                         Als Material für das Kabel wird üblicherweise <b>Kupfer</b> verwendet und die Länge
                                         des Kabels haben Sie mit <b>{{request.session.cable_length}} m</b> angegeben.
                                         <b>Optimiert werden kann der Querschnitt </b>. 
-                                        Je größer der Kabelquerschnitt dabei ist, desto teurer wird das Kabel und desto
-                                        weniger Verlustleistung tritt auf.
-                                        
+                                        Je größer der Kabelquerschnitt dabei ist, desto teurer werden die Kosten für das Kabel
+                                        und desto günstiger werden die Kosten für die Verlustleistung.
                                     </p>
                                 </div>
                                 <div class="col-4">
@@ -115,12 +114,12 @@
                                         einer Kabellänge von <b>{{request.session.cable_length}} m</b>
                                         und einer Nutzungsdauer von 
                                         <b>{{request.session.usage_years}} Jahren</b>, ergibt sich folgende 
-                                        optimale Kabeldimensionierung: 
+                                        optimale Kabeldimensionierung.
                                         <br><br>
 
                                         <b>Optimal</b> wäre die Verwendung eines Kupferkabels mit einem
                                         <b> Querschnitt von {{request.session.opt_querschnitt}} mm&#178</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.opt_min_costs}} € </b> <br>
+                                        <b> {{request.session.opt_min_costs}} € </b>. 
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.opt_cable_costs}} € </b> betragen und die
                                         Kosten für die Verlustleistung <b> {{request.session.opt_verlustleistungscosts}} € </b>.
@@ -128,16 +127,14 @@
                                         <br><br>
                                         <b>Technisch möglich</b> wäre die Verwendung eines Kupferkabels mit einem
                                         <b> Querschnitt von 1,5 mm&#178</b>, mit Gesamtkosten von 
-                                        <b> {{request.session.costs_1_5mm}} € </b> <br>
+                                        <b> {{request.session.costs_1_5mm}} € </b>.
                                         Die Kosten für das Kabel würden hierbei
                                         <b> {{request.session.cable_costs_1_5mm}} € </b> betragen und die
                                         Kosten für die Verlustleistung <b> {{request.session.verlustleistung_costs_1_5mm}} € </b>.
                                         <br><br>
-                                        <b>Annahme 1</b>:
+                                        <b>Annahme</b>:
                                         Wie unter <b>Ergebnis Lastmanagement</b> dargelegt, kann mit
                                         <b> {{request.session.dyn_verfuegbare_ladeleistung_fuer_wallbox}} kW </b> geladen werden.<br>
-                                        <br>
-                                        <b>Annahme 2</b>:
                                         Sollte die Ladeleistung eines dynamischen Lastmanagement nicht ausreichen (0 sein),
                                         dann wird angenommen, dass ein Netzausbau duchgeführt wurde und als Ladeleistung 11 kW zur Vefügung stehen. 
                                         Bei einer Ladeleistung kleiner 11 kW, wird angenommen, 
