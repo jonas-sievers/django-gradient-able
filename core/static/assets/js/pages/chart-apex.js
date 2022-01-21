@@ -535,10 +535,11 @@ $(document).ready(function() {
                     }
                 },
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     dropShadow: {
                         enabled: false,
                     },
+                    
                 },
                 responsive: [{
                     breakpoint: 480,
