@@ -619,7 +619,7 @@ def get_pv_storage_results(battery_capacity, roof_size, roof_tilt, roof_orientat
 
     quote_pv_nutzung = round((1-(electricity_sold_grid/electricity_pv_generation_day))*100,0)
     quote_eigenversorgung = round(((electricity_saved/electricity_consumption_day)*100),0)
-    einnahmen_tag = round((electricity_sold_grid*0.068+electricity_saved*0.30),2)
+    einnahmen_tag = round((electricity_sold_grid*0.068+(electricity_saved+battery_status+ev_charged_electricity)*0.30),2)
     einnahmen_jahr = round(einnahmen_tag*365,2)
     gewinn_10_jahre = round(((10*((einnahmen_tag*365)-opex_1kW_peak_pv_und_1kWh_battery))-capex_pv_und_battery),2)
     if gewinn_10_jahre > 0:
