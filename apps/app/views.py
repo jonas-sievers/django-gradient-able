@@ -479,7 +479,7 @@ def get_optimal_verlustleistung(cable_length, driving_profile, usage_years, dyn_
     costs_1_5mm = complete_costs[0]
 
     if(opt_index == 0):
-        opt_a = 1,5
+        opt_a = 1.5
     elif(opt_index == 1):
         opt_a = 2.5
     elif(opt_index == 2):
