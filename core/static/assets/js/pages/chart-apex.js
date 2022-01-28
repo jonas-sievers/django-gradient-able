@@ -66,7 +66,7 @@ $(document).ready(function() {
                     },
                 },
                 xaxis: {
-                    categories: ['1,5', '2,5', '4,0', '6,0', '10,0', '16,0'],
+                    categories: ['1,50', '2,50', '4', '6', '10', '16'],
                     title: {
                         text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
@@ -1047,7 +1047,7 @@ $(document).ready(function() {
                     },
                 },
                 xaxis: {
-                    categories: ['1,5', '2,5', '4,0', '6,0', '10,0', '16,0'],
+                    categories: ['1,50', '2,50', '4', '6', '10', '16'],
                     title: {
                         text: 'Kabelquerschnitt [mm' + '\u00b2' +']'
                     }
